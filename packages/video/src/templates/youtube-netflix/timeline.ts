@@ -46,8 +46,8 @@ export type { VoLine };
 // sentence twice. Hidden pages still consume their share of the clip, so the
 // visible ones stay in sync.
 //
-// Exactly three words wear the red: +MILLIONS (02), +PURSUING (04) and
-// +ATTENTION (09). Each lands in a frame where nothing else is red.
+// Exactly two words wear the red across the whole reel: the compound in 02 and
+// +PURSUING in 04. Each lands in a frame where nothing else is red.
 export const VOICEOVER = defineVoiceover(DURATIONS, [
   {
     // start 0 exactly: the avatar is lip-synced to this clip from reel frame 0,
@@ -67,7 +67,9 @@ export const VOICEOVER = defineVoiceover(DURATIONS, [
     pages: [
       "ACCORDING TO REPORTS,",
       "YOUTUBE IS DISCUSSING",
-      "MULTI-+MILLION-DOLLAR DEALS",
+      // "+" marks a whole space-delimited token, so it goes at the front of
+      // the compound, not in front of the syllable.
+      "+MULTI-MILLION-DOLLAR DEALS",
       "WITH ITS BIGGEST CREATORS.",
     ],
   },
@@ -133,7 +135,10 @@ export const VOICEOVER = defineVoiceover(DURATIONS, [
     start: SCENES.followers.from + 0.2,
     pages: [
       "IF PLATFORMS WILL SPEND MILLIONS",
-      "FIGHTING OVER CREATOR +ATTENTION —",
+      // Not "+ATTENTION": SO WHAT? is already wearing the red in this frame,
+      // and khaby's rule is that a caption keyword and a headline never spend
+      // the accent at the same moment.
+      "FIGHTING OVER CREATOR ATTENTION —",
       "BRANDS SHOULD STOP CHOOSING",
       "CREATORS BY FOLLOWER COUNT.",
     ],

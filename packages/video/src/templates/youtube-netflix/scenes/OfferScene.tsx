@@ -28,20 +28,24 @@ import {
 
 const RAIL_X = 126;
 const CARD_X = 214;
-const CARD_W = 500;
+// A card is 183px tall at this width (border-box: 470 + 2×35 padding around a
+// 113px content column). Rows are pitched 192 apart so the roster has air, and
+// the figures hang off the right of each card at its vertical centre.
+const CARD_W = 470;
+const CARD_H = 183;
 const ROWS = [
-  { code: "CREATOR 01", meta: "TOP-TIER · MULTI-PLATFORM", y: 660, bar: 0.92, at: 26 },
-  { code: "CREATOR 02", meta: "TOP-TIER · ORIGINALS", y: 850, bar: 0.78, at: 36 },
+  { code: "CREATOR 01", meta: "TOP-TIER · MULTI-PLATFORM", y: 656, bar: 0.92, at: 26 },
+  { code: "CREATOR 02", meta: "TOP-TIER · ORIGINALS", y: 848, bar: 0.78, at: 36 },
   { code: "CREATOR 03", meta: "TOP-TIER · FRANCHISE", y: 1040, bar: 0.86, at: 46 },
 ];
 const FIGURES = [
-  { text: "$1M+", y: 690, at: 56 },
-  { text: "$2M+", y: 880, at: 66 },
-  { text: "$5M+", y: 1070, at: 76 },
+  { text: "$1M+", y: 702, at: 46 },
+  { text: "$2M+", y: 894, at: 57 },
+  { text: "$5M+", y: 1086, at: 68 },
 ];
 
-const FIGURES_OUT = 108;
-const N_AT = 112;
+const FIGURES_OUT = 112;
+const N_AT = 116;
 
 const Figure: React.FC<{ text: string; y: number; at: number; out: number }> = ({
   text,
@@ -56,7 +60,7 @@ const Figure: React.FC<{ text: string; y: number; at: number; out: number }> = (
     <div
       style={{
         position: "absolute",
-        left: 760,
+        left: 724,
         top: y,
         fontFamily: theme.fonts.wide,
         fontSize: 74,
@@ -81,7 +85,7 @@ export const OfferScene: React.FC = () => {
 
   return (
     <SceneShell light={0.5}>
-      <Folio left="02 · WHAT IS HAPPENING" right="DEVELOPING" delay={0} />
+      <Folio left="02 · WHAT IS HAPPENING" right="DEVELOPING" delay={-6} />
       <Ticker
         top={244}
         delay={4}
@@ -130,7 +134,7 @@ export const OfferScene: React.FC = () => {
             style={{
               position: "absolute",
               left: RAIL_X,
-              top: r.y + 62,
+              top: r.y + CARD_H / 2,
               width: (CARD_X - RAIL_X) * ramp(frame, r.at - 4, r.at + 10),
               height: 2,
               background: ynColors.line,
@@ -159,15 +163,15 @@ export const OfferScene: React.FC = () => {
           progress={1}
           style={{
             position: "absolute",
-            left: 748,
-            top: 660,
+            left: 726,
+            top: 664,
             opacity: nIn,
             transform: `translateX(${interpolate(nIn, [0, 1], [420, 0])}px)`,
           }}
         />
       )}
 
-      <Footnote delay={64} style={{ position: "absolute", left: 84, top: 1268, width: 900 }}>
+      <Footnote delay={64} style={{ position: "absolute", left: 84, top: 1256, width: 900 }}>
         Conceptual. Reported multi-million-dollar incentives —
         <br />
         individual terms vary. No deal is confirmed as signed.

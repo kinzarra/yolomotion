@@ -36,6 +36,12 @@ export const ynColors = {
   // of the device around it disappears.
   screen: "#0E0E0F",
   screenLift: "#17171A",
+  // The hook's grade. khaby's `photo` is a documentary grade — flat, slightly
+  // dark, right for an archival still. The hook is not an archival still: it
+  // is a live broadcast plate, and at that size a murky grey panel reads as a
+  // bad crop rather than as silver. Higher contrast, lifted, and the strip
+  // lights survive as rim light.
+  photoHot: "grayscale(1) contrast(1.3) brightness(1.12)",
 } as const;
 
 // The scaffold names the palette after the template; keep that export alive so

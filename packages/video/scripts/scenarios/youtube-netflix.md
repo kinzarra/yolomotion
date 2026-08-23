@@ -1,8 +1,8 @@
 # The Creator War — YouTube vs Netflix
 
 - **id**: youtube-netflix
-- **format**: reel (1080×1920, 30fps), ~57s — the brief's 52–58s window, and
-  never past 60
+- **format**: reel (1080×1920, 30fps), **57.8s** — inside the brief's 52–58s
+  window, 2.2s clear of the hard 60s ceiling
 - **series**: standalone — editorial register, kit re-exported from
   `khaby-silence` (black page, bone type, one flat red), with the
   documentary/data-viz devices of `mrbeast-100k` (mono folios, archival
@@ -14,23 +14,27 @@
   frame, except in the deliberate versus frames where the collision of the two
   marks IS the event. Creators, money and every number are bone — the money is
   never green, the winner is never gold. No second signal color.
-- **hook (first 2s)**: the studio face full-bleed, mid-sentence, `BREAKING ·
-  CREATOR ECONOMY` folio; on "millions" the camera pulls back into a broadcast
-  plate and `$MILLIONS` slams across the frame *behind* the plate's edge.
-- **face**: two inserts — face-led hook 0–4.6s (broadcast plate, the type
-  crosses behind it) and a 2.2s interrupt at 0:35. ~6.8s total, inside the
-  brief's 6–7s cap.
+- **hook (first 2s)**: the studio face **full bleed and in colour** — neon and
+  all — with the YouTube plate and the Netflix N oversized and cropped by the
+  left and right frame edges, and a red `● BREAKING` pill on top. The poster
+  frame says YouTube vs Netflix before a word is spoken.
+- **face**: two inserts — face-led hook 0–4.0s (full bleed, colour draining to
+  the reel's monochrome at 0:02.9) and a 2.2s interrupt at 0:35. ~6.8s total,
+  inside the brief's 6–7s cap.
 
 ## Beats
 
-1. **hook** — full-bleed studio. On *millions* the frame pulls back: the video
-   becomes a tall plate on the right, `$MILLIONS` slams across the whole width
-   behind its edge (the brief's "letters behind the subject", earned by
-   composition rather than by matting the studio away). The YouTube plate and
-   the Netflix N stack at the left on a hairline. `STAY` / *exclusive.* slams
-   lower-left — one serif-italic word, the khaby move. On *exclusive* the two
-   marks tear apart left and right and the camera pushes **through** the word
-   into beat 02.
+1. **hook** — full bleed, in colour, no panel. `● BREAKING` pill and
+   `CREATOR ECONOMY` on top; the two platform marks oversized and cropped by
+   the side edges from frame 0; `YOUTUBE · EXCLUSIVITY TALKS` types itself in
+   over the desk. On *millions* the frame **jump-cuts** (zoom 1.0 → 1.11) and a
+   red slab wipes across the lower third with `$MILLIONS` knocked out in white
+   — a news strap, not a caption under a picture. The slab wipes off sideways;
+   a second jump-cut at 0:02.9 takes the zoom back and **drains the colour**,
+   so the last second of the hook is already the reel's black-and-bone page.
+   `STAY` / *exclusive.* slam over the now-monochrome face, the two marks tear
+   off the sides, and the camera pushes **through** the word until the frame is
+   inside the letterform, then cuts.
 2. **offer** — black. Bloomberg strip at the top: `CREATOR ECONOMY · EXCLUSIVITY
    · TALENT`. The YouTube plate draws itself; three abstract cards
    `CREATOR 01/02/03` step in below it; `$1M+` `$2M+` `$5M+` fly in beside them
@@ -38,8 +42,10 @@
    N cuts in from the right and the flow stops dead.
    *On-screen mono footnote, not a caption:* `CONCEPTUAL — REPORTED
    MULTI-MILLION-DOLLAR INCENTIVES. INDIVIDUAL TERMS VARY.`
-3. **netflix** — the cinematic beat. Black, then one red hairline draws across
-   the frame. The **N** builds out of three bars and goes enormous. Camera
+3. **netflix** — the cinematic beat. The red hairline Netflix arrived on at the
+   end of beat 02 is still lying across the dark, and it finishes drawing —
+   which is also why this beat does not open on an empty frame. The **N**
+   builds out of three bars, the diagonal last, and goes enormous. Camera
    pulls back: `NETFLIX` right, `YOUTUBE` left, `CREATORS` bone between them on
    the hairline. Then `THE CREATOR WAR` fills the page — no glow, no outline,
    no bevel: it is a masthead, not a thumbnail.
@@ -113,8 +119,10 @@ the reel uses abstract creator cards throughout and shows no likeness at all.
 - engine: `avatar_iv` — both inserts are large in frame, where the mimic is the
   point (CLAUDE.md: photo avatar full-frame → IV). On the photo table IV is
   only $0.007/s more than III.
-- agreed price: quoted from `--generate --dry-run` before anything is
-  generated; the user's ceiling for this reel is **$0.40**.
+- agreed price: **$0.332** quoted from `--generate --dry-run` (6.641s × $0.05/s),
+  confirmed by the author against a $0.40 ceiling before generating. Wallet
+  moved **$4.35 → $4.05**, i.e. **$0.30** — HeyGen billed the audio length,
+  not the 6.68s of video it returned.
 
 ## CTA
 
@@ -128,8 +136,15 @@ design rather than a subtitle strip, so wherever a headline is already saying
 those words (`$MILLIONS`, `STAY EXCLUSIVE`, `THE CREATOR WAR`, `CREATORS ARE
 TELEVISION`, `WHY WATCH HERE?`, `THE NEW HOLLYWOOD?`, `FOR CREATORS`,
 `SO WHAT?`, the Yoloco line) the caption stays out and the frame never carries
-the same sentence twice. Exactly three words are painted red across the whole
-reel: `+MILLIONS` (02), `+PURSUING` (04) and `+ATTENTION` (09).
+the same sentence twice.
+
+Exactly two words are painted red in the whole reel — `+MULTI-MILLION-DOLLAR`
+(02) and `+PURSUING` (04) — and both name what a platform is doing in a frame
+where that platform's mark is the red element, so the highlight ties to the
+mark instead of competing with it. `+ATTENTION` was cut from beat 09: `SO
+WHAT?` already wears the accent at that moment, and a red headline plus a red
+caption word in one frame is the thing khaby-silence's caption rule exists to
+prevent.
 
 ## Deviations
 
@@ -156,7 +171,71 @@ reel: `+MILLIONS` (02), `+PURSUING` (04) and `+ATTENTION` (09).
 - **No creator photography, no logos-as-supplied-assets.** The platform marks
   are drawn as geometry in the reel's own red (a play plate, three N bars) —
   recognisable, never a pasted brand asset, never implying endorsement.
+- **The hook is a colour island, on purpose.** Everything else in the reel is
+  black, bone and one red; the first four seconds are the neon studio in full
+  colour, and the saturation ramps to zero across 0:02.9–0:03.5 so beat 02
+  starts in the reel's own palette. This breaks the register knowingly: the
+  author asked for a brighter, more modern opening twice, and inside a
+  monochrome piece the only lever that large is colour itself. It is one
+  number — `sat` in `HookScene.tsx` — if it ever needs to come back.
+- **The avatar fills the frame in the hook.** The brief asks for 50–60% and
+  "do not just centre a talking head". It is 100% now, but it is not a centred
+  head: two oversized platform marks bleed off the side edges, a red news strap
+  crosses the lower third, and the frame jump-cuts twice. Shrinking the face
+  into a plate is what made the first two cuts read dim.
+- **The hook was rebuilt twice after the first cut.** In v1 the plate was still
+  travelling when `$MILLIONS` was already parked on the page, so the panel drove
+  over a stationary word — a layer-order mistake, not depth. v2 fixed the
+  mechanics (plate settles first, the word climbs up under it) and the author's
+  verdict was that nothing had changed — correctly, because v2 kept the same
+  composition, the same greyscale face and the same black band. v3 throws the
+  plate away: full bleed, colour, cropped marks, a red news strap and two
+  jump-cuts. Nothing outside 0–4.5s was touched in either pass.
+- **Beat clock vs the brief.** The brief's section timings are held almost
+  exactly: avatar #2 lands at 0:34.4 (brief 0:34), the shift beat at 0:36.8
+  (0:36.5), the follower beat at 0:42.3 (0:43), the payoff at 0:48.8 (0:49) and
+  the brand card at 0:54.2 (0:55).
 - **Every number is labelled.** `$1M+ / $2M+ / $5M+` carry `CONCEPTUAL` type in
   the same frame, `EXCLUSIVE VALUE 100% → ???` carries it too, and the spoken
   line says "according to reports … multi-million-dollar deals", never a
   per-creator figure. Nothing in the reel says a deal is signed.
+
+## Verified
+
+Four stills passes — a 2.5s grid, then every cut ±2 frames, every entrance, the
+push-through and the flip — plus thirteen frames pulled from the finished mp4.
+Defects found and fixed along the way, for the record:
+
+- `$MILLIONS` was drawn *after* the plate, so the "type behind the subject" the
+  brief asks for did not exist. It is now drawn first and the plate's bottom
+  edge cuts the caps at about a fifth of their height.
+- The hook's push-through faded the word as it grew, which turned the last
+  twelve frames into a dark red smear. The word now stays at full strength and
+  the frame fills with the colour of the letter the camera is inside.
+- `CreatorCard` was content-box, so `width` was a lie: the money column in beat
+  02 sat on top of the cards and the link line in beat 10 ran through the
+  creator's own meta line.
+- The caption keyword was written `MULTI-+MILLION-DOLLAR` and rendered the `+`
+  as a literal character — the marker applies to a whole space-delimited token.
+- The versus group in beat 03 drifted down into the caption band at y=1408 as
+  it pulled back; it now transforms about the red line itself.
+- Beat 06 struck a rule through the middle of a four-rung column, which read as
+  "UPLOAD is cancelled". It strikes the `OLD MODEL` title now.
+- Beat 06 carried five red elements at once (the `$$$$` rung, the brand-deals
+  chip, the creator card, the rope and both marks); everything except the two
+  marks is bone.
+- `IS AN ASSET.` at 172px overran the right margin; `CREATORS.` in beat 08 sat
+  30px off it.
+- `THE CREATOR WAR` was set with `WAR` in red, which is exactly the gaming
+  thumbnail the brief forbids for that beat.
+- The expanded television left its stand and bezel lying across `CREATORS ARE
+  TELEVISION.` as two stray bars.
+- Seven beats opened on a completely empty frame because their folio was on a
+  spring from frame 0; folios now enter ahead of the cut.
+- The hook's viewfinder corners drew in `currentColor` — black on a black page,
+  invisible. `borderColor` as a longhand is silently overridden by a bare
+  `borderLeft: "4px solid"` shorthand spread after it; the colour has to go
+  inside the shorthand.
+- `$MILLIONS` was fully assembled for only 0.2s: the per-glyph climb ran to f77
+  and the exit started at f84. The climb starts at f42 now and the word holds
+  half a second before it falls.

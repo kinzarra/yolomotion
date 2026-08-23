@@ -306,7 +306,11 @@ export const CreatorCard: React.FC<{
     <div
       style={{
         width,
-        padding: Math.round(width * 0.09),
+        // border-box, or `width` becomes a lie the moment anything is placed
+        // next to the card — the money column in beat 02 and the link line in
+        // beat 10 are both positioned off this number.
+        boxSizing: "border-box",
+        padding: Math.round(width * 0.075),
         border: `1.5px solid ${edge}`,
         borderRadius: 6,
         background: accent ? ynColors.redSoft : ynColors.surface,

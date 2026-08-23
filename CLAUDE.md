@@ -114,6 +114,18 @@ See README.md for the full architecture and the SaaS roadmap.
   — it handles dark-on-dark, which the flood-fill `scripts/cutout.mjs` cannot.
   `khaby-silence` is the reference: four mattes, one credit line, no likeness
   ever synthesised.
+- `youtube-netflix` («The Creator War», 57.8s) is the reference for a **story
+  about two brands that wear the same colour**: YouTube red and Netflix red are
+  four degrees apart, so the reel spends ONE red for both marks and separates
+  the platforms by form (a rounded play plate vs three N bars) — which is also
+  the story's point. It re-exports `khaby-silence`'s kit and adds the platform
+  marks, broadcast chrome (folio + scrolling ticker), abstract creator/show
+  cards, the phone→laptop→TV device chain and the ecosystem field. Its hook is
+  also the reference for **face + oversized type without matting**: the shot
+  opens full-bleed, then the camera pulls back until the studio is a broadcast
+  plate and the headline passes behind the plate's edge. Cover-fit is one
+  formula the whole way (`scale = boxHeight / 1080`) because every framing is
+  taller than 16:9.
 - `khaby-silence` is the premium editorial look (black / bone / one flat
   vermilion, serif-italic accent word via `theme.fonts.serif`, white caption
   highlight with `+WORD` keywords in the accent). Reuse its `ui.tsx` for the
