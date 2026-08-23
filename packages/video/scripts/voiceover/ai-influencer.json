@@ -1,0 +1,19 @@
+{
+  "voiceId": "C5E5SzeWkb4qtqn6iyao",
+  "outDir": "public/voiceover/ai-influencer",
+  "modelId": "eleven_multilingual_v2",
+  "voiceSettings": {
+    "stability": 0.48,
+    "similarity_boost": 0.82,
+    "style": 0.28,
+    "use_speaker_boost": true
+  },
+  "lines": [
+    ["01-hook", "This influencer promotes real products. But there's one problem... she doesn't exist."],
+    ["02-ai", "She's an AI influencer. Perfect appearance. Unlimited content. No days off. And no scandals."],
+    ["03-brands", "For brands, she sounds perfect. She's never late, never tired, and she can create hundreds of videos."],
+    ["04-trust", "But there's one thing AI still struggles to generate convincingly... Trust."],
+    ["05-believe", "The winner won't be human, or AI. It will be whoever the audience believes."],
+    ["06-question", "Would you buy something recommended by a person who never existed?"]
+  ]
+}

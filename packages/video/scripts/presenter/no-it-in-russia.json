@@ -1,0 +1,29 @@
+{
+  "_comment": "Одна врезка: хук 0:00–0:05, как требует бриф («после пятой секунды лицо больше не появляется»). Аватар НЕ озвучивает ролик — он лип-синкается под уже готовый public/voiceover/no-it-in-russia/01-hook.mp3, поэтому дорожка ролика и durations.ts остаются нетронутыми. from/to — секунды внутри mp3 на 1.0×; reelIn — куда врезка ложится в ролике. Здесь берётся клип целиком, поэтому 0 → 5.108.",
+  "avatarId": "${HEYGEN_AVATAR_VIEW_ID}",
+  "_avatar": "7a438e4de74a4aed98ddac94a7f79da3 «Podcast host in blue hoodie» — AI-look из группы «Philipp» (1b80626e…), то есть PHOTO avatar, не Digital Twin. Студия с неоном и микрофоном 1920×1080 — это и есть кадр хука. Список: curl -H \"X-Api-Key: $HEYGEN_API_KEY\" https://api.heygen.com/v2/avatar_group/1b80626e44c945edbad8f5024ce9163b/avatars",
+  "avatarKind": "photo",
+  "_economics": "Photo Avatar тарифицируется иначе, чем Digital Twin: avatar_iii = $0.0433/с, avatar_iv = $0.05/с (у твина — $0.0167 и $0.0667). 5.108 с на avatar_iv = $0.26. Разница с III всего $0.03, а врезка идёт на весь кадр 1080×1920, где мимика читается — это не кружок Ø280 из ВЫПУСКА 04. Согласовано с автором до генерации.",
+  "engine": "avatar_iv",
+  "voiceoverDir": "public/voiceover/no-it-in-russia",
+  "outDir": "public/presenter/no-it-in-russia",
+  "templateId": "no-it-in-russia",
+  "resolution": "1080p",
+  "outputFormat": "mp4",
+  "_outputFormat": "mp4, не webm. WebM — единственный переключатель прозрачности, но здесь прозрачность вредна: вырезать фигуру значило бы выбросить студию, ради которой этот аватар и выбран.",
+  "concatAspect": "16:9",
+  "_concatAspect": "Родные 1920×1080 исходной фотографии. Кадрирование под 9:16 делается в Remotion (scenes/Presenter.tsx), а не в HeyGen: так кроп видно на стиллах и он правится одним числом, а не перегенерацией за деньги.",
+  "voRate": 1.1,
+  "shots": [
+    {
+      "id": "p1-hook",
+      "clip": "01-hook",
+      "from": 0,
+      "to": 5.108,
+      "style": "fullbleed",
+      "reelIn": 0,
+      "reelOut": 4.644,
+      "says": "Двадцать четыре человека на одну вакансию в айти. Нейросети убили профессию?"
+    }
+  ]
+}

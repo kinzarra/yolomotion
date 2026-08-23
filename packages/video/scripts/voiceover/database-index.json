@@ -1,0 +1,21 @@
+{
+  "voiceId": "C5E5SzeWkb4qtqn6iyao",
+  "outDir": "public/voiceover/database-index",
+  "modelId": "eleven_multilingual_v2",
+  "voiceSettings": {
+    "stability": 0.48,
+    "similarity_boost": 0.82,
+    "style": 0.28,
+    "use_speaker_boost": true
+  },
+  "lines": [
+    ["01-fast", "Your app feels fast with a hundred users."],
+    ["02-dies", "Then you get a hundred thousand... and suddenly your database dies."],
+    ["03-imagine", "Why? Imagine looking for one person in a million-row table."],
+    ["04-scan", "Without an index, the database may check rows one by one."],
+    ["05-contents", "An index is basically the table of contents for your data."],
+    ["06-knows", "Instead of scanning everything, the database knows where to look."],
+    ["07-less", "Same query. Same data. Way less work."],
+    ["08-matters", "That's why indexes matter."]
+  ]
+}

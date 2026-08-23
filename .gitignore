@@ -1,0 +1,42 @@
+# --- dependencies -----------------------------------------------------------
+node_modules/
+
+# --- build & render output --------------------------------------------------
+out/
+.remotion/
+
+# --- secrets ----------------------------------------------------------------
+.env
+.env.*
+!.env.example
+
+# --- editors / OS -----------------------------------------------------------
+.idea/
+.vscode/
+.DS_Store
+*.log
+
+# --- local Claude Code state (the skills in .claude/skills ARE shared) -------
+.claude/settings.local.json
+
+# --- leftovers --------------------------------------------------------------
+__pycache__/
+/yolocosocial_logo.jpeg
+
+# Personal drafts. The brief every shipped reel was built from lives in
+# packages/video/scripts/scenarios/ and IS tracked — note the leading slash,
+# without it this rule silently swallowed that folder too.
+/scenarios/
+
+# --- media: generated or paid for, kept out of git (see README > Assets) -----
+# Deterministic, free to rebuild: npm run sfx
+packages/video/public/sfx/
+# Costs ElevenLabs credits: npm run voiceover -- scripts/voiceover/<id>.json
+packages/video/public/voiceover/
+# Costs HeyGen seconds: npm run heygen -- scripts/presenter/<id>.json --generate
+packages/video/public/presenter/
+# No regeneration path — re-source per public/images/CREDITS.md
+packages/video/public/images/*
+!packages/video/public/images/CREDITS.md
+!packages/video/public/images/*.svg
+/props.json

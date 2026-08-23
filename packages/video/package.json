@@ -1,0 +1,29 @@
+{
+  "name": "@yolomotion/video",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "studio": "remotion studio src/index.ts",
+    "render": "remotion render src/index.ts",
+    "still": "remotion still src/index.ts",
+    "sfx": "node scripts/gen-sfx.mjs && node scripts/gen-track.mjs && node scripts/gen-yoloco-audio.mjs",
+    "voiceover": "node scripts/gen-voiceover.mjs",
+    "heygen": "node scripts/gen-heygen.mjs",
+    "new-reel": "node scripts/new-reel.mjs"
+  },
+  "dependencies": {
+    "@remotion/cli": "^4.0.0",
+    "@remotion/google-fonts": "^4.0.0",
+    "@remotion/motion-blur": "^4.0.0",
+    "@remotion/transitions": "^4.0.0",
+    "@remotion/zod-types": "^4.0.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "remotion": "^4.0.0",
+    "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "@types/react": "^19.0.0",
+    "typescript": "^5.5.0"
+  }
+}

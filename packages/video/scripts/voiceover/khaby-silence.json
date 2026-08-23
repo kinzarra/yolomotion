@@ -1,0 +1,23 @@
+{
+  "voiceId": "C5E5SzeWkb4qtqn6iyao",
+  "outDir": "public/voiceover/khaby-silence",
+  "modelId": "eleven_multilingual_v2",
+  "voiceSettings": {
+    "stability": 0.5,
+    "similarity_boost": 0.82,
+    "style": 0.3,
+    "use_speaker_boost": true
+  },
+  "lines": [
+    ["01-hook", "This man became one of the biggest creators on Earth... without saying a single word."],
+    ["02-job", "In 2020, Khaby Lame lost his factory job. So he went home... opened TikTok... and started filming videos in his bedroom."],
+    ["03-nobody", "At first, almost nobody cared. Then he noticed something."],
+    ["04-chaos", "The internet was obsessed with ridiculous life hacks. People were making simple things... impossibly complicated."],
+    ["05-opposite", "So Khaby did the opposite. He showed the obvious solution."],
+    ["06-silence", "No explanation. No voice-over. No language. And suddenly... the entire world understood the joke."],
+    ["07-barrier", "Khaby had removed one of the biggest barriers in content: language."],
+    ["08-growth", "And the result? He became the most-followed creator on TikTok."],
+    ["09-lesson", "But here's the influencer marketing lesson. The best creator isn't always the one who says the most. It's the one your audience understands instantly."],
+    ["10-yoloco", "That's why brands don't just need big creators. They need the right creators. Yoloco."]
+  ]
+}

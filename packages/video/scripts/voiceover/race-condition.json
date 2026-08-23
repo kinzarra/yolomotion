@@ -1,0 +1,19 @@
+{
+  "voiceId": "C5E5SzeWkb4qtqn6iyao",
+  "outDir": "public/voiceover/race-condition",
+  "modelId": "eleven_multilingual_v2",
+  "voiceSettings": {
+    "stability": 0.48,
+    "similarity_boost": 0.82,
+    "style": 0.28,
+    "use_speaker_boost": true
+  },
+  "lines": [
+    ["01-hook", "There's one ticket left. Two users click Buy at the exact same time."],
+    ["02-read", "Both check the database. Both see: one ticket available."],
+    ["03-sold", "Both buy it. Congratulations — you just sold the same ticket twice."],
+    ["04-race", "This is called a race condition. Your code worked perfectly… just in the wrong order."],
+    ["05-lock", "Databases solve this with transactions and locking: one operation finishes before the other can change the same data."],
+    ["06-law", "If two things can happen at the same time, assume someday they will."]
+  ]
+}

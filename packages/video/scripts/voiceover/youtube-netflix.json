@@ -1,0 +1,24 @@
+{
+  "voiceId": "C5E5SzeWkb4qtqn6iyao",
+  "outDir": "public/voiceover/youtube-netflix",
+  "modelId": "eleven_multilingual_v2",
+  "voiceSettings": {
+    "stability": 0.48,
+    "similarity_boost": 0.82,
+    "style": 0.28,
+    "use_speaker_boost": true
+  },
+  "lines": [
+    ["01-hook", "YouTube is offering creators millions... for one thing: stay exclusive."],
+    ["02-offer", "According to reports, YouTube is discussing multi-million-dollar deals with its biggest creators."],
+    ["03-netflix", "Why? Because Netflix is coming for YouTube's biggest stars."],
+    ["04-television", "Netflix has been pursuing successful YouTubers. Creator content isn't just internet content anymore."],
+    ["05-problem", "And that's a problem. If the same superstar content lives on Netflix — what makes YouTube exclusive?"],
+    ["06-money", "So YouTube is considering something different: financing creator shows directly, and opening up major brand deals."],
+    ["07-crazy", "And this is where it gets crazy."],
+    ["08-shift", "Creators aren't competing with Hollywood anymore. Platforms are competing for creators."],
+    ["09-followers", "If platforms will spend millions fighting over creator attention — brands should stop choosing creators by follower count."],
+    ["10-economy", "The creator economy just became the media economy. Choosing the right creator matters more than ever."],
+    ["11-yoloco", "Yoloco. Find the creators worth betting on."]
+  ]
+}

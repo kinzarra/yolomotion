@@ -1,0 +1,22 @@
+{
+  "voiceId": "C5E5SzeWkb4qtqn6iyao",
+  "outDir": "public/voiceover/brands-paying-more",
+  "modelId": "eleven_multilingual_v2",
+  "voiceSettings": {
+    "stability": 0.5,
+    "similarity_boost": 0.82,
+    "style": 0.3,
+    "use_speaker_boost": true
+  },
+  "lines": [
+    ["01-hook", "AI companies have a weird new problem. Influencers can charge more... because people hate their ads."],
+    ["02-money", "And yes — this is actually happening. AI brand deals can be lucrative. Some reported offers reach seven figures. But there's a catch."],
+    ["03-trust", "Promoting AI can make a creator money... and cost them something worth far more. Trust."],
+    ["04-backlash", "Because audiences don't just judge the ad. They judge the creator who accepted it."],
+    ["05-economics", "And that changes the economics of influencer marketing."],
+    ["06-fit", "Suddenly, follower count isn't enough. A creator can have millions of followers... and still be completely wrong for your brand."],
+    ["07-shift", "This might be the biggest shift in influencer marketing right now. Brands aren't buying reach anymore. They're buying trust."],
+    ["08-measure", "And trust... is a lot harder to measure than followers. So how do you choose?"],
+    ["09-yoloco", "That's why influencer marketing needs data. Yoloco. Find creators who actually fit your brand."]
+  ]
+}

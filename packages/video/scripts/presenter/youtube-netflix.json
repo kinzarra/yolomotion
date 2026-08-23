@@ -1,0 +1,39 @@
+{
+  "_comment": "Two inserts: the face-led hook 0:00-0:04.0 and the 2.15s interrupt at 0:34.4 («And this is where it gets crazy»), which is exactly the two-scene structure the brief asks for and lands inside its 6-7s avatar cap. The avatar does NOT voice the reel — each shot lip-syncs to a whole house clip from public/voiceover/youtube-netflix, so the reel's audio track and durations.ts stay untouched. from/to are seconds inside the mp3 at 1.0x; reelIn/reelOut are where the insert lands in the finished reel at VO_RATE.",
+  "avatarId": "${HEYGEN_AVATAR_VIEW_ID}",
+  "_avatar": "The podcast-studio look from the «Philipp» avatar group (1b80626e…) — a generated PHOTO avatar, not the Digital Twin. Same character as brands-paying-more and no-it-in-russia. List them: curl -H \"X-Api-Key: $HEYGEN_API_KEY\" https://api.heygen.com/v2/avatar_group/1b80626e44c945edbad8f5024ce9163b/avatars",
+  "avatarKind": "photo",
+  "_economics": "Photo Avatar bills on a different table from a Digital Twin: avatar_iii = $0.0433/s, avatar_iv = $0.05/s. 6.641s on avatar_iv = $0.33, on avatar_iii = $0.29. Both inserts are large in frame (a 600px-wide broadcast plate and a full-bleed push-in) where the mimic carries the shot, so IV — $0.04 more. Quoted from --dry-run and confirmed by the author before generating. User ceiling for this reel: $0.40.",
+  "engine": "avatar_iv",
+  "voiceoverDir": "public/voiceover/youtube-netflix",
+  "outDir": "public/presenter/youtube-netflix",
+  "templateId": "youtube-netflix",
+  "resolution": "1080p",
+  "outputFormat": "mp4",
+  "_outputFormat": "mp4, not webm. WebM is the only transparency switch, but transparency would throw away the studio — and the studio is what makes the hook read as a broadcast plate rather than a floating head.",
+  "concatAspect": "16:9",
+  "_concatAspect": "The source photo's native 1920x1080. Cropping to 9:16 happens in Remotion (scenes/HookScene.tsx and scenes/CrazyScene.tsx) so both crops show up on stills and are fixed with one number instead of a paid re-generation.",
+  "voRate": 1.08,
+  "shots": [
+    {
+      "id": "p1-hook",
+      "clip": "01-hook",
+      "from": 0,
+      "to": 4.319,
+      "style": "fullbleed",
+      "reelIn": 0,
+      "reelOut": 3.999,
+      "says": "YouTube is offering creators millions... for one thing: stay exclusive."
+    },
+    {
+      "id": "p2-crazy",
+      "clip": "07-crazy",
+      "from": 0,
+      "to": 2.322,
+      "style": "fullbleed",
+      "reelIn": 34.4,
+      "reelOut": 36.55,
+      "says": "And this is where it gets crazy."
+    }
+  ]
+}

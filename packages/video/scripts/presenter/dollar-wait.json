@@ -1,0 +1,48 @@
+{
+  "_comment": "Presenter (talking-head) inserts for the dollar-wait reel. The avatar NEVER speaks its own voice: every shot lip-syncs to a slice of the ElevenLabs house clips already in public/voiceover/dollar-wait, so the reel's audio track is untouched and the timeline does not move by a frame. `from`/`to` are seconds inside the source mp3 at 1.0x; `reelIn` is where the shot lands in the finished reel, derived as vo.start + from / VO_RATE. Cut points sit in measured silences between sentences. See scripts/scenarios/dollar-wait-presenter.md.",
+  "_economics": "Billed per second of output from the USD wallet. Avatar III Digital Twin = $0.0167/s, Avatar IV = $0.0667/s — four times more. These three shots total 8.30s => $0.14 on avatar_iii. They are generated as ONE concatenated upload, not three calls: the second count is identical but the docs never state whether there is a minimum billed duration per video, and one file cannot be worse than three.",
+  "avatarId": "511aa716118e4afc842dbd5276a0c7d2",
+  "_avatar": "«Philipp» — Digital Twin. Не секрет, поэтому лежит здесь, а не в .env; HEYGEN_AVATAR_ID всё ещё перекрывает это значение. Список: curl -H \"X-Api-Key: $HEYGEN_API_KEY\" https://api.heygen.com/v2/avatars",
+  "voiceoverDir": "public/voiceover/dollar-wait",
+  "outDir": "public/presenter/dollar-wait",
+  "templateId": "dollar-wait",
+  "resolution": "1080p",
+  "outputFormat": "mp4",
+  "_outputFormat": "mp4, не webm: врезки идут кружками, и внутри круга живой студийный фон читается как веб-камера — лучше, чем вырезанная фигура в пустом круге. Прозрачность тут ничего не даёт, а матирование добавляет риск.",
+  "concatAspect": "1:1",
+  "_concatAspect": "Квадрат, а не 16:9: круг вырезается почти без потерь. Из 1280×720 круг Ø620 приходилось растягивать (апскейл 1,24×), из 1080×1080 это уменьшение.",
+  "engine": "avatar_iii",
+  "voRate": 1.1,
+  "shots": [
+    {
+      "id": "p1-crowd",
+      "clip": "02-answer",
+      "from": 5.995,
+      "to": 7.988,
+      "style": "hero",
+      "reelIn": 11.15,
+      "reelOut": 12.962,
+      "says": "…это классическая ошибка толпы."
+    },
+    {
+      "id": "p2-anxiety",
+      "clip": "07-mistake",
+      "from": 4.657,
+      "to": 7.384,
+      "style": "hero",
+      "reelIn": 54.4333,
+      "reelOut": 56.912,
+      "says": "Решение принимает не план, а тревога."
+    },
+    {
+      "id": "p3-cta",
+      "clip": "12-cta",
+      "from": 5.42,
+      "to": 9.0,
+      "style": "cta",
+      "reelIn": 100.127,
+      "reelOut": 103.382,
+      "says": "Напишите одним словом: покупаю, жду или не нужна."
+    }
+  ]
+}
