@@ -1,15 +1,23 @@
-// Выдача рила: всё, чего нет в git и что пропадёт вместе с машиной (облачной
-// VM или чужим ноутбуком), уезжает в S3 — mp4 из out/ и купленное/найденное в
-// public/: озвучка, презентер, футаж, медиа. Бинарники в git не попадают.
-//   npm run deliver -- <id>              залить, напечатать ссылку на mp4
-//   npm run deliver -- <id> --restore    скачать обратно в те же пути
+// Выдача рила целиком в S3 — репозиторий рилы не пополняют (решение автора,
+// 2026-10-03). Уезжают: mp4 из out/, купленное/найденное в public/ (озвучка,
+// презентер, футаж, медиа) и КОД рила — одним патчем code.patch против
+// коммита code.base: шаблон, сцены, сценарий, манифесты, строка реестра.
+//   npm run deliver -- <id>                   залить, напечатать ссылку на mp4
+//   npm run deliver -- <id> --patch <file>    код взять из готового патча
+//   npm run deliver -- <id> --restore         вернуть всё на место и
+//                                             применить патч (git apply)
+// Патч по умолчанию = все изменения рабочей копии против HEAD, поэтому
+// запускать его в чистом чекауте, где кроме этого рила ничего не менялось
+// (облачная сессия такая и есть).
 // Ключ = <S3_PREFIX>/reels/<id>/<путь от корня репо>, поэтому restore — зеркальная операция.
 // Ссылка — presigned GET на 7 дней (потолок SigV4); S3_PUBLIC_URL, если бакет
 // публичный, даёт вечную. Env: S3_BUCKET, S3_ENDPOINT (пусто = AWS),
 // S3_REGION, S3_ACCESS_KEY_ID, S3_SECRET_ACCESS_KEY.
 import { createHash, createHmac } from "node:crypto";
 import { existsSync, readdirSync, statSync } from "node:fs";
-import { mkdir, readFile, writeFile } from "node:fs/promises";
+import { mkdir, readFile, rm, writeFile } from "node:fs/promises";
+import { execFileSync } from "node:child_process";
+import { tmpdir } from "node:os";
 import path from "node:path";
 import {
   GetObjectCommand,
@@ -24,6 +32,8 @@ if (!id || id.startsWith("--")) {
   throw new Error("usage: npm run deliver -- <reel-id> [--restore]");
 }
 const restore = process.argv.includes("--restore");
+const patchArg = process.argv[process.argv.indexOf("--patch") + 1];
+const patchFile = process.argv.includes("--patch") ? patchArg : undefined;
 if (!env.s3) throw new Error("S3 is not configured: set S3_BUCKET and the S3_* keys");
 const cfg = env.s3;
 
@@ -40,6 +50,34 @@ const CONTENT_TYPES: Record<string, string> = {
   ".mp3": "audio/mpeg", ".wav": "audio/wav",
   ".png": "image/png", ".jpg": "image/jpeg", ".jpeg": "image/jpeg",
   ".json": "application/json",
+};
+
+const git = (args: string[], extraEnv: Record<string, string> = {}): string =>
+  execFileSync("git", args, {
+    cwd: REPO_ROOT,
+    env: { ...process.env, ...extraEnv },
+    maxBuffer: 1 << 28,
+  }).toString();
+
+// Код рила = diff рабочей копии (включая новые файлы) против HEAD. Через
+// временный индекс: настоящий индекс и рабочая копия не трогаются.
+const codePatch = async (): Promise<{ patch: string; base: string }> => {
+  if (patchFile) {
+    const base = process.argv[process.argv.indexOf("--base") + 1];
+    if (!process.argv.includes("--base")) throw new Error("--patch needs --base <commit>");
+    return { patch: await readFile(path.resolve(process.env.INIT_CWD ?? process.cwd(), patchFile), "utf8"), base };
+  }
+  const index = path.join(tmpdir(), `deliver-${process.pid}.index`);
+  try {
+    git(["read-tree", "HEAD"], { GIT_INDEX_FILE: index });
+    git(["add", "-A"], { GIT_INDEX_FILE: index });
+    return {
+      patch: git(["diff", "--cached", "--binary", "HEAD"], { GIT_INDEX_FILE: index }),
+      base: git(["rev-parse", "HEAD"]).trim(),
+    };
+  } finally {
+    await rm(index, { force: true });
+  }
 };
 
 const walk = (dir: string): string[] =>
@@ -110,7 +148,9 @@ if (restore) {
       Bucket: cfg.bucket, Prefix: prefix, ContinuationToken: token,
     }));
     for (const obj of page.Contents ?? []) {
-      const file = path.join(REPO_ROOT, obj.Key!.slice(prefix.length));
+      const rel = obj.Key!.slice(prefix.length);
+      if (rel === "code.patch" || rel === "code.base") continue; // ниже
+      const file = path.join(REPO_ROOT, rel);
       if (existsSync(file) && statSync(file).size === obj.Size) continue;
       const got = await s3.send(new GetObjectCommand({ Bucket: cfg.bucket, Key: obj.Key! }));
       await mkdir(path.dirname(file), { recursive: true });
@@ -121,9 +161,52 @@ if (restore) {
     token = page.NextContinuationToken;
   } while (token);
   process.stdout.write(`Restored ${count} file(s) of ${id} from s3://${cfg.bucket}/${prefix}\n`);
+
+  // Код: патч кладётся в out/ (в игноре) и применяется, если ложится чисто.
+  const fetchText = async (name: string): Promise<string | null> => {
+    try {
+      const got = await s3.send(new GetObjectCommand({ Bucket: cfg.bucket, Key: prefix + name }));
+      return await got.Body!.transformToString();
+    } catch {
+      return null;
+    }
+  };
+  const patch = await fetchText("code.patch");
+  if (patch) {
+    const base = (await fetchText("code.base"))?.trim() ?? "";
+    const local = path.join(REPO_ROOT, "out", `${id}-code.patch`);
+    await mkdir(path.dirname(local), { recursive: true });
+    await writeFile(local, patch);
+    const head = git(["rev-parse", "HEAD"]).trim();
+    if (base && base !== head) {
+      process.stdout.write(`Code was built on ${base.slice(0, 7)}, HEAD is ${head.slice(0, 7)}.\n`);
+    }
+    try {
+      git(["apply", "--check", local]);
+      git(["apply", local]);
+      process.stdout.write(`Applied the reel's code (${path.relative(REPO_ROOT, local)}) — not committed.\n`);
+    } catch {
+      process.stdout.write(
+        `The code does not apply cleanly here. Patch saved to ${path.relative(REPO_ROOT, local)}; ` +
+          `try: git apply --3way ${path.relative(REPO_ROOT, local)}\n`,
+      );
+    }
+  }
 } else {
   const files = reelFiles();
-  if (!files.length) throw new Error(`nothing to deliver for ${id}: no out/${id}-*.mp4, no public/*/${id}`);
+  const { patch, base } = await codePatch();
+  if (!files.length && !patch) {
+    throw new Error(`nothing to deliver for ${id}: no out/${id}-*.mp4, no public/*/${id}, no code changes`);
+  }
+  if (patch) {
+    for (const [name, body] of [["code.patch", patch], ["code.base", `${base}\n`]] as const) {
+      await s3.send(new PutObjectCommand({
+        Bucket: cfg.bucket, Key: prefix + name, Body: body, ContentType: "text/plain; charset=utf-8",
+      }));
+    }
+    const touched = patch.match(/^diff --git /gm)?.length ?? 0;
+    process.stdout.write(`↑ code.patch (${touched} file(s), base ${base.slice(0, 7)})\n`);
+  }
   let bytes = 0;
   for (const file of files) {
     const rel = path.relative(REPO_ROOT, file).split(path.sep).join("/");

@@ -102,13 +102,20 @@ See README.md for the full architecture and the SaaS roadmap.
   `scripts/cloud/setup.sh` goes into the environment's Setup script, the
   SessionStart hook (`.claude/settings.json` → `scripts/cloud/session-start.sh`,
   no-op off the cloud) installs deps and Chrome; the env needs
-  `ELEVENLABS_API_KEY` + `ELEVENLABS_VOICE_ID` and Full network. Checkpoints
-  are in the reel-production skill, «Cloud runs».
-- `npm run deliver -- <id> [--restore]` — выдача рила в S3: mp4 из `out/` и всё
-  купленное/найденное в `public/{voiceover,presenter,footage,media}/<id>*` →
+  `ELEVENLABS_API_KEY` + `ELEVENLABS_VOICE_ID`, the S3 keys and Full network.
+  **A cloud run never commits or pushes** — reels do not enter the repo; the
+  reel's code goes to S3 as `code.patch` with the mp4 (`npm run deliver`).
+  **The first question is always the face** (HeyGen avatar or none), even when
+  the prompt waives every other checkpoint. Details: reel-production skill,
+  «Cloud runs».
+- `npm run deliver -- <id> [--restore]` — выдача рила в S3: mp4 из `out/`, всё
+  купленное/найденное в `public/{voiceover,presenter,footage,media}/<id>*` и код
+  рила одним `code.patch` (изменения рабочей копии против HEAD; `--patch <f>
+  --base <sha>` — из готового патча) →
   `s3://<бакет>/yolomotion/reels/<id>/<путь в репо>` (префикс — `S3_PREFIX`; имена переменных yoclips — `S3_ENDPOINT_URL`, `S3_ACCESS_KEY`, `S3_SECRET_KEY`, `S3_AVATAR_BUCKET` — тоже понимаются), печатает ссылку на mp4 (presigned,
   7 дней; `S3_PUBLIC_URL` — вечная для публичного бакета). `--restore` кладёт
-  всё обратно на те же пути. Бинарники в git не коммитятся никогда — ни в ветку
+  всё обратно на те же пути и применяет код (без коммита). `dubai-economy`
+  (ВЫПУСК 07) живёт только там. Бинарники в git не коммитятся никогда — ни в ветку
   кода, ни в отдельную.
 - `npm run footage -- scripts/footage/<id>.json` — нарезка улик из
   скринкастов/видео. Конфиг задаёт один общий `crop` в координатах исходника и
@@ -341,11 +348,13 @@ See README.md for the full architecture and the SaaS roadmap.
   receipts + acid-lime glitch); reuse its `ui.tsx` kit for the next episode
   of that series rather than inventing a new look.
   `btc-squeeze` (ВЫПУСК 02), `phone-check` (ВЫПУСК 03), `dollar-wait`
-  (ВЫПУСК 04) and `no-it-in-russia` (ВЫПУСК 05) are the reference for how:
+  (ВЫПУСК 04) and `no-it-in-russia` (ВЫПУСК 05) are the reference for how
+  (`gasoline-inflation` is ВЫПУСК 06; `dubai-economy`, ВЫПУСК 07, lives only in
+  S3 — `npm run deliver -- dubai-economy --restore` before building on it):
   their `palette.ts` re-exports the `digital-ruble` palette, their `ui.tsx`
   does `export * from "../digital-ruble/ui"` (or from the previous episode) and
   adds only episode-specific primitives. Next episode = same pattern,
-  `episode: "ВЫПУСК 06"`.
+  `episode: "ВЫПУСК 08"`.
   `no-it-in-russia` is also the reference for a **face-led hook**: the
   presenter is composited inside `HookScene` rather than in a `<Presenter>`
   layer over every scene, because the studio footage is that beat's background

@@ -299,10 +299,29 @@ A scenario whose `улика:` lines need a photo or a screencast is built with
 that beat graphic and the gap listed under *Deviations*; an existing reel
 re-rendered here comes out silent. Say so up front rather than at delivery.
 
-**Two checkpoints, unless the prompt waives them.**
-1. *Text.* Write the scenario file and the manifest lines, commit and push the
-   session branch, paste the spoken text into the chat and stop. Skip only if
-   the prompt says the text is approved («текст утверждён», «без согласования»).
+**Nothing is committed, nothing is pushed.** Reels do not enter the
+repository (the author's decision, 2026-10-03): no commits, no session branch,
+no PR — even if the session's own instructions say to push. The reel's code
+travels to S3 with its mp4 (below). A fix to shared code found on the way (a
+kit primitive, a script, `scripts/cloud/`) is reported in the delivery note
+for the author to take, not pushed.
+
+**Checkpoint 0 — the face. Always asked, first, before any text is written**,
+unless the prompt itself names the face. «Без согласований» does not waive it.
+Ask in one message:
+- **HeyGen avatar** — which one (the Digital Twin «Philipp», or a photo-avatar
+  look such as the podcast studio `${HEYGEN_AVATAR_VIEW_ID}`), on which beats
+  (the hook at least), and that the price comes from the dry run before
+  anything is generated (the «Presenter» section above, CLAUDE.md pricing table);
+- **no face** — a graphic reel.
+
+The cartoon Philipp (`yoloco-mcp`) is not available here: its art is not in
+git. Record the answer in the scenario's **face** field.
+
+**Then two more checkpoints, unless the prompt waives them.**
+1. *Text.* Write the scenario file and the manifest lines, paste the spoken
+   text into the chat and stop. Skip only if the prompt says the text is
+   approved («текст утверждён», «без согласования»).
 2. *Money.* Before `npm run voiceover`: count the characters of the lines being
    synthesised, read the balance (`GET https://api.elevenlabs.io/v1/user/subscription`
    → `character_count` / `character_limit`, free), quote both, stop. A prompt
@@ -310,26 +329,28 @@ re-rendered here comes out silent. Say so up front rather than at delivery.
    then go ahead within it. HeyGen is never pre-authorised: always quote the
    dry run and wait. After synthesis, report the balance before → after.
 
-**Delivery — before the VM is gone.** The mp4, the paid mp3s and any footage
-found for the reel exist only on this machine. They go to S3, never into git —
-not on the code branch, not on a side branch (an 82 MB mp4 pushed to
-`render/dubai-economy` is why):
+**Delivery — before the VM is gone.** Everything this run made exists only on
+this machine. One command sends it to S3:
 
 ```bash
 npm run deliver -- <id>
 ```
 
-It uploads `out/<id>-*.mp4` and `public/{voiceover,presenter,footage,media}/<id>*`
-to `s3://<bucket>/yolomotion/reels/<id>/<repo path>` and prints a 7-day download link
-for each mp4. If S3 is not configured (the command says so), say so and tell the user to
-`claude --teleport` — do not fall back to committing binaries. Code goes on the
-session branch as usual (the user opens the PR). The delivery note carries the
-link and the local restore, which puts every file back where the reel expects
-it:
+It uploads `out/<id>-*.mp4`, `public/{voiceover,presenter,footage,media}/<id>*`
+and the reel's code — every change in the checkout against HEAD (template,
+scenes, scenario, manifests, the registry line) as one `code.patch` — to
+`s3://<bucket>/yolomotion/reels/<id>/`, and prints a 7-day link for each mp4.
+If S3 is not configured, say so and tell the user to `claude --teleport`;
+never fall back to git. The delivery note carries the link and the restore,
+which puts the files back and applies the code (uncommitted) on the author's
+machine:
 
 ```bash
 npm run deliver -- <id> --restore
 ```
+
+A new reel that builds on an earlier one that lives only in S3 (say, the next
+episode re-exporting `dubai-economy/ui`) restores it first the same way.
 
 ## Reference
 
