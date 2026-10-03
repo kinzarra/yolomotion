@@ -1,14 +1,24 @@
 #!/bin/bash
 # Cloud session → the author's Telegram (orders that came from bots/telegram).
+#   scripts/cloud/tg.sh order <chat_id> <message_id>   once, from the payload
 #   scripts/cloud/tg.sh msg "text"            (or the text on stdin)
 #   scripts/cloud/tg.sh photo still.png ["caption"]
 #   scripts/cloud/tg.sh video out/<id>-reel.mp4 ["caption"]
 #   scripts/cloud/tg.sh doc file ["caption"]
-# Env: TELEGRAM_BOT_TOKEN, and the chat — TG_CHAT (from the order's payload)
-# or TELEGRAM_CHAT_ID. TG_REPLY_TO threads every message under the order.
+# Env: TELEGRAM_BOT_TOKEN, and TELEGRAM_CHAT_ID as the fallback chat. `order`
+# saves the payload's chat and message to a file, because shell state does not
+# survive between a session's commands; every later call threads under it.
 # Exit 3 = the file is over the Bot API's 50 MB upload limit.
 set -euo pipefail
 export LC_ALL=C.UTF-8 # ${text:0:N} must count characters, not bytes
+
+state=/tmp/yolomotion-tg-order
+if [ "${1:-}" = order ]; then
+  printf 'TG_CHAT=%q\nTG_REPLY_TO=%q\n' "${2:?chat_id}" "${3:-}" > "$state"
+  exit 0
+fi
+# shellcheck source=/dev/null
+[ -f "$state" ] && . "$state"
 
 token=${TELEGRAM_BOT_TOKEN:?TELEGRAM_BOT_TOKEN is not set in the cloud environment}
 chat=${TG_CHAT:-${TELEGRAM_CHAT_ID:?neither TG_CHAT nor TELEGRAM_CHAT_ID is set}}

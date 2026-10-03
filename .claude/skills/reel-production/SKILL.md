@@ -338,8 +338,9 @@ git restore --source origin/render/<id> --worktree -- out/<id>-reel.mp4 packages
 
 A run started by the routine (`bots/telegram/`) carries a payload
 `{chat_id, message_id, text}`: `text` is the order, the chat is where every
-report goes. `export TG_CHAT=<chat_id> TG_REPLY_TO=<message_id>` once, then
-use `scripts/cloud/tg.sh` (plain text, no markdown) for:
+report goes. Run `scripts/cloud/tg.sh order <chat_id> <message_id>` once (an
+`export` would not survive to the next command), then use `scripts/cloud/tg.sh`
+(plain text, no markdown) for:
 
 - **receipt** — `msg "Принял: <id>, <one-line plan>"`, before anything else;
 - **each checkpoint** — the spoken text, or the character count + balance, ending

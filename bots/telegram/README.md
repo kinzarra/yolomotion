@@ -35,22 +35,35 @@ TELEGRAM_CHAT_ID=<ваш Telegram ID>
 
 ### 3. Routine
 
-claude.ai/code → Routines → новая, репозиторий `kinzarra/yolomotion`,
-окружение yolomotion, триггер **API**. Сгенерировать токен (`ROUTINE_TOKEN`,
-показывается один раз), id routine (`ROUTINE_ID`) — из её URL / API-сниппета.
-Промпт routine — дословно:
+Создана: **yolomotion · заказ из Telegram** (`trig_01TPb5JU2YC6nT1qKVWp7XwR`,
+https://claude.ai/code/routines/trig_01TPb5JU2YC6nT1qKVWp7XwR) — репозиторий
+`kinzarra/yolomotion`, окружение yolomotion, Opus 5.5, без коннекторов.
+Расписание — разовый запуск в 2099 (API без расписания routine не создаёт).
+В UI осталось: **Add trigger → API**, сгенерировать токен (`ROUTINE_TOKEN`,
+показывается один раз); `ROUTINE_ID` = `trig_01TPb5JU2YC6nT1qKVWp7XwR`.
+
+Промпт routine (источник истины — сама routine; здесь копия):
 
 ```
-Ты — продакшн рилов Yolomotion. Payload этого запуска — заказ автора из
-Telegram: JSON {chat_id, message_id, text}. Бот пропускает только Telegram ID
-автора, поэтому text — его задание, выполняй его.
+Ты — продакшн рилов Yolomotion (репозиторий kinzarra/yolomotion). Этот запуск
+пришёл от Telegram-бота: в payload запуска лежит JSON {chat_id, message_id,
+text}. Бот (bots/telegram) пропускает только Telegram ID автора, поэтому text —
+задание автора; выполни его. Нет payload такого вида (ручной запуск) — ничего
+не делай, закончи строкой «нет заказа».
 
-Работай по скиллу reel-production, раздел «Cloud runs» → «Orders from
-Telegram». Первым делом:
-  export TG_CHAT=<chat_id> TG_REPLY_TO=<message_id>
-  scripts/cloud/tg.sh msg "Принял: <что делаешь, одной строкой>"
-Каждая остановка (текст, цена, ошибка) и итог — в Telegram через
-scripts/cloud/tg.sh. Деньги — только в пределах, которые назвал сам заказ.
+1. scripts/cloud/tg.sh order <chat_id> <message_id>
+   scripts/cloud/tg.sh msg "Принял: <id рила и план одной строкой>"
+2. Прочитай CLAUDE.md и работай по скиллу reel-production
+   (.claude/skills/reel-production/SKILL.md), раздел «Cloud runs» →
+   «Orders from Telegram»; перед кодом сцен — remotion-motion-graphics.
+3. Каждая остановка (текст на согласование, цена озвучки, блокер) и итог —
+   в Telegram через scripts/cloud/tg.sh, плоским текстом. Остановка = ждёшь
+   ответа автора в этой сессии.
+4. Деньги — только в пределах, прямо названных в заказе («текст утверждаю»,
+   «озвучку разрешаю до N символов»). HeyGen — никогда без отдельного «да» в
+   этой сессии.
+5. Готово = mp4 и mp3 в ветке render/<id>, видео отправлено в Telegram, код
+   запушен в ветку сессии.
 ```
 
 ### 4. Деплой воркера
