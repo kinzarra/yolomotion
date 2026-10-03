@@ -340,11 +340,19 @@ See README.md for the full architecture and the SaaS roadmap.
   receipts + acid-lime glitch); reuse its `ui.tsx` kit for the next episode
   of that series rather than inventing a new look.
   `btc-squeeze` (ВЫПУСК 02), `phone-check` (ВЫПУСК 03), `dollar-wait`
-  (ВЫПУСК 04) and `no-it-in-russia` (ВЫПУСК 05) are the reference for how:
+  (ВЫПУСК 04), `no-it-in-russia` (ВЫПУСК 05), `gasoline-inflation`
+  (ВЫПУСК 06) and `dubai-economy` (ВЫПУСК 07) are the reference for how:
   their `palette.ts` re-exports the `digital-ruble` palette, their `ui.tsx`
   does `export * from "../digital-ruble/ui"` (or from the previous episode) and
   adds only episode-specific primitives. Next episode = same pattern,
-  `episode: "ВЫПУСК 06"`.
+  `episode: "ВЫПУСК 08"`.
+  `dubai-economy` is the reference for **evidence footage in the series kit**:
+  `Photo` / `Clip` / `PrintedPhoto` / `Scrim` / `Sweep` in its `ui.tsx` (cover
+  crop, Ken Burns to a focus point, greyscale grade, hard cuts — no fade on
+  footage), Commons files listed in `CREDITS.md` and on the CTA, the clip cut
+  and measured by `npm run footage`. Also `FlashCut` (one white peak on the
+  boundary frame, 6 frames total — longer washes the next beat grey) and
+  `CutZoom` for a more dynamic edit.
   `no-it-in-russia` is also the reference for a **face-led hook**: the
   presenter is composited inside `HookScene` rather than in a `<Presenter>`
   layer over every scene, because the studio footage is that beat's background

@@ -1,25 +1,10 @@
-import { Palette } from "../../theme";
-
-// One hero color, everything else monochrome — max one glowing element per
-// frame. Replace these with the scenario's palette.
-export const dubaiEconomyPalette: Palette = {
-  bg: "#07070A",
-  bgAlt: "#101016",
-  primary: "#7C3AED", // THE hero color
-  accent: "#B49BFF", // tint of the hero, secondary data only
-  text: "#F4F4F7",
-  textDim: "#8E8E9A",
-  glow: "rgba(124, 58, 237, 0.42)",
-};
-
-export const dubaiEconomyColors = {
-  surface: "rgba(18, 18, 24, 0.84)",
-  surfaceStrong: "#15151B",
-  surfaceLift: "#20202A",
-  line: "rgba(235, 235, 245, 0.14)",
-  lineStrong: "rgba(235, 235, 245, 0.32)",
-  white: "#FFFFFF",
-  ink: "#08080B",
-  dim: "#55555E",
-  shadow: "0 30px 80px -46px rgba(0, 0, 0, 0.9)",
-} as const;
+// Seventh episode of the «ЧЕК × ПИКСЕЛЬ» series — the palette IS the series
+// palette (digital-ruble), untouched.
+//
+// The mapping this episode uses: lime is the FLOW — goods, people and money
+// passing through the city, the port, the zero on the payslip, the airport
+// model. Red is oil and debt and nothing else: the 1% in the hook, the
+// reserve running out, the 2009 debt line. Paper stays a surface: the
+// receipt, the printed satellite photo. Photos and footage are graded to
+// greyscale so they never bring a third colour in.
+export { drPalette as dePalette, drColors as deColors } from "../digital-ruble/palette";

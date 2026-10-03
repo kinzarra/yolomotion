@@ -1,0 +1,12 @@
+{
+  "id": "dubai-economy",
+  "sourceDir": "../../public/footage/dubai-economy",
+  "crop": { "w": 1920, "h": 1080, "x": 0, "y": 0 },
+  "width": 1080,
+  "fps": 30,
+  "note": "Klaus Hesse, «Emirates A380 in Dubai Airport» (Wikimedia Commons, CC BY 3.0), 1920x1080 25fps. Shot from a cabin window at DXB: the window frame is the reel's screen container, so the crop keeps the full 16:9. Source file a380-src.webm is downloaded, not committed.",
+  "shots": [
+    { "name": "06-airport-a380", "file": "a380-src.webm", "in": 5.0,  "out": 11.5,  "proves": "«Эмирейтс» и аэропорт Дубая: A380 в ливрее Emirates на рулёжке DXB" },
+    { "name": "05-map-takeoff",  "file": "a380-src.webm", "in": 120.0, "out": 123.0, "proves": "«за восемь часов полёта отсюда»: взлёт над Дубаем из окна (текстура, ≤2 с)" }
+  ]
+}
