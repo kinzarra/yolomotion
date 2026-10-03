@@ -33,6 +33,13 @@ See README.md for the full architecture and the SaaS roadmap.
   `calculateMetadata` by Root.tsx). `yoloco-audience-fit` is the reference;
   the pattern is documented in
   `.claude/skills/reel-production/references/engine.md`.
+- **Looks** (`packages/video/src/looks/`): six whole visual systems — `riso`,
+  `chrome`, `swiss`, `aurora`, `tabloid`, `gloss` — switched per render by one
+  `look` prop (`zLook` in the schema, `<LookReel>` instead of `<Reel>`, scenes
+  from the kit: `Headline`, `BigNumber`, `Evidence`, `Eyebrow`, `Cta`,
+  `Cuts`). `look-lab-reel` is the free, silent catalogue to pick one from.
+  A new reel that is not part of an existing series starts on a look rather
+  than a hand-rolled `ui.tsx`. Details: engine.md → «Looks».
 - Colors, easings, springs come ONLY from `packages/video/src/theme.ts`. Never
   inline them in components.
 - A video template = folder in `packages/video/src/templates/<id>/` with a zod

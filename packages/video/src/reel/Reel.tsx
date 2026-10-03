@@ -64,6 +64,10 @@ type ReelBase = {
   bgMesh?: boolean; // drifting mesh under the scenes, for reels whose scenes
   // do not paint their own full-frame background
   gradeOpacity?: number;
+  // A look (src/looks) replaces the background and the finishing stack as a
+  // whole; without one the reel keeps the default mesh + grade/grain/vignette.
+  backdrop?: React.ReactNode;
+  finish?: React.ReactNode;
   children: React.ReactNode;
 };
 
@@ -111,6 +115,8 @@ export const Reel: React.FC<ReelProps> = (props) => {
     voVolume,
     bgMesh = false,
     gradeOpacity = 0.1,
+    backdrop,
+    finish,
     children,
   } = props;
   useFitsCheck(voiceoverDir, props.voiceover, voRate);
@@ -123,7 +129,7 @@ export const Reel: React.FC<ReelProps> = (props) => {
         volume={voVolume}
       />
 
-      {bgMesh && <BgMesh palette={palette} />}
+      {backdrop ?? (bgMesh && <BgMesh palette={palette} />)}
       {children}
 
       {/* Captions span scene cuts, so they live above the scenes. */}
@@ -136,9 +142,13 @@ export const Reel: React.FC<ReelProps> = (props) => {
         />
       )}
 
-      <Grade palette={palette} opacity={gradeOpacity} />
-      <Grain />
-      <Vignette />
+      {finish ?? (
+        <>
+          <Grade palette={palette} opacity={gradeOpacity} />
+          <Grain />
+          <Vignette />
+        </>
+      )}
     </AbsoluteFill>
   );
 };

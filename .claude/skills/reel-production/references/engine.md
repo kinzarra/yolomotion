@@ -155,3 +155,47 @@ warns at render time if an overridden line runs past its scene grid.
 | `npm run stills -- <id>-reel [--times 1,5.5] [--frames 30] [--every 2.5]` | one bundle, many stills named by timestamp |
 | `npm run render -- <id>-reel --out out/<id>-reel.mp4` | final render |
 | `npm run studio` | Remotion Studio |
+
+## Looks (`src/looks/`) — a visual system chosen per render
+
+A look is a whole style: palette, Cyrillic faces, how a headline's accent
+word is set, the container a photo/clip sits in, the cut effect, the caption
+mode and the finishing stack. Six exist — `riso` (two-drum print on cream),
+`chrome` (Y2K liquid chrome), `swiss` (grid, grotesk, one orange), `aurora`
+(frosted glass over a pastel aurora), `tabloid` (front page: yellow, black,
+red stamp), `gloss` (magazine serif, italic accent, cherry). `look-lab-reel`
+prints the same five beats in any of them — render it with
+`--props '{"look":"chrome"}'` (a props file) to compare before choosing.
+
+A template becomes look-aware in three steps:
+
+```ts
+// schema.ts
+look: zLook.default("riso"),
+// Component — LookReel instead of Reel; captions merge over the look's own
+<LookReel look={props.look} voiceoverDir=… voiceover={VOICEOVER} voRate={VO_RATE}
+          cuts={[SCENES.b.from, SCENES.c.from].map((s) => Math.round(s * fps))}>
+// scenes — the kit, never hand-rolled type
+<Headline text={"Деньги\nбольше не\n*спят*"} size={150} />   // *accent*
+<BigNumber value={73} suffix="%" label="…" />
+<Evidence src="media/<id>/clip.mp4" kind="clip" width={900} height={506} tag="LIVE" />
+<Eyebrow text="ВЫПУСК 08" />  <Cta text="Подписаться" handle="@…" />
+const zoom = useCutZoom();   // the scene's half of the cut
+```
+
+So a server job switches the whole look with `props.look` — the worker passes
+props through untouched, and every face is in the cached bundle. Rules the
+kit carries so arbitrary job text survives:
+
+- **Headlines fit themselves.** `Headline` shrinks so its longest word fits
+  `column` (default 940px) by the look's measured `type.em`. Wrapping handles
+  long lines; the shrink handles long words («ДОКАЗАТЕЛЬСТВО» in Dela Gothic).
+- **Media are a path in `public/` or an `http(s)` URL** (`mediaSrc`), so a
+  job can point at S3 without re-bundling.
+- **Captions modes** (`mode: "color" | "box" | "pill" | "underline"`, plus
+  `plate`, `stroke`, `uppercase`, `align`, `heroFontFamily`) live in the
+  shared `<Captions>`. Defaults are unchanged — existing reels render
+  pixel-identical.
+- A new look = one entry in `presets.ts` (all colours named there) plus, if
+  it needs a new medium, one case in `Backdrop` / `Evidence` / `Cuts`. Measure
+  `type.em` off a still with a 14-letter word before shipping it.

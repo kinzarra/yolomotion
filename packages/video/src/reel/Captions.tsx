@@ -43,6 +43,27 @@ export type CaptionStyle = {
   // (Cyrillic, for one) passes a face that has it — see fonts.ts.
   fontFamily?: string;
   fontWeight?: number;
+  // How the active word is marked. "color" (default) recolours it; "box"
+  // sets it on a filled block, "pill" on a rounded one, "underline" draws a
+  // bar under it. Every word keeps the same padding whether or not it is
+  // lit, so the line never reflows as the highlight travels.
+  mode?: "color" | "box" | "pill" | "underline";
+  activeInk?: string; // text colour on a box / pill (defaults to bg-dark ink)
+  boxColor?: string; // block fill; defaults to the active colour
+  boxTilt?: number; // degrees, alternating sign per word — tabloid stickers
+  uppercase?: boolean;
+  letterSpacing?: string;
+  textShadow?: string;
+  stroke?: string; // CSS -webkit-text-stroke, painted under the fill
+  // A plate behind the whole page — frosted glass or a solid card.
+  plate?: string;
+  plateBlur?: number;
+  align?: "center" | "left";
+  // "+WORD" keywords in a contrasting face (a serif italic in an editorial
+  // look). Only the keyword changes face, never running text.
+  heroFontFamily?: string;
+  heroFontStyle?: "normal" | "italic";
+  heroFontWeight?: number;
 };
 
 const weightOf = (word: string) => {
@@ -113,6 +134,20 @@ export const Captions: React.FC<
   fontSize = 54,
   fontFamily = theme.fonts.display,
   fontWeight = 700,
+  mode = "color",
+  activeInk = palette.bg,
+  boxColor,
+  boxTilt = 0,
+  uppercase = false,
+  letterSpacing = "-0.02em",
+  textShadow = "0 4px 26px rgba(0,0,0,0.85)",
+  stroke,
+  plate,
+  plateBlur = 0,
+  align = "center",
+  heroFontFamily,
+  heroFontStyle = "normal",
+  heroFontWeight,
 }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
@@ -141,6 +176,9 @@ export const Captions: React.FC<
     { extrapolateLeft: "clamp", extrapolateRight: "clamp" },
   );
 
+  const padded = mode === "box" || mode === "pill";
+  const justify = align === "left" ? "flex-start" : "center";
+
   return (
     <div
       style={{
@@ -149,27 +187,37 @@ export const Captions: React.FC<
         right: sideMargin,
         top,
         display: "flex",
-        justifyContent: "center",
+        justifyContent: justify,
         pointerEvents: "none",
         opacity: inP * outP,
         transform: `translateY(${interpolate(inP, [0, 1], [26, 0])}px) scale(${interpolate(inP, [0, 1], [0.94, 1])})`,
+        transformOrigin: align === "left" ? "left center" : "center",
       }}
     >
       <div
         style={{
           display: "flex",
           flexWrap: "wrap",
-          justifyContent: "center",
-          columnGap: 18,
-          rowGap: 6,
+          justifyContent: justify,
+          columnGap: padded ? 4 : 18,
+          rowGap: padded ? 2 : 6,
           maxWidth,
           fontFamily,
           fontSize,
           fontWeight,
-          letterSpacing: "-0.02em",
+          letterSpacing,
           lineHeight: 1.12,
-          textAlign: "center",
-          textShadow: "0 4px 26px rgba(0,0,0,0.85)",
+          textAlign: align,
+          textTransform: uppercase ? "uppercase" : "none",
+          textShadow,
+          ...(plate
+            ? {
+                background: plate,
+                backdropFilter: plateBlur ? `blur(${plateBlur}px)` : undefined,
+                padding: "22px 30px",
+                borderRadius: 34,
+              }
+            : {}),
         }}
       >
         {page.words.map((w, i) => {
@@ -189,16 +237,54 @@ export const Captions: React.FC<
           const keyColor =
             w.color === "hero" ? heroColor : w.color === "bad" ? (badColor ?? null) : null;
           const restColor = keyColor ?? (said ? palette.text : palette.textDim);
+          const lit = hot > 0.5;
+          const color =
+            padded && lit ? activeInk : lit && mode !== "underline" ? (keyColor ?? signal) : restColor;
+          const hero = w.color === "hero" && heroFontFamily;
           return (
             <span
               key={`${w.text}-${i}`}
               style={{
+                position: "relative",
                 display: "inline-block",
-                color: hot > 0.5 ? (keyColor ?? signal) : restColor,
+                color,
                 opacity: said ? 1 : 0.45,
-                transform: `scale(${1 + hot * 0.07})`,
+                transform: `scale(${1 + hot * (padded ? 0.04 : 0.07)}) rotate(${hot * boxTilt * (i % 2 ? -1 : 1)}deg)`,
+                padding: padded ? "0.02em 0.2em 0.06em" : undefined,
+                fontFamily: hero ? heroFontFamily : undefined,
+                fontStyle: hero ? heroFontStyle : undefined,
+                fontWeight: hero ? heroFontWeight : undefined,
+                WebkitTextStroke: stroke && !(padded && lit) ? stroke : undefined,
+                paintOrder: stroke ? "stroke fill" : undefined,
               }}
             >
+              {padded && (
+                <span
+                  style={{
+                    position: "absolute",
+                    inset: 0,
+                    zIndex: -1,
+                    background: keyColor ?? boxColor ?? signal,
+                    borderRadius: mode === "pill" ? 999 : 6,
+                    opacity: hot,
+                    transform: `scale(${0.86 + hot * 0.14})`,
+                  }}
+                />
+              )}
+              {mode === "underline" && (
+                <span
+                  style={{
+                    position: "absolute",
+                    left: 0,
+                    right: 0,
+                    bottom: "-0.04em",
+                    height: "0.12em",
+                    background: keyColor ?? signal,
+                    transform: `scaleX(${hot})`,
+                    transformOrigin: "left center",
+                  }}
+                />
+              )}
               {w.text}
             </span>
           );
