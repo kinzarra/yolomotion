@@ -310,28 +310,25 @@ re-rendered here comes out silent. Say so up front rather than at delivery.
    then go ahead within it. HeyGen is never pre-authorised: always quote the
    dry run and wait. After synthesis, report the balance before → after.
 
-**Delivery — before the VM is gone.** The mp4 and the paid mp3s exist only on
-this machine. Push them to their own orphan branch so the code branch (and
-`main` after the PR) never carries a binary:
+**Delivery — before the VM is gone.** The mp4, the paid mp3s and any footage
+found for the reel exist only on this machine. They go to S3, never into git —
+not on the code branch, not on a side branch (an 82 MB mp4 pushed to
+`render/dubai-economy` is why):
 
 ```bash
-export GIT_INDEX_FILE=$(mktemp -u)
-git add -f out/<id>-reel.mp4 packages/video/public/voiceover/<id>
-tree=$(git write-tree); unset GIT_INDEX_FILE
-git push origin "$(git commit-tree "$tree" -m "render: <id>")":refs/heads/render/<id>
+npm run deliver -- <id>
 ```
 
-If the proxy refuses that branch name, push the same commit to
-`<session-branch>-render`; if that is refused too, tell the user to
-`claude --teleport` and stop — never commit the mp4 onto the code branch.
-Code goes on the session branch as usual (the user opens the PR). The delivery
-note adds the mp4 link
-(`https://github.com/kinzarra/yolomotion/blob/render/<id>/out/<id>-reel.mp4`)
-and the local restore:
+It uploads `out/<id>-*.mp4` and `public/{voiceover,presenter,footage,media}/<id>*`
+to `s3://$S3_BUCKET/reels/<id>/<repo path>` and prints a 7-day download link
+for each mp4. If `S3_BUCKET` is not set, say so and tell the user to
+`claude --teleport` — do not fall back to committing binaries. Code goes on the
+session branch as usual (the user opens the PR). The delivery note carries the
+link and the local restore, which puts every file back where the reel expects
+it:
 
 ```bash
-git fetch origin render/<id>
-git restore --source origin/render/<id> --worktree -- out/<id>-reel.mp4 packages/video/public/voiceover/<id>
+npm run deliver -- <id> --restore
 ```
 
 ## Reference

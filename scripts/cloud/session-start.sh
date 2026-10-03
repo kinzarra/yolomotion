@@ -24,11 +24,12 @@ problems=()
 command -v ffprobe >/dev/null || problems+=("ffmpeg/ffprobe missing — voiceover cannot be measured")
 [ -n "${ELEVENLABS_API_KEY:-}" ] || problems+=("ELEVENLABS_API_KEY is not set in the cloud environment")
 [ -n "${ELEVENLABS_VOICE_ID:-}" ] || problems+=("ELEVENLABS_VOICE_ID is not set — voiceover will refuse to run")
+[ -n "${S3_BUCKET:-}" ] || problems+=("S3_BUCKET is not set — the finished mp4 cannot be delivered (npm run deliver)")
 
 cat <<'EOF'
 CLOUD SESSION (claude.ai/code). Follow the «Cloud runs» section of
 .claude/skills/reel-production/SKILL.md: what works here, the two checkpoints,
-and how the mp4 and the paid voiceover leave this machine before it is gone.
+and how the mp4 and the paid voiceover leave this machine (S3, npm run deliver).
 EOF
 if [ ${#problems[@]} -gt 0 ]; then
   echo "Environment problems — tell the user before starting work:"

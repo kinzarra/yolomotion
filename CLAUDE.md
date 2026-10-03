@@ -103,8 +103,13 @@ See README.md for the full architecture and the SaaS roadmap.
   SessionStart hook (`.claude/settings.json` → `scripts/cloud/session-start.sh`,
   no-op off the cloud) installs deps and Chrome; the env needs
   `ELEVENLABS_API_KEY` + `ELEVENLABS_VOICE_ID` and Full network. Checkpoints
-  and delivery (orphan `render/<id>` branch with the mp4 and the paid mp3s) are
-  in the reel-production skill, «Cloud runs».
+  are in the reel-production skill, «Cloud runs».
+- `npm run deliver -- <id> [--restore]` — выдача рила в S3: mp4 из `out/` и всё
+  купленное/найденное в `public/{voiceover,presenter,footage,media}/<id>*` →
+  `s3://$S3_BUCKET/reels/<id>/<путь в репо>`, печатает ссылку на mp4 (presigned,
+  7 дней; `S3_PUBLIC_URL` — вечная для публичного бакета). `--restore` кладёт
+  всё обратно на те же пути. Бинарники в git не коммитятся никогда — ни в ветку
+  кода, ни в отдельную.
 - `npm run footage -- scripts/footage/<id>.json` — нарезка улик из
   скринкастов/видео. Конфиг задаёт один общий `crop` в координатах исходника и
   список шотов (`file`, `in`, `out`, `proves`); скрипт режет в 30fps/1080,

@@ -18,6 +18,7 @@
     "worker:enqueue": "npm run enqueue -w @yolomotion/worker --",
     "worker:seed": "npm run seed -w @yolomotion/worker",
     "worker:stats": "npm run collect-stats -w @yolomotion/worker",
-    "worker:connect-youtube": "npm run connect-youtube -w @yolomotion/worker --"
+    "worker:connect-youtube": "npm run connect-youtube -w @yolomotion/worker --",
+    "deliver": "npm run deliver -w @yolomotion/worker --"
   }
 }
