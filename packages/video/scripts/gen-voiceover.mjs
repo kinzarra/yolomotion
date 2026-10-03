@@ -2,6 +2,8 @@
 //   node scripts/gen-voiceover.mjs scripts/voiceover/<manifest>.json [env-path]
 //                                  [--durations-only] [--only=<clip>]
 // The manifest carries voiceId, model, voice settings and the [name, text] lines;
+// voiceId may name an env var — "${ELEVENLABS_VOICE_ID}" — which is how every
+// new manifest pins the author's voice without hard-coding it;
 // each line becomes `<outDir>/<name>.mp3` so a template can Sequence them by name.
 //
 // After synthesis every clip is measured with ffprobe and the durations are
@@ -90,6 +92,16 @@ const positional = argv.filter((a) => !a.startsWith("--"));
 const manifestPath = positional[0];
 const envPath = positional[1] ?? path.resolve(root, "../../.env");
 const durationsOnly = flags.has("--durations-only");
+
+// process.env first (the cloud session and the worker), then the repo .env.
+const envValue = async (key) =>
+  process.env[key] ||
+  (await readFile(envPath, "utf8").catch(() => ""))
+    .split(/\r?\n/)
+    .find((line) => line.startsWith(`${key}=`))
+    ?.slice(key.length + 1)
+    .trim()
+    .replace(/^['"]|['"]$/g, "");
 const only = [...flags].find((flag) => flag.startsWith("--only="))?.slice("--only=".length);
 // Re-levels clips that were synthesised before the loudness pass existed.
 // Overwrites the mp3s in place, so it is opt-in.
@@ -128,20 +140,23 @@ if (normaliseOnly) {
     );
   }
 } else if (!durationsOnly) {
-  const apiKey =
-    process.env.ELEVENLABS_API_KEY ??
-    (await readFile(envPath, "utf8"))
-      .split(/\r?\n/)
-      .find((line) => line.startsWith("ELEVENLABS_API_KEY="))
-      ?.slice("ELEVENLABS_API_KEY=".length)
-      .trim()
-      .replace(/^['"]|['"]$/g, "");
+  const apiKey = await envValue("ELEVENLABS_API_KEY");
 
   if (!apiKey) throw new Error(`ELEVENLABS_API_KEY not found in env or ${envPath}`);
 
+  // A bare id is used as-is (every manifest before 2026-10 pins one, and
+  // re-voicing them would invalidate their durations). "${VAR}" — or no voiceId
+  // at all — resolves through the env, and an unset variable is a hard error:
+  // falling back to some other voice is exactly the mistake this guards against.
+  const named = manifest.voiceId?.match(/^\$\{(\w+)\}$/)?.[1]
+    ?? (manifest.voiceId ? null : "ELEVENLABS_VOICE_ID");
+  const voiceId = named ? await envValue(named) : manifest.voiceId;
+  if (!voiceId) throw new Error(`${named} not found in env or ${envPath}`);
+  process.stdout.write(`Voice ${voiceId}${named ? ` (from ${named})` : ""}\n`);
+
   for (const [name, text] of selectedLines) {
     const response = await fetch(
-      `https://api.elevenlabs.io/v1/text-to-speech/${manifest.voiceId}`,
+      `https://api.elevenlabs.io/v1/text-to-speech/${voiceId}`,
       {
         method: "POST",
         headers: {

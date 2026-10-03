@@ -1,6 +1,6 @@
 ---
 name: reel-production
-description: Turn a written scenario into a finished Yolomotion reel (vertical voiceover short) end to end — scaffold the template, synthesise the voiceover in the house voice, build the timeline and scenes, verify by stills, render. Use this whenever the user brings a script, scenario, brief, or idea for a video/Short/Reel in this repo, or asks to change one that already exists. Read it BEFORE remotion-motion-graphics; that skill supplies the motion craft, this one supplies the pipeline.
+description: Turn a written scenario into a finished Yolomotion reel (vertical voiceover short) end to end — scaffold the template, synthesise the voiceover in the author's voice, build the timeline and scenes, verify by stills, render. Use this whenever the user brings a script, scenario, brief, or idea for a video/Short/Reel in this repo, or asks to change one that already exists. Read it BEFORE remotion-motion-graphics; that skill supplies the motion craft, this one supplies the pipeline.
 ---
 
 # Reel production
@@ -18,10 +18,14 @@ scene code. Its 10 rules apply in full, with one standing exception below.
 
 - **Voiceover only.** No music bed, no SFX. This overrides the motion skill's
   mandatory sound-design layer. The user's cloned voice carries the whole track.
-- **The voice is always `C5E5SzeWkb4qtqn6iyao`** (listed in the ElevenLabs
-  account as `yoclips-5b48065a`). Never pick from the voice list; `me_v3` looks
-  like the personal clone and is the wrong one. `new-reel` writes the right id
-  into the manifest for you.
+- **The voice is the author's, by reference: `"voiceId": "${ELEVENLABS_VOICE_ID}"`**
+  (the author's own clone, `vEwyfyXy2Qc8PnNvEdqA`, since 2026-10-03). `new-reel`
+  writes the reference; `gen-voiceover` and the worker resolve it and refuse
+  to run if the variable is unset. Never pick from the voice list and never
+  paste a different id into a new manifest. Older manifests pin
+  `C5E5SzeWkb4qtqn6iyao` and stay as they are — re-voicing costs money and
+  moves every timing. English reads: `"modelId": "eleven_v3"` +
+  `"languageCode": "en"`.
 - **Format**: `reel`, 1080×1920, 30fps, ~30s. Composition id is `<id>-reel`.
 - **One hero color per reel**, at most one glowing element per frame. A second
   signal color (a "bad"/problem color) is allowed only if it is equally scarce.
@@ -118,7 +122,7 @@ npm run new-reel -- <id> --name "Title" --beats hook,overlap,counter,tax,fix,fin
 ```
 
 Creates the template folder wired to the engine, the voiceover manifest with
-the house voice, a scenario stub (kept if you already wrote one), and the
+the author's voice (`${ELEVENLABS_VOICE_ID}`), a scenario stub (kept if you already wrote one), and the
 registry entry. It is idempotent per registry; pass `--force` to re-scaffold.
 
 ### 3. Voiceover
@@ -279,6 +283,56 @@ the answer, figures are phrased exactly as loosely as the reel phrases them,
 and the CTA is a question that invites a one-word comment. Tell the user to
 pin their own first comment under any reel that asks a question — measured, a
 CTA in the last beat alone returned 0 comments (`references/retention.md`).
+
+## Cloud runs (claude.ai/code)
+
+The session-start hook prints «CLOUD SESSION» when this runs on a Claude Code
+cloud VM (`scripts/cloud/`). The user's whole request is the prompt; the
+pipeline above is unchanged, with these differences.
+
+**What works here.** Graphic reels on a voiceover: scaffold, voiceover,
+scenes, stills (`npm run stills` — read the PNGs yourself, the user cannot see
+this machine), render. **What does not:** the Swift tools (`matte`,
+`transcribe`, `facecrop`, `qrcheck` — macOS only), and anything in
+`packages/video/public/` — images, footage, earlier voiceovers are not in git.
+A scenario whose `улика:` lines need a photo or a screencast is built with
+that beat graphic and the gap listed under *Deviations*; an existing reel
+re-rendered here comes out silent. Say so up front rather than at delivery.
+
+**Two checkpoints, unless the prompt waives them.**
+1. *Text.* Write the scenario file and the manifest lines, commit and push the
+   session branch, paste the spoken text into the chat and stop. Skip only if
+   the prompt says the text is approved («текст утверждён», «без согласования»).
+2. *Money.* Before `npm run voiceover`: count the characters of the lines being
+   synthesised, read the balance (`GET https://api.elevenlabs.io/v1/user/subscription`
+   → `character_count` / `character_limit`, free), quote both, stop. A prompt
+   may pre-authorise a ceiling («озвучку разрешаю», «до 3000 символов») —
+   then go ahead within it. HeyGen is never pre-authorised: always quote the
+   dry run and wait. After synthesis, report the balance before → after.
+
+**Delivery — before the VM is gone.** The mp4 and the paid mp3s exist only on
+this machine. Push them to their own orphan branch so the code branch (and
+`main` after the PR) never carries a binary:
+
+```bash
+export GIT_INDEX_FILE=$(mktemp -u)
+git add -f out/<id>-reel.mp4 packages/video/public/voiceover/<id>
+tree=$(git write-tree); unset GIT_INDEX_FILE
+git push origin "$(git commit-tree "$tree" -m "render: <id>")":refs/heads/render/<id>
+```
+
+If the proxy refuses that branch name, push the same commit to
+`<session-branch>-render`; if that is refused too, tell the user to
+`claude --teleport` and stop — never commit the mp4 onto the code branch.
+Code goes on the session branch as usual (the user opens the PR). The delivery
+note adds the mp4 link
+(`https://github.com/kinzarra/yolomotion/blob/render/<id>/out/<id>-reel.mp4`)
+and the local restore:
+
+```bash
+git fetch origin render/<id>
+git restore --source origin/render/<id> --worktree -- out/<id>-reel.mp4 packages/video/public/voiceover/<id>
+```
 
 ## Reference
 

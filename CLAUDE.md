@@ -92,9 +92,19 @@ See README.md for the full architecture and the SaaS roadmap.
   costs $0.03 more on a 5s insert — take it. Balance:
   `GET /v3/users/me → wallet`.
   See `scripts/scenarios/dollar-wait-presenter.md`.
-  **The voice is always `C5E5SzeWkb4qtqn6iyao`** (listed in the account as
-  `yoclips-5b48065a`). Do not pick a voice from the ElevenLabs voice list —
-  `me_v3` looks like the personal clone and is the wrong one.
+  **The voice is `${ELEVENLABS_VOICE_ID}`** — the author's own clone
+  (`vEwyfyXy2Qc8PnNvEdqA`), the default for every new reel since 2026-10-03.
+  New manifests carry the reference, not the id; `gen-voiceover` and
+  `worker:enqueue` resolve it and fail if it is unset. Older manifests pin
+  `C5E5SzeWkb4qtqn6iyao` (yoclips clone) and stay pinned — re-voicing would
+  invalidate their durations. Never pick a voice from the ElevenLabs list.
+- **Cloud runs** (claude.ai/code): a reel can be ordered by prompt alone.
+  `scripts/cloud/setup.sh` goes into the environment's Setup script, the
+  SessionStart hook (`.claude/settings.json` → `scripts/cloud/session-start.sh`,
+  no-op off the cloud) installs deps and Chrome; the env needs
+  `ELEVENLABS_API_KEY` + `ELEVENLABS_VOICE_ID` and Full network. Checkpoints
+  and delivery (orphan `render/<id>` branch with the mp4 and the paid mp3s) are
+  in the reel-production skill, «Cloud runs».
 - `npm run footage -- scripts/footage/<id>.json` — нарезка улик из
   скринкастов/видео. Конфиг задаёт один общий `crop` в координатах исходника и
   список шотов (`file`, `in`, `out`, `proves`); скрипт режет в 30fps/1080,

@@ -16,10 +16,10 @@ await tx(async (c) => {
   const ownerId = (owner.rows[0] as { id: number }).id;
 
   // Ключи владельца. Секреты — ссылками на env; открытые id — значениями
-  // (голос всегда yoclips-5b48065a, см. CLAUDE.md: me_v3 — неправильный).
+  // Голос — ссылкой на ELEVENLABS_VOICE_ID (голос автора, см. CLAUDE.md).
   const creds: [string, string | null, string | null][] = [
     ["elevenlabs_api_key", "ELEVENLABS_API_KEY", null],
-    ["elevenlabs_voice_id", null, "C5E5SzeWkb4qtqn6iyao"],
+    ["elevenlabs_voice_id", "ELEVENLABS_VOICE_ID", null],
     ["heygen_api_key", "HEYGEN_API_KEY", null],
     ["heygen_avatar_group_id", null, "1b80626e44c945edbad8f5024ce9163b"],
     ["heygen_avatar_view_id", "HEYGEN_AVATAR_VIEW_ID", null],

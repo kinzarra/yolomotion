@@ -1,5 +1,5 @@
 // Scaffolds a new voiceover reel: template skeleton wired to the reel engine,
-// a voiceover manifest with the house voice, a scenario file, and the registry
+// a voiceover manifest in the author's voice, a scenario file, and the registry
 // entry. Everything mechanical about starting a reel happens here so the only
 // work left is the scenario itself — palette, timeline, scenes.
 //
@@ -12,7 +12,8 @@ import { mkdir, readFile, writeFile, access } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
-const HOUSE_VOICE = "C5E5SzeWkb4qtqn6iyao"; // yoclips clone — see CLAUDE.md
+// Resolved from the env by gen-voiceover — see CLAUDE.md, «The voice».
+const VOICE_REF = "${ELEVENLABS_VOICE_ID}";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const repoRoot = path.resolve(root, "../..");
@@ -263,13 +264,14 @@ for (const [rel, content] of Object.entries(files)) {
   await writeFile(target, content);
 }
 
-// Voiceover manifest — the house voice, never picked from the ElevenLabs list.
+// Voiceover manifest — the author's voice by env reference, never picked from
+// the ElevenLabs list.
 const manifestPath = path.join(root, "scripts/voiceover", `${id}.json`);
 await writeFile(
   manifestPath,
   `${JSON.stringify(
     {
-      voiceId: HOUSE_VOICE,
+      voiceId: VOICE_REF,
       outDir: `public/voiceover/${id}`,
       modelId: "eleven_multilingual_v2",
       voiceSettings: {

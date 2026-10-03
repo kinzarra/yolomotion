@@ -19,6 +19,13 @@ const flag = (name: string): string | undefined => {
 const has = (name: string): boolean => args.includes(`--${name}`);
 const readText = (p: string | undefined): string | null =>
   p ? readFileSync(path.resolve(REPO_ROOT, p), "utf8") : null;
+const resolveVoiceId = (raw: string | undefined): string => {
+  const name = raw?.match(/^\$\{(\w+)\}$/)?.[1] ?? (raw ? null : "ELEVENLABS_VOICE_ID");
+  const id = name ? process.env[name] : raw;
+  if (!id) throw new Error(`${name} is not set — refusing to guess a voice`);
+  return id;
+};
+
 const readJson = (p: string | undefined): unknown => {
   const raw = readText(p);
   return raw ? JSON.parse(raw) : null;
@@ -65,7 +72,7 @@ const ids = await tx(async (c) => {
       projectId = (p.rows[0] as { id: number }).id;
     }
     const rawManifest = readJson(flag("manifest")) as {
-      voiceId: string;
+      voiceId?: string;
       modelId?: string;
       voiceSettings?: Record<string, unknown>;
       lines: [string, string][];
@@ -74,7 +81,9 @@ const ids = await tx(async (c) => {
     // скриптового манифеста — его локальные дела.
     const manifest = rawManifest
       ? {
-          voiceId: rawManifest.voiceId,
+          // "${ELEVENLABS_VOICE_ID}" резолвится здесь: в строку видео едет
+          // конкретный голос, и перегенерация через год звучит так же.
+          voiceId: resolveVoiceId(rawManifest.voiceId),
           modelId: rawManifest.modelId,
           voiceSettings: rawManifest.voiceSettings,
           lines: rawManifest.lines,
