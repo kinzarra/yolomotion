@@ -9,6 +9,7 @@
     "sfx": "node scripts/gen-sfx.mjs && node scripts/gen-track.mjs && node scripts/gen-yoloco-audio.mjs",
     "voiceover": "node scripts/gen-voiceover.mjs",
     "footage": "node scripts/gen-footage.mjs",
+    "fetch-footage": "node scripts/fetch-footage.mjs",
     "captions": "node scripts/gen-weighted-captions.mjs",
     "heygen": "node scripts/gen-heygen.mjs",
     "new-reel": "node scripts/new-reel.mjs"

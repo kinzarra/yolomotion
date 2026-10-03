@@ -118,6 +118,13 @@ See README.md for the full architecture and the SaaS roadmap.
   всё обратно на те же пути и применяет код (без коммита). `dubai-economy`
   (ВЫПУСК 07) живёт только там. Бинарники в git не коммитятся никогда — ни в ветку
   кода, ни в отдельную.
+- `npm run fetch-footage -- search <id> "<query>"` / `get <id> <source:id> --name <file>`
+  — легальный видео-футаж: Pexels, Pixabay, Wikimedia Commons (CC0/PD/CC BY,
+  без SA/NC/ND), YouTube только Creative Commons (лицензия проверяется до
+  скачивания, `yt-dlp`). Превью кандидатов — в `out/fetch-footage/<id>/thumbs/`,
+  файл — в `public/media/<id>/` + `credits.json` с готовой строкой титров.
+  Ключи `PEXELS_API_KEY`, `PIXABAY_API_KEY`. Чужие ролики вне CC не качать:
+  Content ID → claim/страйк.
 - `npm run footage -- scripts/footage/<id>.json` — нарезка улик из
   скринкастов/видео. Конфиг задаёт один общий `crop` в координатах исходника и
   список шотов (`file`, `in`, `out`, `proves`); скрипт режет в 30fps/1080,

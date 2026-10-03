@@ -9,7 +9,7 @@ cd "$root" || exit 0
 log() { echo "[cloud-setup] $*" >&2; }
 
 # System layer — normally cached by the environment's setup script.
-command -v ffprobe >/dev/null || bash scripts/cloud/setup.sh >&2
+{ command -v ffprobe >/dev/null && command -v yt-dlp >/dev/null; } || bash scripts/cloud/setup.sh >&2
 
 # Dependencies: once per lock file.
 stamp=node_modules/.lock-hash
@@ -58,6 +58,8 @@ command -v ffprobe >/dev/null || problems+=("ffmpeg/ffprobe missing — voiceove
 [ -n "${ELEVENLABS_VOICE_ID:-}" ] || problems+=("ELEVENLABS_VOICE_ID is not set — voiceover will refuse to run")
 [ -n "${S3_BUCKET:-}${S3_AVATAR_BUCKET:-}" ] || problems+=("S3_BUCKET is not set — the finished mp4 cannot be delivered (npm run deliver)")
 [ -n "${PEXELS_API_KEY:-}" ] || problems+=("PEXELS_API_KEY is not set — no stock video clips, only Wikimedia Commons")
+[ -n "${PIXABAY_API_KEY:-}" ] || problems+=("PIXABAY_API_KEY is not set — fetch-footage skips Pixabay")
+command -v yt-dlp >/dev/null || problems+=("yt-dlp missing — fetch-footage skips YouTube Creative Commons")
 
 cat <<'EOF'
 CLOUD SESSION (claude.ai/code). Follow the «Cloud runs» section of

@@ -99,13 +99,32 @@ code — not on the centre.
 |---|---|---|---|
 | Screenshots (listings, GitHub, a terminal) | evidence | free, a minute to capture | blur names, logos, anything identifying a third party |
 | Wikimedia Commons (CC BY / CC0) | places, objects, events, real people; **video too** (webm/ogv) | free | credit line on screen + `CREDITS.md`; cut subjects with `scripts/matte.swift` (Mac only) |
-| Pexels videos/photos (`PEXELS_API_KEY`) | clips of places, work, cities, money | free, no credit required | `GET https://api.pexels.com/videos/search?query=…&orientation=portrait` with header `Authorization: $PEXELS_API_KEY`; reads as stock unless graded and scrimmed; cut with `npm run footage` |
+| Pexels video (`PEXELS_API_KEY`) | clips of places, work, cities, money; many vertical | free, no credit | graded and scrimmed, or it reads as stock |
+| Pixabay video (`PIXABAY_API_KEY`) | same, plus drone shots | free, no credit | same |
+| YouTube, **Creative Commons only** (`yt-dlp`) | real events, reportage, things stock does not have | free, **credit required** | the licence is checked per video before download; `--from/--to` fetches only the seconds you need |
 | Own phone footage | presence, texture | free | one light, one framing, shot vertical |
 | HeyGen avatar | presence | per second, see CLAUDE.md | lip-sync to the house clips, never HeyGen TTS; agree the price first |
 | AI video (Runway / Kling / Veo) | spectacle | $ per clip | artefacts at 1080 vertical; every generation is verified like a still; once per reel |
 | HeyGen B-roll / image credits | to test | free credits sit in the quota | unknown quality — a free test, not a plan |
 
 ## Pipeline
+
+**Video first.** For every beat, search for a clip before settling for a photo:
+
+```bash
+npm run fetch-footage -- search <id> "<query in English>" [--source pexels,pixabay,commons,youtube-cc] [--count 5]
+# read out/fetch-footage/<id>/thumbs/*.jpg — pick by the frame, not the title
+npm run fetch-footage -- get <id> <source:id> --name 05-port [--from 12 --to 20]
+```
+
+Raw files land in `public/media/<id>/` with `credits.json` (source, author,
+licence, and the exact on-screen `credit` when the licence requires one). Cut
+them with `scripts/footage/<id>.json` (`"sourceDir": "../../public/media/<id>"`)
+and `npm run footage`. Every `credit` goes into the closing beat's credit line.
+Nothing from YouTube outside Creative Commons, nothing from news sites, TV or
+other creators' channels — Content ID claims a Short within hours, and three
+strikes delete the channel.
+
 
 Same discipline as voiceover: measured numbers are generated, never typed.
 

@@ -11,7 +11,7 @@
 set -u
 
 export DEBIAN_FRONTEND=noninteractive
-command -v ffprobe >/dev/null && dpkg -s libnss3 >/dev/null 2>&1 && exit 0
+command -v ffprobe >/dev/null && dpkg -s libnss3 >/dev/null 2>&1 && command -v yt-dlp >/dev/null && exit 0
 
 apt-get update -qq || exit 0
 apt-get install -y -qq --no-install-recommends \
@@ -20,6 +20,12 @@ apt-get install -y -qq --no-install-recommends \
   libxfixes3 libxcomposite1 libxdamage1 libatk-bridge2.0-0 libpango-1.0-0 \
   libcairo2 libcups2 fonts-liberation fonts-noto-color-emoji || true
 apt-get install -y -qq libasound2t64 2>/dev/null || apt-get install -y -qq libasound2 || true
+
+# yt-dlp — fetch-footage's youtube-cc source (Creative Commons videos only).
+command -v yt-dlp >/dev/null || {
+  curl -fsSL https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp -o /usr/local/bin/yt-dlp \
+    && chmod +x /usr/local/bin/yt-dlp
+} || true
 
 # Never fail the environment: a missing package surfaces in session-start.sh
 # with a readable message instead of a session that refuses to start.
