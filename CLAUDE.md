@@ -105,6 +105,10 @@ See README.md for the full architecture and the SaaS roadmap.
   `ELEVENLABS_API_KEY` + `ELEVENLABS_VOICE_ID` and Full network. Checkpoints
   and delivery (orphan `render/<id>` branch with the mp4 and the paid mp3s) are
   in the reel-production skill, «Cloud runs».
+  **From Telegram:** `bots/telegram/` is a Cloudflare Worker that lets only the
+  author's Telegram ID through and fires a Claude Code routine with the message
+  as payload; the session reports back with `scripts/cloud/tg.sh`. Setup and the
+  routine's saved prompt: `bots/telegram/README.md`.
 - `npm run footage -- scripts/footage/<id>.json` — нарезка улик из
   скринкастов/видео. Конфиг задаёт один общий `crop` в координатах исходника и
   список шотов (`file`, `in`, `out`, `proves`); скрипт режет в 30fps/1080,
