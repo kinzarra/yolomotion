@@ -25,6 +25,22 @@ const loadDotenv = (): void => {
 };
 loadDotenv();
 
+const s3Config = () => {
+  const e = process.env;
+  const bucket = e.S3_BUCKET ?? e.S3_AVATAR_BUCKET;
+  if (!bucket) return null;
+  const endpoint = e.S3_ENDPOINT ?? e.S3_ENDPOINT_URL; // undefined = AWS
+  return {
+    bucket,
+    endpoint,
+    // Yandex Object Storage подписывается только регионом ru-central1.
+    region: e.S3_REGION ?? (endpoint?.includes("yandexcloud") ? "ru-central1" : "auto"),
+    accessKeyId: e.S3_ACCESS_KEY_ID ?? e.S3_ACCESS_KEY ?? "",
+    secretAccessKey: e.S3_SECRET_ACCESS_KEY ?? e.S3_SECRET_KEY ?? "",
+    prefix: (e.S3_PREFIX ?? "yolomotion").replace(/^\/+|\/+$/g, ""),
+  };
+};
+
 export const env = {
   databaseUrl:
     process.env.DATABASE_URL ??
@@ -55,13 +71,9 @@ export const env = {
   // S3-совместимое хранилище (Hetzner Object Storage / R2 / AWS). Без этих
   // переменных воркер работает локально, реестр asset не ведётся —
   // регенерация из БД+S3 требует их на сервере.
-  s3: process.env.S3_BUCKET
-    ? {
-        bucket: process.env.S3_BUCKET,
-        endpoint: process.env.S3_ENDPOINT, // undefined = AWS
-        region: process.env.S3_REGION ?? "auto",
-        accessKeyId: process.env.S3_ACCESS_KEY_ID ?? "",
-        secretAccessKey: process.env.S3_SECRET_ACCESS_KEY ?? "",
-      }
-    : null,
+  // Имена S3_ENDPOINT_URL / S3_ACCESS_KEY / S3_SECRET_KEY / S3_AVATAR_BUCKET —
+  // из соседнего проекта (yoclips), их .env копируется как есть; канонические
+  // S3_* побеждают. Всё наше лежит под префиксом (S3_PREFIX, по умолчанию
+  // yolomotion/), чтобы не путаться с чужими файлами в общем бакете.
+  s3: s3Config(),
 };

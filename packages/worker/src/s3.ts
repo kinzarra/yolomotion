@@ -1,5 +1,6 @@
 // S3-реестр файлов видео: бинарники в бакете, строки в asset. Ключи —
-// videos/v<id>/<kind>/<name>; kind 'render' лежит плоско (videos/v<id>/out.mp4).
+// <prefix>/videos/v<id>/<kind>/<name>; kind 'render' лежит плоско
+// (<prefix>/videos/v<id>/out.mp4). Старые строки asset хранят свой s3_key целиком.
 import { createHash } from "node:crypto";
 import { existsSync } from "node:fs";
 import { readFile, writeFile } from "node:fs/promises";
@@ -41,7 +42,7 @@ const CONTENT_TYPES: Record<string, string> = {
 };
 
 export const s3KeyFor = (videoId: number, kind: AssetKind, name: string): string =>
-  kind === "render" ? `videos/v${videoId}/${name}` : `videos/v${videoId}/${kind}/${name}`;
+  `${env.s3!.prefix}/videos/v${videoId}/` + (kind === "render" ? name : `${kind}/${name}`);
 
 const sha256File = async (file: string): Promise<string> =>
   createHash("sha256").update(await readFile(file)).digest("hex");

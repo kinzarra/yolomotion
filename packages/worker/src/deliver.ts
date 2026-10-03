@@ -3,7 +3,7 @@
 // public/: озвучка, презентер, футаж, медиа. Бинарники в git не попадают.
 //   npm run deliver -- <id>              залить, напечатать ссылку на mp4
 //   npm run deliver -- <id> --restore    скачать обратно в те же пути
-// Ключ = reels/<id>/<путь от корня репо>, поэтому restore — зеркальная операция.
+// Ключ = <S3_PREFIX>/reels/<id>/<путь от корня репо>, поэтому restore — зеркальная операция.
 // Ссылка — presigned GET на 7 дней (потолок SigV4); S3_PUBLIC_URL, если бакет
 // публичный, даёт вечную. Env: S3_BUCKET, S3_ENDPOINT (пусто = AWS),
 // S3_REGION, S3_ACCESS_KEY_ID, S3_SECRET_ACCESS_KEY.
@@ -33,7 +33,7 @@ const s3 = new S3Client({
   forcePathStyle: Boolean(cfg.endpoint),
   credentials: { accessKeyId: cfg.accessKeyId, secretAccessKey: cfg.secretAccessKey },
 });
-const prefix = `reels/${id}/`;
+const prefix = `${cfg.prefix}/reels/${id}/`;
 
 const CONTENT_TYPES: Record<string, string> = {
   ".mp4": "video/mp4", ".webm": "video/webm", ".mov": "video/quicktime",

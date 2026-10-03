@@ -320,8 +320,8 @@ npm run deliver -- <id>
 ```
 
 It uploads `out/<id>-*.mp4` and `public/{voiceover,presenter,footage,media}/<id>*`
-to `s3://$S3_BUCKET/reels/<id>/<repo path>` and prints a 7-day download link
-for each mp4. If `S3_BUCKET` is not set, say so and tell the user to
+to `s3://<bucket>/yolomotion/reels/<id>/<repo path>` and prints a 7-day download link
+for each mp4. If S3 is not configured (the command says so), say so and tell the user to
 `claude --teleport` — do not fall back to committing binaries. Code goes on the
 session branch as usual (the user opens the PR). The delivery note carries the
 link and the local restore, which puts every file back where the reel expects

@@ -106,7 +106,7 @@ See README.md for the full architecture and the SaaS roadmap.
   are in the reel-production skill, «Cloud runs».
 - `npm run deliver -- <id> [--restore]` — выдача рила в S3: mp4 из `out/` и всё
   купленное/найденное в `public/{voiceover,presenter,footage,media}/<id>*` →
-  `s3://$S3_BUCKET/reels/<id>/<путь в репо>`, печатает ссылку на mp4 (presigned,
+  `s3://<бакет>/yolomotion/reels/<id>/<путь в репо>` (префикс — `S3_PREFIX`; имена переменных yoclips — `S3_ENDPOINT_URL`, `S3_ACCESS_KEY`, `S3_SECRET_KEY`, `S3_AVATAR_BUCKET` — тоже понимаются), печатает ссылку на mp4 (presigned,
   7 дней; `S3_PUBLIC_URL` — вечная для публичного бакета). `--restore` кладёт
   всё обратно на те же пути. Бинарники в git не коммитятся никогда — ни в ветку
   кода, ни в отдельную.
