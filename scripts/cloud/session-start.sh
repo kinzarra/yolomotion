@@ -57,6 +57,7 @@ command -v ffprobe >/dev/null || problems+=("ffmpeg/ffprobe missing — voiceove
 [ -n "${ELEVENLABS_API_KEY:-}" ] || problems+=("ELEVENLABS_API_KEY is not set in the cloud environment")
 [ -n "${ELEVENLABS_VOICE_ID:-}" ] || problems+=("ELEVENLABS_VOICE_ID is not set — voiceover will refuse to run")
 [ -n "${S3_BUCKET:-}${S3_AVATAR_BUCKET:-}" ] || problems+=("S3_BUCKET is not set — the finished mp4 cannot be delivered (npm run deliver)")
+[ -n "${PEXELS_API_KEY:-}" ] || problems+=("PEXELS_API_KEY is not set — no stock video clips, only Wikimedia Commons")
 
 cat <<'EOF'
 CLOUD SESSION (claude.ai/code). Follow the «Cloud runs» section of

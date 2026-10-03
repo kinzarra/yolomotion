@@ -31,11 +31,12 @@ scene code. Its 10 rules apply in full, with one standing exception below.
   signal color (a "bad"/problem color) is allowed only if it is equally scarce.
 - Colors, easings and springs come from `packages/video/src/theme.ts` and the
   reel's own `palette.ts`. Never inline a hex or an easing in a scene.
-- **Footage is evidence, not wallpaper.** A photo, screenshot or clip goes in
-  only when it proves a specific spoken line, lasts exactly that line, is
-  graded into the palette, and was named in the scenario. Never sprinkle
-  B-roll into a finished reel to make it "less graphic" —
-  `references/footage.md`.
+- **Every beat carries something real — a clip, a photo or a big number**
+  (the author, 2026-10-03). ≥ 4 video clips in a 60s reel, photos never
+  static, every spoken figure on screen as a moving number, an effect on every
+  cut. Still on topic, graded into the palette, in a container, as long as its
+  line, and named in the scenario — `references/footage.md` has the density
+  table, sources (Commons, Pexels) and the `dubai-economy` kit.
 - **A face costs money; the price is agreed before it is spent.** Run the
   HeyGen dry run, quote the figure and the engine, wait for the answer. The
   avatar lip-syncs to the house clips, never to HeyGen TTS.
@@ -111,8 +112,8 @@ turn for the back half, cut the reel shorter instead of padding it, and say so
 under *Deviations*. The numbers behind each of those are in
 `references/retention.md`.
 
-**Footage per beat is decided here** — an `улика:` line under the beat, or
-nothing. A beat with nothing stays graphic. `references/footage.md` has the
+**Footage per beat is decided here** — an `улика:` (or `цифра:`) line under
+EVERY beat; the density table in `references/footage.md` is the target. `references/footage.md` has the
 roles, containers, sources and the pipeline for the files.
 
 ### 2. Scaffold

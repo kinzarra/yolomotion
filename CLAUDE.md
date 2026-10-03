@@ -10,11 +10,12 @@ See README.md for the full architecture and the SaaS roadmap.
   `.claude/skills/reel-production/SKILL.md` FIRST. It is the pipeline:
   scenario file → `new-reel` → voiceover → (face → footage) → timeline →
   scenes → stills → render. Do not hand-roll a template.
-- **Footage is evidence, not wallpaper.** Photos, screenshots and clips enter
-  a reel only as an `улика:` line under a beat in the scenario, graded into
-  the palette, inside one of three containers (paper / screen / studio) —
-  `.claude/skills/reel-production/references/footage.md`. Never add B-roll
-  to a finished reel to make it "less graphic".
+- **Every beat carries something real — a video clip, a photo or a big
+  number** (the author, 2026-10-03: больше видео-фрагментов, эффектов, фото и
+  цифр). ≥ 4 clips per 60s, photos always moving, every spoken figure on
+  screen, an effect on every cut. Each shot is still about its line, graded
+  into the palette, inside a container (paper / screen / studio), and named in
+  the scenario as an `улика:` line — `.claude/skills/reel-production/references/footage.md`.
 - **Anything that costs money (HeyGen seconds, AI video) is quoted from a
   dry run and confirmed by the user before it is generated.** Say what the
   wallet did afterwards.

@@ -6,15 +6,29 @@ choice below.
 
 ## The rule
 
-**Footage is evidence, not wallpaper.** A shot goes in only when it proves a
-specific spoken line — a job listing with the real number of applicants, a
-terminal where the assistant is writing the test, a document with the figure
-on it. A shot that proves nothing is decoration, and the graphics do
-decoration better and cheaper.
+**Every beat carries something real — a clip, a photo or a big number.**
+(The author, 2026-10-03: «больше видео-фрагментов, эффектов, фото и цифр».)
+A beat of pure abstract graphics is the exception now, not the default.
+What has not changed: the shot is about the line under it, it is graded into
+the palette, it sits in one of the three containers, and it lasts its line —
+footage on topic and in the series look, never stock pasted full-frame.
 
-Corollary: a shot lasts exactly as long as the line it proves. Graphics can
-hold 8s because something keeps building inside them; a still or a stock clip
-is read in 3s and is dead after that.
+Density for a ~60s reel (scale for other lengths):
+
+| what | how much | how it moves |
+|---|---|---|
+| **video clips** | ≥ 4, about every third beat; prefer a clip over a still whenever a source has one | 1.5–3s each, hard cuts (`FlashCut` / `CutZoom`), scrim + grade |
+| **photos** | on most remaining beats; 2–3 per beat is fine when they stack | never static: Ken Burns to a focus point, printed photo dropping in, stack/collage, before→after split, punch-in on a detail with a ring |
+| **numbers** | every figure the voice says is on screen, big | counter roll-up to the value, odometer, bars that grow, % ring, a number stamped onto the photo it is about |
+| **effects** | on every cut and every reveal | flash cut, cut zoom, scan sweep, glitch on the type (never on a scrim), whip between photos |
+
+Corollary kept: a shot lasts as long as its line. A still read in 3s is dead
+after that — cut to the next one or start the number moving over it.
+
+`dubai-economy` (ВЫПУСК 07) is the working kit for all of this — `Photo`,
+`Clip`, `PrintedPhoto`, `Scrim`, `Sweep`, `FlashCut`, `CutZoom` in its
+`ui.tsx`. It lives in S3: `npm run deliver -- dubai-economy --restore`, then
+re-export it like any earlier episode.
 
 ## Four roles
 
@@ -26,8 +40,8 @@ is read in 3s and is dead after that.
 | **spectacle** | AI video, an expensive render | "the bottom steps of the staircase dissolve" as a real scene | once per reel, on the main insight |
 
 Cheapest and strongest: evidence. Most expensive and riskiest: spectacle.
-A reel that adds footage should start with evidence and stop there unless the
-brief explicitly asks for more.
+Evidence and texture together fill the density table above; spectacle stays
+once per reel.
 
 ## Scenario first
 
@@ -39,8 +53,10 @@ shot gets one line:
    - улика: скриншот вакансии с числом откликов, печатается на чеке
 ```
 
-If the brief has no evidence to offer for a beat, the beat stays graphic. Do
-not go looking for "something visual" — that is how stock footage gets in.
+Every beat gets an `улика:` line (or a `цифра:` line when the beat is a
+number). If the brief offers no evidence for a beat, find a shot of the thing
+the line is about — the place, the object, the people doing it — from the
+sources below, and name it in the scenario like any other.
 
 ## Three containers that keep the look
 
@@ -82,8 +98,8 @@ code — not on the centre.
 | source | for | cost | watch out |
 |---|---|---|---|
 | Screenshots (listings, GitHub, a terminal) | evidence | free, a minute to capture | blur names, logos, anything identifying a third party |
-| Wikimedia Commons, CC BY | presence of real people, texture | free | credit line on screen + `CREDITS.md`; photos only; cut subjects with `scripts/matte.swift` |
-| Pexels / Pixabay | texture | free, no credit required | reads as stock unless graded and scrimmed; keep under 2s |
+| Wikimedia Commons (CC BY / CC0) | places, objects, events, real people; **video too** (webm/ogv) | free | credit line on screen + `CREDITS.md`; cut subjects with `scripts/matte.swift` (Mac only) |
+| Pexels videos/photos (`PEXELS_API_KEY`) | clips of places, work, cities, money | free, no credit required | `GET https://api.pexels.com/videos/search?query=…&orientation=portrait` with header `Authorization: $PEXELS_API_KEY`; reads as stock unless graded and scrimmed; cut with `npm run footage` |
 | Own phone footage | presence, texture | free | one light, one framing, shot vertical |
 | HeyGen avatar | presence | per second, see CLAUDE.md | lip-sync to the house clips, never HeyGen TTS; agree the price first |
 | AI video (Runway / Kling / Veo) | spectacle | $ per clip | artefacts at 1080 vertical; every generation is verified like a still; once per reel |
@@ -149,6 +165,7 @@ the geometry). What the scenario has to decide:
 - A shot held past its line.
 - A third signal color arriving inside a clip. Grade it out.
 - A clip at 25 fps dropped into a 30 fps reel and "it looks fine".
-- Footage in the first cut of a reel that the scenario never asked for. If
-  the user says «чтобы не было чисто графики», the answer is evidence per
-  beat, agreed in the scenario — not B-roll sprinkled in afterwards.
+- Footage the scenario never named. More footage is the rule now, but it is
+  still planned beat by beat in the scenario, not sprinkled on afterwards.
+- An identifiable person next to a negative claim (a «fake», «bot», «failed»
+  verdict) — use faceless shots there.
