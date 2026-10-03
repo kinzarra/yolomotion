@@ -1,5 +1,0 @@
-# Cloudflare Worker for the Telegram bot. Every value it needs is a secret
-# (see README.md) — nothing account-specific is committed here.
-name = "yolomotion-tg"
-main = "index.js"
-compatibility_date = "2026-09-01"

@@ -334,26 +334,6 @@ git fetch origin render/<id>
 git restore --source origin/render/<id> --worktree -- out/<id>-reel.mp4 packages/video/public/voiceover/<id>
 ```
 
-### Orders from Telegram
-
-A run started by the routine (`bots/telegram/`) carries a payload
-`{chat_id, message_id, text}`: `text` is the order, the chat is where every
-report goes. Run `scripts/cloud/tg.sh order <chat_id> <message_id>` once (an
-`export` would not survive to the next command), then use `scripts/cloud/tg.sh`
-(plain text, no markdown) for:
-
-- **receipt** — `msg "Принял: <id>, <one-line plan>"`, before anything else;
-- **each checkpoint** — the spoken text, or the character count + balance, ending
-  with «ответ — в сессии по ссылке от бота». The author cannot answer in
-  Telegram; the session waits for a reply in itself;
-- **a blocker** — what failed and what is needed, before stopping;
-- **delivery** — `video out/<id>-reel.mp4 "<id> · <duration>s · <spend>"`, then
-  the delivery note as `msg`. Exit 3 (over 50 MB) → send the `render/<id>` link
-  instead. The orphan-branch push above still happens: Telegram is not storage.
-
-An order that names no checkpoints waives nothing; «текст утверждаю» /
-«озвучку разрешаю до N символов» waive exactly what they say.
-
 ## Reference
 
 `references/engine.md` — the reel engine API: `Reel`, `Scene`, `buildScenes`,
