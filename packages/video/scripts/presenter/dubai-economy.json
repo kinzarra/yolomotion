@@ -1,0 +1,26 @@
+{
+  "_comment": "Одна студийная врезка в хуке, 0:00–0:03.25: лицо говорит первую фразу («Нефть даёт Дубаю всего около процента экономики.»), на паузе 3.18–3.33 с в клипе — рез в графику с «≈1%» и вопросом. Аватар лип-синкается под готовый public/voiceover/dubai-economy/01-hook.mp3, durations.ts не меняется.",
+  "avatarId": "${HEYGEN_AVATAR_VIEW_ID}",
+  "_avatar": "Podcast host in blue hoodie из группы Philipp — тот же студийный PHOTO avatar, что в no-it-in-russia и gasoline-inflation.",
+  "avatarKind": "photo",
+  "engine": "avatar_iv",
+  "voiceoverDir": "public/voiceover/dubai-economy",
+  "outDir": "public/presenter/dubai-economy",
+  "templateId": "dubai-economy",
+  "resolution": "1080p",
+  "outputFormat": "mp4",
+  "concatAspect": "16:9",
+  "voRate": 1,
+  "shots": [
+    {
+      "id": "p1-hook",
+      "clip": "01-hook",
+      "from": 0,
+      "to": 3.25,
+      "style": "fullbleed",
+      "reelIn": 0,
+      "reelOut": 3.25,
+      "says": "Нефть даёт Дубаю всего около процента экономики."
+    }
+  ]
+}
