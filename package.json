@@ -10,7 +10,14 @@
     "stills": "npm run stills -w @yolomotion/renderer --",
     "sfx": "npm run sfx -w @yolomotion/video",
     "voiceover": "npm run voiceover -w @yolomotion/video --",
+    "footage": "npm run footage -w @yolomotion/video --",
     "heygen": "npm run heygen -w @yolomotion/video --",
-    "new-reel": "npm run new-reel -w @yolomotion/video --"
+    "new-reel": "npm run new-reel -w @yolomotion/video --",
+    "worker": "npm run worker -w @yolomotion/worker",
+    "worker:migrate": "npm run migrate -w @yolomotion/worker",
+    "worker:enqueue": "npm run enqueue -w @yolomotion/worker --",
+    "worker:seed": "npm run seed -w @yolomotion/worker",
+    "worker:stats": "npm run collect-stats -w @yolomotion/worker",
+    "worker:connect-youtube": "npm run connect-youtube -w @yolomotion/worker --"
   }
 }

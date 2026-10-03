@@ -1,0 +1,19 @@
+# Секреты НИКОГДА не попадают в образ — ключи приезжают через .env_prod/Vault.
+.env
+.env.*
+
+# Ставится внутри образа из package-lock.json.
+node_modules
+packages/*/node_modules
+
+# Рендеры и артефакты верификации — гигабайты, в образе им делать нечего.
+out
+
+# Локальный мусор.
+.git
+.idea
+.DS_Store
+main.py
+/scenarios
+yolocosocial_logo.jpeg
+.claude/settings.local.json

@@ -21,6 +21,11 @@ import { dollarWait } from "./dollar-wait";
 import { noItInRussia } from "./no-it-in-russia";
 import { brandsPayingMore } from "./brands-paying-more";
 import { youtubeNetflix } from "./youtube-netflix";
+import { gasolineInflation } from "./gasoline-inflation";
+import { unicornCafe } from "./unicorn-cafe";
+import { yoclipsPromo } from "./yoclips-promo";
+import { yolocoMcp } from "./yoloco-mcp";
+import { yolocoExplorer, yolocoExplorerRu } from "./yoloco-explorer";
 
 export const templates: VideoTemplate<any>[] = [
   logoSting,
@@ -42,4 +47,10 @@ export const templates: VideoTemplate<any>[] = [
   noItInRussia,
   brandsPayingMore,
   youtubeNetflix,
+  gasolineInflation,
+  unicornCafe,
+  yoclipsPromo,
+  yolocoMcp,
+  yolocoExplorer,
+  yolocoExplorerRu,
 ];

@@ -10,7 +10,12 @@ export type VideoTemplate<Schema extends z.ZodTypeAny = z.ZodTypeAny> = {
   description: string;
   schema: Schema;
   defaultProps: z.infer<Schema>;
-  durationInSeconds: number;
+  // A constant, or a function of the input props for templates whose length
+  // depends on what the caller sends (server-side renders pass re-measured
+  // clip durations / beat lengths as props). The function form is wired into
+  // the composition as `calculateMetadata`, so Studio and `selectComposition`
+  // both honour it — a render job never has to know how long the video is.
+  durationInSeconds: number | ((props: z.infer<Schema>) => number);
   fps?: number; // defaults to DEFAULT_FPS
   formats: FormatId[];
   component: React.FC<z.infer<Schema>>;

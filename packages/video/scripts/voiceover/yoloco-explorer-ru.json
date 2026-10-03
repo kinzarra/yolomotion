@@ -1,0 +1,43 @@
+{
+  "voiceId": "vEwyfyXy2Qc8PnNvEdqA",
+  "outDir": "public/voiceover/yoloco-explorer-ru",
+  "durationsModule": "src/templates/yoloco-explorer/durations-ru.ts",
+  "modelId": "eleven_v3",
+  "voiceSettings": {
+    "stability": 0.5,
+    "similarity_boost": 0.8
+  },
+  "_voice": "Author's voice vEwyfyXy2Qc8PnNvEdqA («Philipp Why?», cloned from Russian speech) — author 2026-10-02: «Русский нужно переделать! vEwyfyXy2Qc8PnNvEdqA СДЕЛАЙ норм ОЗВУЧКУ». eleven_v3 + language_code ru + tags; per line 2× v3 and 1× multilingual_v2 compared, v3 won on word accuracy (ASR errors 7 vs 10 across the reel). Both cuts are on this voice now.",
+  "_reading": "eleven_v3 + language_code ru + audio tags ([excited], [playful]…) and «!» for energy — the author's review 2026-10-02: «на русском НАДО сделать БОЛЬШЕ эмоций… активнее и живее». Measured: pitch range on v3 6.6/10.2/9.8 semitones vs 4.9/7.6/7.8 on multilingual_v2 (hook/pick/more), words intact by ASR. Brand «Йо́у-ло́кко Подбо́р» (author: «произносится ЙоуЛОККО»); «И И» for ИИ (v3 reads «И-И» as one «и»). Tags and «!» are for the read; captions keep the approved text.",
+  "lines": [
+    [
+      "01-hook",
+      "[excited] Мы найдём любых блогеров за три минуты! Таксисты из Нигерии! Мамочки из Австралии! Финансисты из Нью-Йорка! Засекайте!"
+    ],
+    [
+      "02-prompt",
+      "[excited] Это Йо́у-ло́кко Подбо́р! Опишите своими словами, каких блогеров ищете. И И разберёт бриф и сам соберёт подборку блогеров!"
+    ],
+    [
+      "03-results",
+      "[cheerfully] Он прочёсывает Инстаграм, ТикТок, Ютуб и Телеграм, и приносит блогеров к вам на блюдечке! У каждого оценка и причина, почему он подходит."
+    ],
+    [
+      "04-pick",
+      "[playful] Оставить или вычеркнуть. Одно касание! Это Тиндер для маркетолога: свайп влево или вправо!"
+    ],
+    [
+      "05-more",
+      "[enthusiastic] Жмёте «Найти ещё»! И И учится на вашем выборе, и каждый раунд точнее!"
+    ],
+    [
+      "06-export",
+      "[excited] Выгрузка в Эксель, и почты уже внутри! Можно сразу писать!"
+    ],
+    [
+      "07-cta",
+      "[excited] Йо́у-ло́кко Подбо́р! Любые блогеры за три минуты! Ссылка в профиле!"
+    ]
+  ],
+  "languageCode": "ru"
+}

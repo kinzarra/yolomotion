@@ -8,7 +8,12 @@ import { BrandBar, Counter, Kinetic, Rise, SceneShell, Strike, useIn } from "../
 export const HookScene: React.FC = () => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
-  const strikeAt = 1.4 * fps;
+  // Both keyed to the read, not to the scene. The house clone phrases the line
+  // «A million followers · doesn't mean a million customers» — the old voice
+  // ran it together, this one holds a beat at 1.20–1.28s of the mix. So the
+  // strike lands on the "doesn't" onset (measured at 1.30s in the render) and
+  // the verdict plate slams at the close of "mean", just before the next beat.
+  const strikeAt = 1.3 * fps;
   const slamAt = 1.68 * fps;
 
   const numberIn = useIn(-6, "snappy");

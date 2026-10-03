@@ -25,7 +25,13 @@ See README.md for the full architecture and the SaaS roadmap.
   (`Reel`, `Scene`, `buildScenes`, `defineVoiceover`, shared `Captions`).
   Never copy a caption engine or a voiceover track into a template again.
 - Clip durations live in the generated `templates/<id>/durations.ts`. Never
-  type a measured duration by hand; never edit that file.
+  type a measured duration by hand; never edit that file. For server renders a
+  template may additionally accept `durations` / `beats` / `voiceoverDir`
+  overrides through input props: the timeline becomes `makeTimeline(overrides)`
+  and `durationInSeconds` becomes a function of the props (wired to
+  `calculateMetadata` by Root.tsx). `yoloco-audience-fit` is the reference;
+  the pattern is documented in
+  `.claude/skills/reel-production/references/engine.md`.
 - Colors, easings, springs come ONLY from `packages/video/src/theme.ts`. Never
   inline them in components.
 - A video template = folder in `packages/video/src/templates/<id>/` with a zod
@@ -89,7 +95,63 @@ See README.md for the full architecture and the SaaS roadmap.
   **The voice is always `C5E5SzeWkb4qtqn6iyao`** (listed in the account as
   `yoclips-5b48065a`). Do not pick a voice from the ElevenLabs voice list —
   `me_v3` looks like the personal clone and is the wrong one.
+- `npm run footage -- scripts/footage/<id>.json` — нарезка улик из
+  скринкастов/видео. Конфиг задаёт один общий `crop` в координатах исходника и
+  список шотов (`file`, `in`, `out`, `proves`); скрипт режет в 30fps/1080,
+  ffprobe меряет то, что получилось, и пишет генерируемый
+  `templates/<id>/footage.ts`. Сцена читает модуль и НИКОГДА не проставляет
+  длину шота руками. `yoclips-promo` — референс.
+- `node scripts/gen-source-cut.mjs scripts/cuts/<id>.json [--slice]` — рил на
+  ЖИВОМ футаже. Конфиг задаёт рез в координатах исходника (`segments`,
+  `audio`, `drop`, `rewrite`, `pages`); скрипт выводит время рила сам и пишет
+  генерируемый `templates/<id>/cuts.ts` (BEATS / SHOTS / VO_STARTS) плюс
+  `public/captions/<id>.json` — караоке-страницы с настоящими пословными
+  таймингами. `--slice` нарезает mp3 из исходника; уровень и `durations.ts`
+  после этого делает `npm run voiceover -- … --normalize-only`. Сдвиг
+  джамп-ката = одно число в конфиге: сцены, аудио и капшены едут вместе.
+  Пословные тайминги даёт `scripts/transcribe.swift` (Speech.framework,
+  бесплатно, без загрузки в облако) — **собирать только как .app-бандл**,
+  без `NSSpeechRecognitionUsageDescription` в настоящем Info.plist процесс
+  убивает TCC; on-device требует включённой диктовки, иначе фолбэк в сеть
+  (там лимит ~1 минута). Ключ ElevenLabs прав на `speech_to_text` не имеет.
 - Verification stills: `cd packages/video && npx remotion still src/index.ts <compId> out.png --frame N --overwrite`
+- **Render worker** (`packages/worker`) — DB-очередь в Postgres по образцу
+  yoloservice/etl (claim через `FOR UPDATE SKIP LOCKED`, статусный журнал,
+  graceful SIGTERM → джоб назад в pending без сожжённого attempt). Стадии
+  `voiceover → render → upload` с чекпоинтами в строке `video`: замеренные
+  `durations`, `spend`, `youtube_id` пишутся в одной транзакции с
+  продвижением `stage`, а клип, чей mp3 уже на диске, не синтезируется
+  повторно — **деньги списываются один раз** это инвариант схемы. Команды:
+  `npm run worker:migrate`, `npm run worker:enqueue -- --template <id>
+  [--manifest scripts/voiceover/<id>.json] [--props f.json] [--upload]`,
+  `npm run worker` (env: `DATABASE_URL`, `JOBS_DIR`, `WORKER_ONCE=1` — один
+  проход, `RENDER_CONCURRENCY` = `cpus:` контейнера). Per-job аудио воркер
+  раздаёт сам на loopback и передаёт шаблону через `voiceoverDir`-URL
+  (рефактор durations→props, см. engine.md). Стадия upload — resumable-заливка
+  в YouTube-канал проекта: `npm run worker:connect-youtube -- --project <slug>`
+  один раз подключает канал (OAuth loopback, refresh-токен шифруется в
+  `credential`, реквизиты канала — в `channel`; env: `YT_CLIENT_ID` /
+  `YT_CLIENT_SECRET` — Desktop-app клиент из Google Cloud Console, consent
+  screen обязателен «In production», у Testing refresh-токены умирают за 7
+  дней). `--upload [--privacy private|unlisted|public]` на enqueue; дефолт
+  private — до аудита API-проекта YouTube всё равно принудительно ограничивает
+  залитое через API. youtube_id пишется в одной транзакции со строкой
+  `publication` сразу после ответа API (ретрай не задваивает видео), после
+  этого `worker:stats` подхватывает публикацию автоматически.
+  **Модель данных** (002): `owner → credential → project → channel`, у видео —
+  `project_id` + `scenario_md`; файлы в S3 (env `S3_BUCKET`/`S3_ENDPOINT`/…)
+  с реестром в `asset`; траты — строками в `cost` (elevenlabs/heygen/anthropic,
+  units + usd), фиксируются немедленно после покупки; публикации в
+  `publication`, временной ряд метрик в `metric_snapshot`
+  (`npm run worker:stats` c `YOUTUBE_API_KEY` снимает срез по Data API).
+  Ключи резолвятся цепочкой video→project→owner→credential (env-ссылка /
+  AES-GCM под `MASTER_KEY` / открытое значение) с фолбэком в env. Клип
+  восстанавливается по цепочке диск → S3 → покупка — инвариант «деньги один
+  раз» межмашинный; перегенерация любого видео: `npm run worker:enqueue --
+  --video <id>` — только БД + S3. `npm run worker:seed` — владелец Philipp,
+  проекты philipp-why / yoloco / vbcld. Настройки Remotion живут в
+  `video.props` (jsonb) — осознанный выбор: маленькие структуры,
+  транзакционность с очередью, запросы по полям.
 
 ## Notes
 
@@ -97,7 +159,15 @@ See README.md for the full architecture and the SaaS roadmap.
 - Loudness normalization in `gen-voiceover.mjs` is deliberately two-pass
   (`linear=true`). Single-pass loudnorm rides the gain and lifts the cloned
   voice's noise floor ~10 dB in the pauses — it is audible as hiss.
-- `scripts/voiceover/yoloco-audience-fit.json` still carries the wrong voice id.
+- `yoloco-audience-fit` (rendered as `out/yoloco-brand.mp4`) was the last reel
+  on the wrong voice id; it was re-voiced into the house clone on 2026-08-24.
+  All 17 manifests now carry `C5E5SzeWkb4qtqn6iyao`. Two things that re-voice
+  taught: the clone phrases where the old voice ran sentences together, so any
+  visual keyed to a word must be re-measured against the new clip (an RMS
+  envelope at 50ms windows finds the pauses — `HookScene`'s strike moved from
+  1.4s to 1.3s to land on «doesn't»); and a template still holding hand-typed
+  clip lengths must be migrated to `defineVoiceover(DURATIONS, …)` in the same
+  pass, or the stale numbers survive the re-record.
 - `database-guide`'s clips were synthesised before the loudness pass existed
   and sat ~9 dB below every other reel; they were re-levelled in place with
   `--normalize-only` on 2026-08-20 and the compensating `voVolume` gain was
@@ -126,6 +196,122 @@ See README.md for the full architecture and the SaaS roadmap.
   plate and the headline passes behind the plate's edge. Cover-fit is one
   formula the whole way (`scale = boxHeight / 1080`) because every framing is
   taller than 16:9.
+- `unicorn-cafe` («Сурс → Рил», 17.5s) is the reference for a reel built on
+  **live phone footage instead of a synthesised voiceover**. Three rules it
+  established. (1) `VO_RATE` is 1.0 and not negotiable — the track is the
+  recording's own audio, so any other rate pitches real voices and slides the
+  words off the lips. (2) The engine's weighted `<Captions>` is wrong here:
+  it splits a measured window by letter count, which is only sound for clips
+  we synthesised. Live speech has real word boundaries, so the reel ships its
+  own `CaptionsTrack` fed by ASR timestamps, and the page breaks are authored
+  in the cut config and verified against the recording word for word. (3) A
+  word the recogniser is not sure of gets NO caption — the mp3 keeps it, the
+  screen stays empty (`drop` ranges), and so does a word a headline is
+  already carrying. The reel is 17.5s rather than ~30 because the source has
+  no second turn; per the retention rules that means cut shorter, not pad.
+  Its joke is structural: the phone clip ends mid-sentence on «используем,
+  чтобы дальше…», and the reel finishes the sentence with itself.
+- `yoclips-promo` («Канал, который снимает сам себя», 49.0s) — промо самого
+  продукта и референс для **реела, целиком построенного на скринкастах**.
+  Три вещи, которые он установил. (1) Палитра не выбирается, а наследуется:
+  кабинет YoClips нарисован в «ЧЕК × ПИКСЕЛЬ», поэтому `palette.ts` ре-экспортит
+  `digital-ruble`, а шесть шотов интерфейса ложатся в реел **без грейда** —
+  они уже в его цветах. (2) Скринкаст десктопа становится вертикальным кадром
+  не рамкой девайса, а кропом: колонка-чек в UI уже почти 9:16, и `Screencast`
+  двигает клип ТОЛЬКО по вертикали (`focus` = какая точка клипа попадает на
+  линию внимания y=780). Cover-fit сюда нельзя — он режет 8% по бокам, и чек
+  теряет рваные края, а каждая строка начинается с середины слова. (3) Плашка
+  `TopBar` вместо `Eyebrow` поверх футажа: бумага в UI — #F1EDE2, и подпись на
+  градиентном скриме нечитаема. Там же измерено, что скрим под капшены должен
+  быть плотным на y≈1416, а не у нижнего края кадра.
+  **Телефон вокруг скринкаста** (`PhoneFrame`): целиком корректный силуэт
+  19.5:9 в чистой полосе кадра — это ширина ~500px и кегль интерфейса ~12px,
+  нечитаемо. Поэтому камера залезает в телефон — верхние углы, торцы и адресная
+  строка видны, корпус уходит за нижний край. И главное: когда пропорция клипа
+  совпадает с пропорцией экрана, зум становится чистой боковой обрезкой —
+  наезд держать в пределах 6%, движение брать из самой записи. Адресная строка
+  показывает настоящий URL, и это единственное место, где адрес виден до финала.
+- `yoloco-mcp` («Influencer marketing runs on agents», 47.8s, English, TikTok)
+  is the reference for **a still illustration as the presenter, no HeyGen**.
+  `scripts/matte.swift` cuts the character; ffmpeg `maskedmerge` blur-fills
+  his region in a copy of the art (`philipp-bg.png`), so the two layers can
+  drift apart. The `Cartoon` primitive is the camera (`scale`, source
+  `anchor` → frame `at`, zoom interpolated in log space), plus parallax, body
+  sway around the neck, `radius` for the plate phase and `fadeFrom` when the
+  desk is gone. The background is graded grey-violet, he stays in colour. The
+  snap (`SnapBurst`) and the TikTok strobe (`STROBE_OUT` on the last frames of
+  the hook, `STROBE_IN` on the first of the next beat) ride the cut. Palette is
+  Yoloco violet + Claude clay: clay marks only the agent side, so flagged
+  creators go dim + struck, never red. The chat demo is one component across
+  three beats; each message declares its height and the scroll is a sum of
+  springs, one per arrival — no DOM measuring.
+  **Review rules it carries** (author, 2026-09-16): English promos use a native
+  ElevenLabs voice (Liam `TX3LPaxmHKxFdv7VOQHJ`), not the accented clone; no
+  em dashes on screen (`Label` is the dash-free eyebrow); no snake_case tool
+  names for a marketer audience — `ToolPill` with `Icon` glyphs instead; the
+  phones and pinned photo in the collage are creator artefacts, keyed off the
+  lime screens with `colorkey` (three shades, see `creator-*.png`); a QR is a
+  generated module (`node scripts/gen-qr.mjs <id> <url>` → `qr.ts`, rendered by
+  `QrCode` so it assembles) and is proven from a still with
+  `scripts/qrcheck.swift` (Vision) before delivery. Art the author draws for a
+  beat lands in `public/footage/yoloco-mcp/` and is picked up by `hasStatic`
+  (`philipp-cta.png`); the briefs are in `scenarios/yoloco-mcp-art-prompts.md`.
+  **Round 3 added three things worth reusing.** (1) `TikTokCut` is the flash
+  cut the series was missing: 5 frames on the outgoing beat and 5 on the
+  incoming one, `k` measured from each half's own start so a retimed beat
+  cannot split it, ONE white peak on the boundary frame, plus a chromatic tear,
+  thin light streaks and `cutZoom` on the scene under it. The first attempt
+  painted solid bands for half a second and read as a wipe — a cut is ~10
+  frames or it is a transition. (2) Illustrations generated in Codex arrive
+  with the transparency checkerboard drawn in as pixels; `scripts/matte.swift`
+  removes it (`cut-<name>.png`), and `Cutout` places them by height with the
+  breathe and entrance built in. (3) Stock portraits become avatars through
+  `scripts/facecrop.swift` (Vision face box → square crop with headroom) and
+  are graded by `PHOTO_GRADE` + a soft-light violet cast, because a full-colour
+  photo grid beside one hero colour destroys the palette. **Whichever demo
+  creators a reel flags as fake must use faceless photographs** — pairing an
+  identifiable person with an on-screen "bots 59%" verdict is a claim about
+  that person, and it is also the weaker design.
+  **Orbiting anything around a figure is a paint-order problem, and the
+  geometry decides whether it reads.** `AgentsScene` splits its chips by
+  `depth = (sin(angle) + 1) / 2`: the far half is rendered BEFORE the cutout
+  and the near half after, with the dashed ring drawn twice and clipped at its
+  own waistline. Depth also drives scale, opacity and a 1.2px blur. Two numbers
+  had to be right before any of that was visible. The ellipse has to be FLAT
+  and sit on the figure's CHEST — a rounder orbit put its far arc at head
+  height, where the silhouette is a couple of hundred pixels wide, so nothing
+  ever occluded anything; and the spin has to carry every chip through the far
+  side within the beat (40°/s over 5.5s, not 26°/s). A wide pill also runs off
+  the frame at the orbit's extremes, so each one is anchored by its inner edge
+  (`translateX` from -100% to 0% across `cos(angle)`) instead of centred.
+- `yoloco-explorer` («Any creator in 3 minutes», 51.0s) is the reference for
+  **one film, two languages** and for **the product UI redrawn 1:1**. Two
+  registry entries (`yoloco-explorer`, `yoloco-explorer-ru`) share one folder
+  and a `lang` prop; each manifest writes its own durations module
+  (`durationsModule` in the RU manifest → `durations-ru.ts`), beats are
+  max(EN, RU) so the scenes are identical, and caption pages keep the SAME
+  page count per line in both languages so `cues(lang, beat)[i]` (built on the
+  engine's `pageTimes`) lands a visual on the same words in either cut. The app
+  is drawn at phone CSS px from the frontend's own markup and i18n strings and
+  scaled into `AppScreen` (browser card, real URL) — cheaper and sharper than a
+  screencast, and every tap, swipe and dialog is animatable. `gen-qr.mjs` takes
+  a 4th arg for the module name (`qr-en`, `qr-ru`).
+  **English read = `eleven_v3` + `"languageCode": "en"`** (the manifest key
+  `gen-voiceover.mjs` now passes as `language_code`). The author's EN voice is
+  a clone recorded in Russian; on multilingual_v2 it carried the accent (en-US
+  ASR word error 17.5%), on v3 8.8% — cleaner than native Liam (10.5%) and
+  still his timbre. v3 reads ~25% slower, so the timeline is per language
+  (`SCENES_BY`, `VO_RATE_BY`, beats derived from each cut's own clips with
+  floors): EN 59.0s, RU 51.0s. Take two v3 takes per line and keep the one
+  ASR transcribes best; brand spelling for v3 is «Yohlohcoh».
+- **Произношение для ElevenLabs проверяется ASR, а не на слух.** Комбинирующий
+  акут (U+0301) после гласной держит её полной и ставит ударение: `паро́лем`,
+  `Йо́у-Кли́пс`. Проверять — `scripts/transcribe.swift` (тот же .app-бандл, что
+  и для капшенов): синтезируешь 3–4 варианта написания в scratch-манифест,
+  прогоняешь каждый и смотришь, что вернула распознавалка. «Йоклипс» читалось
+  как «Еклипс», и только этот прогон показал, что из `Йо-`, `Йоу-`, `Йо `
+  и `Ё-` правильное английское Yo даёт ровно `Йо́у-`. Ударение ASR не
+  показывает — его подтверждает только владелец на слух.
 - `khaby-silence` is the premium editorial look (black / bone / one flat
   vermilion, serif-italic accent word via `theme.fonts.serif`, white caption
   highlight with `+WORD` keywords in the accent). Reuse its `ui.tsx` for the
@@ -152,6 +338,12 @@ See README.md for the full architecture and the SaaS roadmap.
   beat (the bar's rule at y≈180 collides with the hair at y≈171) and does not
   loop — a graphics CTA cannot match a frame-0 face without paying for a second
   avatar insert.
+  It is also the reel that came back with **numbers**: 70.4% stayed-to-watch
+  (channel norm), but a 30s average view on a 68.5s reel, 0 comments. Its turn
+  («ИИ отменяет вакансию второго») starts at 31.5s and its CTA at 63.0s —
+  both past the average exit. The ordering rules that follow are in
+  `.claude/skills/reel-production/references/retention.md`; apply them when
+  the beats are still a list, not after the render.
   `phone-check` and `dollar-wait` also show how to loop a reel: the last CTA
   frame matches hook frame 0 through `scenes/shared.ts`, the final scene runs
   `exit={false}`, and everything visible at hook frame 0 enters with

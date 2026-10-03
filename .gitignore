@@ -39,4 +39,9 @@ packages/video/public/presenter/
 packages/video/public/images/*
 !packages/video/public/images/CREDITS.md
 !packages/video/public/images/*.svg
+# Stock clips/photos and live phone recordings — licensed or personal, re-source
+# per the reel's scenario (улика: lines); never redistributed from this repo.
+packages/video/public/media/
+# Screencast cuts (npm run footage) and the author's drawn art for a beat.
+packages/video/public/footage/
 /props.json

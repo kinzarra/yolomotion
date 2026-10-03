@@ -35,6 +35,11 @@ scene code. Its 10 rules apply in full, with one standing exception below.
 - **A face costs money; the price is agreed before it is spent.** Run the
   HeyGen dry run, quote the figure and the engine, wait for the answer. The
   avatar lip-syncs to the house clips, never to HeyGen TTS.
+- **The turn lands in the first third.** The reel's strongest line goes by
+  ~15–20s in a 60–70s Short, ~8s in a 30s one, with at most two consecutive
+  setup beats (~10s) anywhere after it. Measured: `no-it-in-russia` put its
+  turn at 31.5s and its CTA at 63.0s of 68.5s, and the average view ended at
+  30s — `references/retention.md`.
 - **Series membership is decided first.** A Russian-language finance/tech
   brief is the next «ДЕНЬГИ · ПРОСТО» episode unless the user says otherwise:
   same palette, kit re-exported from the previous episode, next `ВЫПУСК`
@@ -92,6 +97,15 @@ and say what you decided — do not stall the pipeline asking.
 draft. Measure it against the face budget or the first two seconds: number
 first, softeners («неужели», «а вы знали») cut, the harshest verb on the cut.
 Record the rewrite under *Deviations* so the user sees what changed.
+
+**The beat order is checked against the drop-off curve here**, while it is
+still a list. Mark each beat as claim or setup: the turn must be in the first
+third, no more than two setups may run back to back, one hard number is held
+for the 40–50s window, and the discussion question appears on screen once
+around the average-view mark as well as in the CTA. If the brief has no second
+turn for the back half, cut the reel shorter instead of padding it, and say so
+under *Deviations*. The numbers behind each of those are in
+`references/retention.md`.
 
 **Footage per beat is decided here** — an `улика:` line under the beat, or
 nothing. A beat with nothing stays graphic. `references/footage.md` has the
@@ -262,12 +276,18 @@ face. If the user then asks for a title / description / tags, they are for
 Shorts: the title restates the hook's first spoken line with the number in
 the first 35 characters, the description's first two lines are the hook and
 the answer, figures are phrased exactly as loosely as the reel phrases them,
-and the CTA is a question that invites a one-word comment.
+and the CTA is a question that invites a one-word comment. Tell the user to
+pin their own first comment under any reel that asks a question — measured, a
+CTA in the last beat alone returned 0 comments (`references/retention.md`).
 
 ## Reference
 
 `references/engine.md` — the reel engine API: `Reel`, `Scene`, `buildScenes`,
 `defineVoiceover`, caption props, and what each generated file is for.
+
+`references/retention.md` — analytics from the published reels mapped back
+onto their beat timelines: where the audience actually leaves, and the
+ordering rules that follow from it.
 
 `references/footage.md` — photos, screenshots, clips and faces: the
 evidence rule, the four roles, the three containers that keep the series

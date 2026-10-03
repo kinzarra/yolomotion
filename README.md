@@ -73,7 +73,7 @@ Composition ids are `<template>-<format>`: `logo-sting-reel`,
 
 ## Assets are not in git
 
-`packages/video/public/` is gitignored: the repo carries code, scenarios and
+`packages/video/public/` is gitignored (except `captions/`, which `gen-source-cut.mjs` generates from a tracked config): the repo carries code, scenarios and
 manifests, not the media those manifests produced. After a fresh clone:
 
 | folder | how to get it back | cost |
@@ -82,6 +82,8 @@ manifests, not the media those manifests produced. After a fresh clone:
 | `public/voiceover/<id>/` | `npm run voiceover -- scripts/voiceover/<id>.json` | ElevenLabs credits |
 | `public/presenter/<id>/` | `npm run heygen -- scripts/presenter/<id>.json --dry-run`, then `--generate` | HeyGen seconds — quote before generating |
 | `public/images/` | re-source from the links in `public/images/CREDITS.md`, cut out with `scripts/matte.swift` | free, manual |
+| `public/media/<id>/` | stock clips / photos and live phone recordings, re-sourced per the scenario's `улика:` lines | free, manual |
+| `public/footage/<id>/` | screencast cuts: `npm run footage -- scripts/footage/<id>.json` from the source recordings; drawn art from the owner | free, manual |
 
 The generated `durations.ts` / `presenter.ts` beside each template **are**
 tracked, so beat lengths and caption timing survive without the audio — a reel

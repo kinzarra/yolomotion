@@ -1,0 +1,161 @@
+[
+  {
+    "startMs": 720,
+    "endMs": 1410,
+    "tokens": [
+      {
+        "text": "Всем",
+        "fromMs": 720,
+        "toMs": 960
+      },
+      {
+        "text": "привет",
+        "fromMs": 960,
+        "toMs": 1410
+      }
+    ],
+    "outMs": 1560
+  },
+  {
+    "startMs": 1560,
+    "endMs": 2640,
+    "tokens": [
+      {
+        "text": "вот",
+        "fromMs": 1560,
+        "toMs": 1830
+      },
+      {
+        "text": "мы",
+        "fromMs": 1830,
+        "toMs": 1980
+      },
+      {
+        "text": "с",
+        "fromMs": 1980,
+        "toMs": 2040
+      },
+      {
+        "text": "друзьями",
+        "fromMs": 2040,
+        "toMs": 2640
+      }
+    ],
+    "outMs": 2900
+  },
+  {
+    "startMs": 4200,
+    "endMs": 5040,
+    "tokens": [
+      {
+        "text": "сидим",
+        "fromMs": 4200,
+        "toMs": 4590
+      },
+      {
+        "text": "в",
+        "fromMs": 4590,
+        "toMs": 4620
+      },
+      {
+        "text": "кафе",
+        "fromMs": 4620,
+        "toMs": 5040
+      }
+    ],
+    "outMs": 5300
+  },
+  {
+    "startMs": 8580,
+    "endMs": 10620,
+    "tokens": [
+      {
+        "text": "вот",
+        "fromMs": 8580,
+        "toMs": 8850
+      },
+      {
+        "text": "готовый",
+        "fromMs": 8850,
+        "toMs": 9976
+      },
+      {
+        "text": "сурс",
+        "fromMs": 9976,
+        "toMs": 10620
+      }
+    ],
+    "outMs": 10770
+  },
+  {
+    "startMs": 10770,
+    "endMs": 11533,
+    "tokens": [
+      {
+        "text": "вот",
+        "fromMs": 10770,
+        "toMs": 10980
+      },
+      {
+        "text": "мы",
+        "fromMs": 10980,
+        "toMs": 11100
+      },
+      {
+        "text": "этот",
+        "fromMs": 11100,
+        "toMs": 11280
+      },
+      {
+        "text": "сурс",
+        "fromMs": 11280,
+        "toMs": 11533
+      }
+    ],
+    "outMs": 11533
+  },
+  {
+    "startMs": 11533,
+    "endMs": 13020,
+    "tokens": [
+      {
+        "text": "соответственно",
+        "fromMs": 11533,
+        "toMs": 12420
+      },
+      {
+        "text": "используем",
+        "fromMs": 12420,
+        "toMs": 13020
+      }
+    ],
+    "outMs": 13020
+  },
+  {
+    "startMs": 13020,
+    "endMs": 14460,
+    "tokens": [
+      {
+        "text": "для",
+        "fromMs": 13020,
+        "toMs": 13170
+      },
+      {
+        "text": "того",
+        "fromMs": 13170,
+        "toMs": 13440
+      },
+      {
+        "text": "чтобы",
+        "fromMs": 13440,
+        "toMs": 13770
+      },
+      {
+        "text": "дальше…",
+        "fromMs": 13770,
+        "toMs": 14460
+      }
+    ],
+    "outMs": 14720
+  }
+]

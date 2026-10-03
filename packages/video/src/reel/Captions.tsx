@@ -90,6 +90,14 @@ const paginate = (line: VoLine, rate: number): Page[] => {
   });
 };
 
+/**
+ * When each caption page of a line starts and ends, by the same word weights
+ * the karaoke uses. Scenes key visual cues to it ("the second sentence lands
+ * here") so a re-recorded clip moves the cue with the caption.
+ */
+export const pageTimes = (line: VoLine, rate: number) =>
+  paginate(line, rate).map(({ start, end }) => ({ start, end }));
+
 export const Captions: React.FC<
   { voiceover: VoLine[]; rate: number; palette: Palette } & CaptionStyle
 > = ({

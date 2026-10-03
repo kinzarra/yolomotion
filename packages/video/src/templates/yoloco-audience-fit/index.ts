@@ -1,7 +1,7 @@
 import { defineTemplate } from "../types";
 import { YolocoAudienceFit } from "./YolocoAudienceFit";
 import { yolocoAudienceFitSchema } from "./schema";
-import { DURATION } from "./timeline";
+import { makeTimeline } from "./timeline";
 
 export const yolocoAudienceFit = defineTemplate({
   id: "yoloco-audience-fit",
@@ -15,7 +15,9 @@ export const yolocoAudienceFit = defineTemplate({
     tagline: "Influencer marketing, powered by data.",
     cta: "Follow for smarter influencer marketing.",
   },
-  durationInSeconds: DURATION,
+  // A function of the props: overridden beats/durations move the composition
+  // length. Wired into calculateMetadata by Root.tsx.
+  durationInSeconds: (props) => makeTimeline(props).DURATION,
   formats: ["reel"],
   component: YolocoAudienceFit,
 });

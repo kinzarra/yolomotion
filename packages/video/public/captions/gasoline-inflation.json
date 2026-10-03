@@ -1,0 +1,996 @@
+[
+  {
+    "text": "Ты",
+    "startMs": 0,
+    "endMs": 185,
+    "timestampMs": 0,
+    "confidence": 1
+  },
+  {
+    "text": " не",
+    "startMs": 185,
+    "endMs": 369,
+    "timestampMs": 185,
+    "confidence": 1
+  },
+  {
+    "text": " водишь",
+    "startMs": 369,
+    "endMs": 778,
+    "timestampMs": 369,
+    "confidence": 1
+  },
+  {
+    "text": " машину?",
+    "startMs": 778,
+    "endMs": 1293,
+    "timestampMs": 778,
+    "confidence": 1
+  },
+  {
+    "text": " Всё",
+    "startMs": 1293,
+    "endMs": 1533,
+    "timestampMs": 1293,
+    "confidence": 1
+  },
+  {
+    "text": " равно",
+    "startMs": 1533,
+    "endMs": 1886,
+    "timestampMs": 1533,
+    "confidence": 1
+  },
+  {
+    "text": " заплатишь",
+    "startMs": 1886,
+    "endMs": 2462,
+    "timestampMs": 1886,
+    "confidence": 1
+  },
+  {
+    "text": " за",
+    "startMs": 2462,
+    "endMs": 2647,
+    "timestampMs": 2462,
+    "confidence": 1
+  },
+  {
+    "text": " бензин",
+    "startMs": 2647,
+    "endMs": 3055,
+    "timestampMs": 2647,
+    "confidence": 1
+  },
+  {
+    "text": " —",
+    "startMs": 3055,
+    "endMs": 3156,
+    "timestampMs": 3055,
+    "confidence": 1
+  },
+  {
+    "text": " в",
+    "startMs": 3156,
+    "endMs": 3285,
+    "timestampMs": 3156,
+    "confidence": 1
+  },
+  {
+    "text": " цене",
+    "startMs": 3285,
+    "endMs": 3581,
+    "timestampMs": 3285,
+    "confidence": 1
+  },
+  {
+    "text": " хлеба.",
+    "startMs": 3581,
+    "endMs": 4040,
+    "timestampMs": 3581,
+    "confidence": 1
+  },
+  {
+    "text": " Когда",
+    "startMs": 4320,
+    "endMs": 4699,
+    "timestampMs": 4320,
+    "confidence": 1
+  },
+  {
+    "text": " топлива",
+    "startMs": 4699,
+    "endMs": 5199,
+    "timestampMs": 4699,
+    "confidence": 1
+  },
+  {
+    "text": " меньше,",
+    "startMs": 5199,
+    "endMs": 5668,
+    "timestampMs": 5199,
+    "confidence": 1
+  },
+  {
+    "text": " а",
+    "startMs": 5668,
+    "endMs": 5806,
+    "timestampMs": 5668,
+    "confidence": 1
+  },
+  {
+    "text": " желающих",
+    "startMs": 5806,
+    "endMs": 6366,
+    "timestampMs": 5806,
+    "confidence": 1
+  },
+  {
+    "text": " заправиться",
+    "startMs": 6366,
+    "endMs": 7106,
+    "timestampMs": 6366,
+    "confidence": 1
+  },
+  {
+    "text": " столько",
+    "startMs": 7106,
+    "endMs": 7605,
+    "timestampMs": 7106,
+    "confidence": 1
+  },
+  {
+    "text": " же,",
+    "startMs": 7605,
+    "endMs": 7834,
+    "timestampMs": 7605,
+    "confidence": 1
+  },
+  {
+    "text": " цена",
+    "startMs": 7834,
+    "endMs": 8153,
+    "timestampMs": 7834,
+    "confidence": 1
+  },
+  {
+    "text": " растёт.",
+    "startMs": 8153,
+    "endMs": 8707,
+    "timestampMs": 8153,
+    "confidence": 1
+  },
+  {
+    "text": " Это",
+    "startMs": 8707,
+    "endMs": 8965,
+    "timestampMs": 8707,
+    "confidence": 1
+  },
+  {
+    "text": " обычный",
+    "startMs": 8965,
+    "endMs": 9465,
+    "timestampMs": 8965,
+    "confidence": 1
+  },
+  {
+    "text": " дефицит.",
+    "startMs": 9465,
+    "endMs": 10079,
+    "timestampMs": 9465,
+    "confidence": 1
+  },
+  {
+    "text": " С",
+    "startMs": 10270,
+    "endMs": 10419,
+    "timestampMs": 10270,
+    "confidence": 1
+  },
+  {
+    "text": " начала",
+    "startMs": 10419,
+    "endMs": 10893,
+    "timestampMs": 10419,
+    "confidence": 1
+  },
+  {
+    "text": " года",
+    "startMs": 10893,
+    "endMs": 11237,
+    "timestampMs": 10893,
+    "confidence": 1
+  },
+  {
+    "text": " бензин",
+    "startMs": 11237,
+    "endMs": 11710,
+    "timestampMs": 11237,
+    "confidence": 1
+  },
+  {
+    "text": " подорожал",
+    "startMs": 11710,
+    "endMs": 12378,
+    "timestampMs": 11710,
+    "confidence": 1
+  },
+  {
+    "text": " почти",
+    "startMs": 12378,
+    "endMs": 12787,
+    "timestampMs": 12378,
+    "confidence": 1
+  },
+  {
+    "text": " на",
+    "startMs": 12787,
+    "endMs": 13001,
+    "timestampMs": 12787,
+    "confidence": 1
+  },
+  {
+    "text": " восемнадцать",
+    "startMs": 13001,
+    "endMs": 13864,
+    "timestampMs": 13001,
+    "confidence": 1
+  },
+  {
+    "text": " процентов.",
+    "startMs": 13864,
+    "endMs": 14656,
+    "timestampMs": 13864,
+    "confidence": 1
+  },
+  {
+    "text": " Общая",
+    "startMs": 14656,
+    "endMs": 15064,
+    "timestampMs": 14656,
+    "confidence": 1
+  },
+  {
+    "text": " инфляция",
+    "startMs": 15064,
+    "endMs": 15668,
+    "timestampMs": 15064,
+    "confidence": 1
+  },
+  {
+    "text": " —",
+    "startMs": 15668,
+    "endMs": 15784,
+    "timestampMs": 15668,
+    "confidence": 1
+  },
+  {
+    "text": " меньше",
+    "startMs": 15784,
+    "endMs": 16258,
+    "timestampMs": 15784,
+    "confidence": 1
+  },
+  {
+    "text": " пяти.",
+    "startMs": 16258,
+    "endMs": 16725,
+    "timestampMs": 16258,
+    "confidence": 1
+  },
+  {
+    "text": " Но",
+    "startMs": 16920,
+    "endMs": 17111,
+    "timestampMs": 16920,
+    "confidence": 1
+  },
+  {
+    "text": " первыми",
+    "startMs": 17111,
+    "endMs": 17592,
+    "timestampMs": 17111,
+    "confidence": 1
+  },
+  {
+    "text": " это",
+    "startMs": 17592,
+    "endMs": 17841,
+    "timestampMs": 17592,
+    "confidence": 1
+  },
+  {
+    "text": " чувствуют",
+    "startMs": 17841,
+    "endMs": 18438,
+    "timestampMs": 17841,
+    "confidence": 1
+  },
+  {
+    "text": " не",
+    "startMs": 18438,
+    "endMs": 18629,
+    "timestampMs": 18438,
+    "confidence": 1
+  },
+  {
+    "text": " только",
+    "startMs": 18629,
+    "endMs": 19052,
+    "timestampMs": 18629,
+    "confidence": 1
+  },
+  {
+    "text": " водители.",
+    "startMs": 19052,
+    "endMs": 19700,
+    "timestampMs": 19052,
+    "confidence": 1
+  },
+  {
+    "text": " Ещё",
+    "startMs": 19700,
+    "endMs": 19949,
+    "timestampMs": 19700,
+    "confidence": 1
+  },
+  {
+    "text": " грузовики,",
+    "startMs": 19949,
+    "endMs": 20575,
+    "timestampMs": 19949,
+    "confidence": 1
+  },
+  {
+    "text": " фермеры",
+    "startMs": 20575,
+    "endMs": 21056,
+    "timestampMs": 20575,
+    "confidence": 1
+  },
+  {
+    "text": " и",
+    "startMs": 21056,
+    "endMs": 21189,
+    "timestampMs": 21056,
+    "confidence": 1
+  },
+  {
+    "text": " службы",
+    "startMs": 21189,
+    "endMs": 21612,
+    "timestampMs": 21189,
+    "confidence": 1
+  },
+  {
+    "text": " доставки.",
+    "startMs": 21612,
+    "endMs": 22261,
+    "timestampMs": 21612,
+    "confidence": 1
+  },
+  {
+    "text": " Трактору",
+    "startMs": 22470,
+    "endMs": 23063,
+    "timestampMs": 22470,
+    "confidence": 1
+  },
+  {
+    "text": " нужно",
+    "startMs": 23063,
+    "endMs": 23464,
+    "timestampMs": 23063,
+    "confidence": 1
+  },
+  {
+    "text": " топливо,",
+    "startMs": 23464,
+    "endMs": 24025,
+    "timestampMs": 23464,
+    "confidence": 1
+  },
+  {
+    "text": " чтобы",
+    "startMs": 24025,
+    "endMs": 24427,
+    "timestampMs": 24025,
+    "confidence": 1
+  },
+  {
+    "text": " убрать",
+    "startMs": 24427,
+    "endMs": 24892,
+    "timestampMs": 24427,
+    "confidence": 1
+  },
+  {
+    "text": " зерно.",
+    "startMs": 24892,
+    "endMs": 25415,
+    "timestampMs": 24892,
+    "confidence": 1
+  },
+  {
+    "text": " Фуре",
+    "startMs": 25415,
+    "endMs": 25753,
+    "timestampMs": 25415,
+    "confidence": 1
+  },
+  {
+    "text": " —",
+    "startMs": 25753,
+    "endMs": 25867,
+    "timestampMs": 25753,
+    "confidence": 1
+  },
+  {
+    "text": " чтобы",
+    "startMs": 25867,
+    "endMs": 26269,
+    "timestampMs": 25867,
+    "confidence": 1
+  },
+  {
+    "text": " отвезти",
+    "startMs": 26269,
+    "endMs": 26798,
+    "timestampMs": 26269,
+    "confidence": 1
+  },
+  {
+    "text": " его",
+    "startMs": 26798,
+    "endMs": 27072,
+    "timestampMs": 26798,
+    "confidence": 1
+  },
+  {
+    "text": " на",
+    "startMs": 27072,
+    "endMs": 27282,
+    "timestampMs": 27072,
+    "confidence": 1
+  },
+  {
+    "text": " мельницу.",
+    "startMs": 27282,
+    "endMs": 27996,
+    "timestampMs": 27282,
+    "confidence": 1
+  },
+  {
+    "text": " Потом",
+    "startMs": 28220,
+    "endMs": 28645,
+    "timestampMs": 28220,
+    "confidence": 1
+  },
+  {
+    "text": " муку",
+    "startMs": 28645,
+    "endMs": 29002,
+    "timestampMs": 28645,
+    "confidence": 1
+  },
+  {
+    "text": " везут",
+    "startMs": 29002,
+    "endMs": 29427,
+    "timestampMs": 29002,
+    "confidence": 1
+  },
+  {
+    "text": " на",
+    "startMs": 29427,
+    "endMs": 29649,
+    "timestampMs": 29427,
+    "confidence": 1
+  },
+  {
+    "text": " хлебозавод.",
+    "startMs": 29649,
+    "endMs": 30540,
+    "timestampMs": 29649,
+    "confidence": 1
+  },
+  {
+    "text": " Готовый",
+    "startMs": 30540,
+    "endMs": 31099,
+    "timestampMs": 30540,
+    "confidence": 1
+  },
+  {
+    "text": " хлеб",
+    "startMs": 31099,
+    "endMs": 31457,
+    "timestampMs": 31099,
+    "confidence": 1
+  },
+  {
+    "text": " —",
+    "startMs": 31457,
+    "endMs": 31578,
+    "timestampMs": 31457,
+    "confidence": 1
+  },
+  {
+    "text": " на",
+    "startMs": 31578,
+    "endMs": 31800,
+    "timestampMs": 31578,
+    "confidence": 1
+  },
+  {
+    "text": " склад.",
+    "startMs": 31800,
+    "endMs": 32353,
+    "timestampMs": 31800,
+    "confidence": 1
+  },
+  {
+    "text": " И",
+    "startMs": 32353,
+    "endMs": 32508,
+    "timestampMs": 32353,
+    "confidence": 1
+  },
+  {
+    "text": " только",
+    "startMs": 32508,
+    "endMs": 33001,
+    "timestampMs": 32508,
+    "confidence": 1
+  },
+  {
+    "text": " после",
+    "startMs": 33001,
+    "endMs": 33425,
+    "timestampMs": 33001,
+    "confidence": 1
+  },
+  {
+    "text": " этого",
+    "startMs": 33425,
+    "endMs": 33850,
+    "timestampMs": 33425,
+    "confidence": 1
+  },
+  {
+    "text": " —",
+    "startMs": 33850,
+    "endMs": 33972,
+    "timestampMs": 33850,
+    "confidence": 1
+  },
+  {
+    "text": " в",
+    "startMs": 33972,
+    "endMs": 34127,
+    "timestampMs": 33972,
+    "confidence": 1
+  },
+  {
+    "text": " магазин.",
+    "startMs": 34127,
+    "endMs": 34814,
+    "timestampMs": 34127,
+    "confidence": 1
+  },
+  {
+    "text": " На",
+    "startMs": 34820,
+    "endMs": 35018,
+    "timestampMs": 34820,
+    "confidence": 1
+  },
+  {
+    "text": " каждом",
+    "startMs": 35018,
+    "endMs": 35455,
+    "timestampMs": 35018,
+    "confidence": 1
+  },
+  {
+    "text": " этапе",
+    "startMs": 35455,
+    "endMs": 35832,
+    "timestampMs": 35455,
+    "confidence": 1
+  },
+  {
+    "text": " дорожают",
+    "startMs": 35832,
+    "endMs": 36389,
+    "timestampMs": 35832,
+    "confidence": 1
+  },
+  {
+    "text": " перевозка,",
+    "startMs": 36389,
+    "endMs": 37035,
+    "timestampMs": 36389,
+    "confidence": 1
+  },
+  {
+    "text": " хранение",
+    "startMs": 37035,
+    "endMs": 37592,
+    "timestampMs": 37035,
+    "confidence": 1
+  },
+  {
+    "text": " и",
+    "startMs": 37592,
+    "endMs": 37730,
+    "timestampMs": 37592,
+    "confidence": 1
+  },
+  {
+    "text": " упаковка.",
+    "startMs": 37730,
+    "endMs": 38400,
+    "timestampMs": 37730,
+    "confidence": 1
+  },
+  {
+    "text": " Каждый",
+    "startMs": 38400,
+    "endMs": 38837,
+    "timestampMs": 38400,
+    "confidence": 1
+  },
+  {
+    "text": " бизнес",
+    "startMs": 38837,
+    "endMs": 39274,
+    "timestampMs": 38837,
+    "confidence": 1
+  },
+  {
+    "text": " добавляет",
+    "startMs": 39274,
+    "endMs": 39891,
+    "timestampMs": 39274,
+    "confidence": 1
+  },
+  {
+    "text": " расходы",
+    "startMs": 39891,
+    "endMs": 40388,
+    "timestampMs": 39891,
+    "confidence": 1
+  },
+  {
+    "text": " к",
+    "startMs": 40388,
+    "endMs": 40526,
+    "timestampMs": 40388,
+    "confidence": 1
+  },
+  {
+    "text": " следующему",
+    "startMs": 40526,
+    "endMs": 41202,
+    "timestampMs": 40526,
+    "confidence": 1
+  },
+  {
+    "text": " счёту.",
+    "startMs": 41202,
+    "endMs": 41693,
+    "timestampMs": 41202,
+    "confidence": 1
+  },
+  {
+    "text": " Получается,",
+    "startMs": 41920,
+    "endMs": 42622,
+    "timestampMs": 41920,
+    "confidence": 1
+  },
+  {
+    "text": " один",
+    "startMs": 42622,
+    "endMs": 42938,
+    "timestampMs": 42622,
+    "confidence": 1
+  },
+  {
+    "text": " и",
+    "startMs": 42938,
+    "endMs": 43075,
+    "timestampMs": 42938,
+    "confidence": 1
+  },
+  {
+    "text": " тот",
+    "startMs": 43075,
+    "endMs": 43331,
+    "timestampMs": 43075,
+    "confidence": 1
+  },
+  {
+    "text": " же",
+    "startMs": 43331,
+    "endMs": 43527,
+    "timestampMs": 43331,
+    "confidence": 1
+  },
+  {
+    "text": " литр",
+    "startMs": 43527,
+    "endMs": 43843,
+    "timestampMs": 43527,
+    "confidence": 1
+  },
+  {
+    "text": " топлива",
+    "startMs": 43843,
+    "endMs": 44337,
+    "timestampMs": 43843,
+    "confidence": 1
+  },
+  {
+    "text": " спрятан",
+    "startMs": 44337,
+    "endMs": 44831,
+    "timestampMs": 44337,
+    "confidence": 1
+  },
+  {
+    "text": " в",
+    "startMs": 44831,
+    "endMs": 44968,
+    "timestampMs": 44831,
+    "confidence": 1
+  },
+  {
+    "text": " цене",
+    "startMs": 44968,
+    "endMs": 45283,
+    "timestampMs": 44968,
+    "confidence": 1
+  },
+  {
+    "text": " товара",
+    "startMs": 45283,
+    "endMs": 45718,
+    "timestampMs": 45283,
+    "confidence": 1
+  },
+  {
+    "text": " сразу",
+    "startMs": 45718,
+    "endMs": 46093,
+    "timestampMs": 45718,
+    "confidence": 1
+  },
+  {
+    "text": " несколько",
+    "startMs": 46093,
+    "endMs": 46706,
+    "timestampMs": 46093,
+    "confidence": 1
+  },
+  {
+    "text": " раз.",
+    "startMs": 46706,
+    "endMs": 47075,
+    "timestampMs": 46706,
+    "confidence": 1
+  },
+  {
+    "text": " Это",
+    "startMs": 47320,
+    "endMs": 47575,
+    "timestampMs": 47320,
+    "confidence": 1
+  },
+  {
+    "text": " называется",
+    "startMs": 47575,
+    "endMs": 48245,
+    "timestampMs": 47575,
+    "confidence": 1
+  },
+  {
+    "text": " инфляция",
+    "startMs": 48245,
+    "endMs": 48796,
+    "timestampMs": 48245,
+    "confidence": 1
+  },
+  {
+    "text": " издержек.",
+    "startMs": 48796,
+    "endMs": 49460,
+    "timestampMs": 48796,
+    "confidence": 1
+  },
+  {
+    "text": " Цены",
+    "startMs": 49460,
+    "endMs": 49775,
+    "timestampMs": 49460,
+    "confidence": 1
+  },
+  {
+    "text": " растут",
+    "startMs": 49775,
+    "endMs": 50208,
+    "timestampMs": 49775,
+    "confidence": 1
+  },
+  {
+    "text": " не",
+    "startMs": 50208,
+    "endMs": 50403,
+    "timestampMs": 50208,
+    "confidence": 1
+  },
+  {
+    "text": " из-за",
+    "startMs": 50403,
+    "endMs": 50717,
+    "timestampMs": 50403,
+    "confidence": 1
+  },
+  {
+    "text": " ажиотажа,",
+    "startMs": 50717,
+    "endMs": 51299,
+    "timestampMs": 50717,
+    "confidence": 1
+  },
+  {
+    "text": " а",
+    "startMs": 51299,
+    "endMs": 51435,
+    "timestampMs": 51299,
+    "confidence": 1
+  },
+  {
+    "text": " потому",
+    "startMs": 51435,
+    "endMs": 51868,
+    "timestampMs": 51435,
+    "confidence": 1
+  },
+  {
+    "text": " что",
+    "startMs": 51868,
+    "endMs": 52123,
+    "timestampMs": 51868,
+    "confidence": 1
+  },
+  {
+    "text": " стало",
+    "startMs": 52123,
+    "endMs": 52496,
+    "timestampMs": 52123,
+    "confidence": 1
+  },
+  {
+    "text": " дороже",
+    "startMs": 52496,
+    "endMs": 52929,
+    "timestampMs": 52496,
+    "confidence": 1
+  },
+  {
+    "text": " производить",
+    "startMs": 52929,
+    "endMs": 53658,
+    "timestampMs": 52929,
+    "confidence": 1
+  },
+  {
+    "text": " и",
+    "startMs": 53658,
+    "endMs": 53795,
+    "timestampMs": 53658,
+    "confidence": 1
+  },
+  {
+    "text": " привозить.",
+    "startMs": 53795,
+    "endMs": 54518,
+    "timestampMs": 53795,
+    "confidence": 1
+  },
+  {
+    "text": " Бензин",
+    "startMs": 54770,
+    "endMs": 55218,
+    "timestampMs": 54770,
+    "confidence": 1
+  },
+  {
+    "text": " исчезает",
+    "startMs": 55218,
+    "endMs": 55788,
+    "timestampMs": 55218,
+    "confidence": 1
+  },
+  {
+    "text": " с",
+    "startMs": 55788,
+    "endMs": 55929,
+    "timestampMs": 55788,
+    "confidence": 1
+  },
+  {
+    "text": " заправки",
+    "startMs": 55929,
+    "endMs": 56499,
+    "timestampMs": 55929,
+    "confidence": 1
+  },
+  {
+    "text": " —",
+    "startMs": 56499,
+    "endMs": 56610,
+    "timestampMs": 56499,
+    "confidence": 1
+  },
+  {
+    "text": " и",
+    "startMs": 56610,
+    "endMs": 56751,
+    "timestampMs": 56610,
+    "confidence": 1
+  },
+  {
+    "text": " через",
+    "startMs": 56751,
+    "endMs": 57137,
+    "timestampMs": 56751,
+    "confidence": 1
+  },
+  {
+    "text": " несколько",
+    "startMs": 57137,
+    "endMs": 57769,
+    "timestampMs": 57137,
+    "confidence": 1
+  },
+  {
+    "text": " недель",
+    "startMs": 57769,
+    "endMs": 58216,
+    "timestampMs": 57769,
+    "confidence": 1
+  },
+  {
+    "text": " появляется",
+    "startMs": 58216,
+    "endMs": 58909,
+    "timestampMs": 58216,
+    "confidence": 1
+  },
+  {
+    "text": " в",
+    "startMs": 58909,
+    "endMs": 59051,
+    "timestampMs": 58909,
+    "confidence": 1
+  },
+  {
+    "text": " твоём",
+    "startMs": 59051,
+    "endMs": 59437,
+    "timestampMs": 59051,
+    "confidence": 1
+  },
+  {
+    "text": " чеке.",
+    "startMs": 59437,
+    "endMs": 59878,
+    "timestampMs": 59437,
+    "confidence": 1
+  }
+]

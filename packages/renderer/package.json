@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
+  "exports": {
+    ".": "./src/render.ts"
+  },
   "scripts": {
     "render": "tsx src/cli.ts",
     "stills": "tsx src/stills.ts"

@@ -1,0 +1,11 @@
+{
+  "comment": "LIVE AUDIO, not TTS. The two clips are slices of the source footage's own soundtrack (scenarios/telegram-cloud-document-4-5794208566487293857.mp4): 01-hello = src 0.00–8.45s, 02-source = src 9.50–end. Never synthesise these lines — re-slice from the mp4 instead. voiceId kept only so the scaffold shape stays valid.",
+  "voiceId": "C5E5SzeWkb4qtqn6iyao",
+  "modelId": "eleven_multilingual_v2",
+  "voiceSettings": { "stability": 0.4, "similarity_boost": 0.8, "style": 0.35 },
+  "outDir": "public/voiceover/unicorn-cafe",
+  "lines": [
+    ["01-hello", "Всем привет! Вот мы с друзьями сидим в кафе, обсуждаем единорога."],
+    ["02-source", "Вот — готовый сурс. Вот мы этот сурс, соответственно, используем для того, чтобы дальше…"]
+  ]
+}

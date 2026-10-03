@@ -1,0 +1,26 @@
+{
+  "_comment": "Одна студийная врезка только в хуке. HeyGen получает уже готовый house-voice clip и делает lip-sync; в Remotion видео всегда muted, поэтому голос и субтитры остаются синхронны.",
+  "avatarId": "${HEYGEN_AVATAR_VIEW_ID}",
+  "_avatar": "Podcast host in blue hoodie из группы Philipp — тот же студийный PHOTO avatar, что в no-it-in-russia.",
+  "avatarKind": "photo",
+  "engine": "avatar_iv",
+  "voiceoverDir": "public/voiceover/gasoline-inflation",
+  "outDir": "public/presenter/gasoline-inflation",
+  "templateId": "gasoline-inflation",
+  "resolution": "1080p",
+  "outputFormat": "mp4",
+  "concatAspect": "16:9",
+  "voRate": 1,
+  "shots": [
+    {
+      "id": "p1-hook",
+      "clip": "01-hook",
+      "from": 0,
+      "to": 4.04,
+      "style": "fullbleed",
+      "reelIn": 0,
+      "reelOut": 4.04,
+      "says": "Ты не водишь машину? Всё равно заплатишь за бензин — в цене хлеба."
+    }
+  ]
+}

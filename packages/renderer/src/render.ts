@@ -4,7 +4,10 @@
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { bundle } from "@remotion/bundler";
-import { renderMedia, selectComposition } from "@remotion/renderer";
+import { renderMedia, selectComposition, type CancelSignal } from "@remotion/renderer";
+
+// Воркеру, который живёт поверх renderJob, нужен и способ его отменить.
+export { makeCancelSignal } from "@remotion/renderer";
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 export const VIDEO_ENTRY = path.resolve(here, "../../video/src/index.ts");
@@ -23,6 +26,9 @@ export type RenderJob = {
   codec?: "h264" | "h265" | "vp8" | "vp9" | "prores";
   crf?: number;
   onProgress?: (renderedFrames: number, totalFrames: number) => void;
+  // Воркер отдаёт сюда makeCancelSignal(): SIGTERM обрывает рендер посреди
+  // кадра, и джоб возвращается в очередь вместо зависания до SIGKILL.
+  cancelSignal?: CancelSignal;
 };
 
 let cachedBundle: Promise<string> | null = null;
@@ -31,6 +37,20 @@ let cachedBundle: Promise<string> | null = null;
 export const getBundle = (): Promise<string> => {
   cachedBundle ??= bundle({ entryPoint: VIDEO_ENTRY });
   return cachedBundle;
+};
+
+// Remotion sizes its render pool from the HOST's core count. In a container
+// with a cpus: limit that oversubscribes badly (bare metal shows 32 cores, the
+// cgroup grants 6), so the worker's compose file sets RENDER_CONCURRENCY to
+// its cpus: value. Unset (laptops, CI) keeps Remotion's default.
+const envConcurrency = (): number | null => {
+  const raw = process.env.RENDER_CONCURRENCY;
+  if (!raw) return null;
+  const n = Number(raw);
+  if (!Number.isInteger(n) || n < 1) {
+    throw new Error(`RENDER_CONCURRENCY must be a positive integer, got "${raw}"`);
+  }
+  return n;
 };
 
 export const renderJob = async (job: RenderJob): Promise<string> => {
@@ -48,6 +68,8 @@ export const renderJob = async (job: RenderJob): Promise<string> => {
     serveUrl,
     codec: job.codec ?? "h264",
     crf: job.crf ?? 17,
+    concurrency: envConcurrency(),
+    cancelSignal: job.cancelSignal,
     outputLocation: job.outPath,
     inputProps,
     onProgress: ({ renderedFrames }) => {

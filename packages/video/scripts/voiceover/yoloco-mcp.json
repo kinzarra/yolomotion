@@ -1,0 +1,47 @@
+{
+  "voiceId": "vEwyfyXy2Qc8PnNvEdqA",
+  "outDir": "public/voiceover/yoloco-mcp",
+  "modelId": "eleven_multilingual_v2",
+  "voiceSettings": {
+    "stability": 0.42,
+    "similarity_boost": 0.8,
+    "style": 0.35,
+    "use_speaker_boost": true
+  },
+  "_reading": "English, no em dashes anywhere (author rule). MCP in caps is spelled out by the English model.",
+  "lines": [
+    [
+      "01-hook",
+      "Hi, I'm Philipp, founder of Yoloco. Let me show you how influencer marketing is changing."
+    ],
+    [
+      "02-agents",
+      "Welcome to the new era. The AI revolution. Today, everything runs on agents."
+    ],
+    [
+      "03-mcp",
+      "And influencer marketing is not falling behind. At Yoloco, we launched an MCP server."
+    ],
+    [
+      "04-tools",
+      "Your agent can now find the right creators, analyze their audience, check the overlap, and build the media plan. Straight from the chat."
+    ],
+    [
+      "05-ask",
+      "Watch. Find me fitness instructors in Florida. The agent searches Yoloco and brings back creators."
+    ],
+    [
+      "06-analyze",
+      "You pick the ones you like. It analyzes them, and flags the two with a fake audience."
+    ],
+    [
+      "07-plan",
+      "Add the rest to a media plan. Done. Budget, reach, dates. In one message."
+    ],
+    [
+      "08-cta",
+      "MCP. Powered by Yoloco. Scan the code, or grab the link in bio."
+    ]
+  ],
+  "_voice": "Author's voice vEwyfyXy2Qc8PnNvEdqA (his request 2026-09-16: «ПЕРЕДЕЛАЙ на мой голос»). Replaces Liam, which replaced the accented clone C5E5SzeWkb4qtqn6iyao. Only this reel uses it."
+}

@@ -1,0 +1,42 @@
+{
+  "voiceId": "vEwyfyXy2Qc8PnNvEdqA",
+  "outDir": "public/voiceover/yoloco-explorer",
+  "modelId": "eleven_v3",
+  "voiceSettings": {
+    "stability": 0.5,
+    "similarity_boost": 0.75
+  },
+  "_voice": "The author's own EN voice vEwyfyXy2Qc8PnNvEdqA on eleven_v3 + language_code en (author, 2026-10-02: «бери мой vEwyfyXy2Qc8PnNvEdqA ID»). The house clone C5E5 was tried on v3 + en and kept the accent (ASR error 16%, worse at lower similarity). The Russian cut is on C5E5.",
+  "_reading": "No em dashes (author rule). eleven_v3 + language_code en: the clone was recorded in Russian and carried the accent into English on multilingual_v2 (ASR word error 17.5% → 8.8% on v3, better than native Liam's 10.5%; author's review 2026-10-02: «нужно норм АКЦЕНТ сделать на английской речи»). «Yolocko» and «A.I.» are spellings for the read: on v3 they keep three syllables / the letters; captions show Yoloco / AI. Brand: author 2026-10-02 «YOLOKO именно KO на конце… Йо́уЛОККО»; ru-RU ASR hears «Yolocko» as «яблоко» = yo-LO-ko.",
+  "lines": [
+    [
+      "01-hook",
+      "We'll find any creators, in three minutes. Taxi drivers in Nigeria. Moms in Australia. Finance pros in New York. Start the clock!"
+    ],
+    [
+      "02-prompt",
+      "This is Yolocko Explorer. Describe the creators you need, in your own words. The A.I. reads the brief and builds the shortlist for you."
+    ],
+    [
+      "03-results",
+      "It scans Instagram, TikTok, YouTube and Telegram, and serves the creators up on a plate. Each one with a score, and a reason why they fit."
+    ],
+    [
+      "04-pick",
+      "Keep or reject. One tap. It's Tinder for marketers: swipe left, or swipe right!"
+    ],
+    [
+      "05-more",
+      "Hit Find more. The A.I. learns from your picks, and every round gets sharper."
+    ],
+    [
+      "06-export",
+      "Export to Excel, with emails already inside. Ready for outreach."
+    ],
+    [
+      "07-cta",
+      "Yolocko Explorer. Any creator, in three minutes. Link in bio."
+    ]
+  ],
+  "languageCode": "en"
+}

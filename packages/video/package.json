@@ -8,12 +8,16 @@
     "still": "remotion still src/index.ts",
     "sfx": "node scripts/gen-sfx.mjs && node scripts/gen-track.mjs && node scripts/gen-yoloco-audio.mjs",
     "voiceover": "node scripts/gen-voiceover.mjs",
+    "footage": "node scripts/gen-footage.mjs",
+    "captions": "node scripts/gen-weighted-captions.mjs",
     "heygen": "node scripts/gen-heygen.mjs",
     "new-reel": "node scripts/new-reel.mjs"
   },
   "dependencies": {
+    "@remotion/captions": "^4.0.512",
     "@remotion/cli": "^4.0.0",
     "@remotion/google-fonts": "^4.0.0",
+    "@remotion/media": "^4.0.512",
     "@remotion/motion-blur": "^4.0.0",
     "@remotion/transitions": "^4.0.0",
     "@remotion/zod-types": "^4.0.0",
@@ -24,6 +28,7 @@
   },
   "devDependencies": {
     "@types/react": "^19.0.0",
+    "qrcode": "^1.5.4",
     "typescript": "^5.5.0"
   }
 }

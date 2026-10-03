@@ -1,0 +1,17 @@
+{
+  "voiceoverManifest": "scripts/voiceover/gasoline-inflation.json",
+  "outFile": "public/captions/gasoline-inflation.json",
+  "rate": 1,
+  "lines": [
+    ["01-hook", 0],
+    ["02-shortage", 4.32],
+    ["03-proof", 10.27],
+    ["04-first-hit", 16.92],
+    ["05-field", 22.47],
+    ["06-chain", 28.22],
+    ["07-costs", 34.82],
+    ["08-hidden", 41.92],
+    ["09-definition", 47.32],
+    ["10-outro", 54.77]
+  ]
+}

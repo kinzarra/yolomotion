@@ -104,6 +104,46 @@ words automatically.
 activeColor: (now) => (now < SCENES.yoloco.from ? ovColors.bad : ovPalette.primary)
 ```
 
+## Server-side parameterization (props-driven timeline)
+
+`yoloco-audience-fit` is the reference. For a template a render worker should
+be able to re-voice without a commit, the timeline is a pure function instead
+of module-level constants:
+
+```ts
+// timeline.ts
+export const makeTimeline = ({ durations, beats }: TimelineOverrides = {}) => {
+  const SCENES = buildScenes({ ...BEATS, ...beats });
+  const VOICEOVER = defineVoiceover({ ...DURATIONS, ...durations }, LINES.map(
+    ({ file, scene, lead }) => ({ file, start: SCENES[scene].from + lead })));
+  return { SCENES, VOICEOVER, DURATION: scenesDuration(SCENES) };
+};
+export const { SCENES, VOICEOVER, DURATION } = makeTimeline(); // the default
+```
+
+The pieces, and why each is shaped that way:
+
+- **Voiceover starts are `scene + lead`, never absolute seconds** — an
+  overridden beat then carries its line with it. Absolute starts silently keep
+  speaking over the previous scene's extension.
+- **Schema** gains `durations` / `beats` / `voiceoverDir`, all optional; with
+  none of them the render is bit-identical to the checked-in reel, so Studio
+  and the CLI change nothing.
+- **`durationInSeconds: (props) => makeTimeline(props).DURATION`** in
+  `defineTemplate` — Root.tsx wires the function form into
+  `calculateMetadata`, which both Studio and `selectComposition` execute, so
+  the renderer needs no changes and a job never states the video's length.
+- **`voiceoverDir` may be an absolute `http(s)://` URL** — `VoiceoverTrack`
+  then plays the clips from object storage instead of the bundled `public/`,
+  which is how per-job audio reaches a worker whose bundle is cached.
+- `durations.ts` stays the checked-in default and is still generated, never
+  edited; props override it per render, they do not replace it.
+
+What a worker sends: re-voice the manifest lines, ffprobe each clip, then
+`--props '{"durations": {…measured…}, "beats": {…if resized…},
+"voiceoverDir": "https://…/job-123/vo"}'`. The engine's fits-check still
+warns at render time if an overridden line runs past its scene grid.
+
 ## Commands
 
 | command | what it does |

@@ -1,6 +1,6 @@
 // Generic ElevenLabs voiceover synthesis.
 //   node scripts/gen-voiceover.mjs scripts/voiceover/<manifest>.json [env-path]
-//                                  [--durations-only]
+//                                  [--durations-only] [--only=<clip>]
 // The manifest carries voiceId, model, voice settings and the [name, text] lines;
 // each line becomes `<outDir>/<name>.mp3` so a template can Sequence them by name.
 //
@@ -90,6 +90,7 @@ const positional = argv.filter((a) => !a.startsWith("--"));
 const manifestPath = positional[0];
 const envPath = positional[1] ?? path.resolve(root, "../../.env");
 const durationsOnly = flags.has("--durations-only");
+const only = [...flags].find((flag) => flag.startsWith("--only="))?.slice("--only=".length);
 // Re-levels clips that were synthesised before the loudness pass existed.
 // Overwrites the mp3s in place, so it is opt-in.
 const normaliseOnly = flags.has("--normalize-only");
@@ -101,6 +102,12 @@ if (!manifestPath) {
 }
 
 const manifest = JSON.parse(await readFile(path.resolve(manifestPath), "utf8"));
+const selectedLines = only
+  ? manifest.lines.filter(([name]) => name === only)
+  : manifest.lines;
+if (selectedLines.length === 0) {
+  throw new Error(`${only}: clip not found in ${manifestPath}`);
+}
 const outputDir = path.resolve(root, manifest.outDir);
 await mkdir(outputDir, { recursive: true });
 
@@ -113,7 +120,7 @@ const durationsModule = path.resolve(
 );
 
 if (normaliseOnly) {
-  for (const [name] of manifest.lines) {
+  for (const [name] of selectedLines) {
     const file = path.join(outputDir, `${name}.mp3`);
     const levelled = await normalise(file);
     process.stdout.write(
@@ -132,7 +139,7 @@ if (normaliseOnly) {
 
   if (!apiKey) throw new Error(`ELEVENLABS_API_KEY not found in env or ${envPath}`);
 
-  for (const [name, text] of manifest.lines) {
+  for (const [name, text] of selectedLines) {
     const response = await fetch(
       `https://api.elevenlabs.io/v1/text-to-speech/${manifest.voiceId}`,
       {
@@ -145,6 +152,9 @@ if (normaliseOnly) {
         body: JSON.stringify({
           text,
           model_id: manifest.modelId ?? "eleven_multilingual_v2",
+          // Forces the language on models that accept it (turbo/flash v2.5, v3):
+          // a voice cloned from Russian speech otherwise carries its accent into English.
+          ...(manifest.languageCode ? { language_code: manifest.languageCode } : {}),
           voice_settings: manifest.voiceSettings,
         }),
       },

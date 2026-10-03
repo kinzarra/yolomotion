@@ -13,8 +13,17 @@ import { SceneSpec, VoLine, VoTrackLine, sceneFrames, voiceoverEnd } from "./tim
 
 // Voiceover only — no music bed, no SFX. Clips are normalised to -16 LUFS by
 // scripts/gen-voiceover.mjs, so they need no extra gain.
+// A bare name resolves inside the bundled public/; an absolute URL is used
+// as-is. The URL form is what server render jobs pass: per-job clips live in
+// object storage, not in the bundle, and re-bundling per job just to move
+// audio would defeat the cached-bundle worker.
+const clipSrc = (dir: string, file: string): string =>
+  /^https?:\/\//.test(dir)
+    ? `${dir.replace(/\/$/, "")}/${file}.mp3`
+    : staticFile(`voiceover/${dir}/${file}.mp3`);
+
 export const VoiceoverTrack: React.FC<{
-  dir: string; // public/voiceover/<dir>/
+  dir: string; // public/voiceover/<dir>/, or an absolute http(s) base URL
   lines: readonly VoTrackLine[];
   rate: number;
   // Clips normalised by gen-voiceover.mjs need no gain. Only older clips
@@ -26,11 +35,7 @@ export const VoiceoverTrack: React.FC<{
     <>
       {lines.map(({ file, start }) => (
         <Sequence key={file} from={Math.round(start * fps)} name={`vo/${file}`}>
-          <Audio
-            src={staticFile(`voiceover/${dir}/${file}.mp3`)}
-            playbackRate={rate}
-            volume={volume}
-          />
+          <Audio src={clipSrc(dir, file)} playbackRate={rate} volume={volume} />
         </Sequence>
       ))}
     </>

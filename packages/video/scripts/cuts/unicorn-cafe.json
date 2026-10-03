@@ -1,0 +1,43 @@
+{
+  "comment": "The edit of scenarios/telegram-cloud-document-4-…mp4 as data. Every number here is a SOURCE timestamp; reel time is derived by gen-source-cut.mjs, so the jump cut can move without retiming captions or scenes by hand.",
+  "source": "public/media/unicorn-cafe/source.mp4",
+  "asr": "scripts/asr/unicorn-cafe.json",
+  "voiceoverDir": "public/voiceover/unicorn-cafe",
+  "outCaptions": "public/captions/unicorn-cafe.json",
+  "outCuts": "src/templates/unicorn-cafe/cuts.ts",
+
+  "segments": [
+    { "scene": "hook", "srcIn": 0.0, "srcOut": 3.8 },
+    { "scene": "cafe", "srcIn": 3.8, "srcOut": 6.95 },
+    { "scene": "stare", "srcIn": 6.95, "srcOut": 8.45 },
+    { "scene": "source", "srcIn": 9.5, "srcOut": 11.75 },
+    { "scene": "use", "srcIn": 11.75, "srcOut": 15.18 }
+  ],
+  "tail": { "scene": "outro", "len": 3.37 },
+
+  "audio": [
+    { "file": "01-hello", "srcIn": 0.0, "srcOut": 8.45 },
+    { "file": "02-source", "srcIn": 9.5 }
+  ],
+
+  "drop": [
+    [2.7, 3.55, "unintelligible word (ASR hears \"её Creat\") — no caption over a guess"],
+    [5.1, 9.6, "«обсуждаем единорога» is carried by the slam headline; the ASR segment that follows merges the word with 3.8s of silence"]
+  ],
+
+  "rewrite": {
+    "готовые": "готовый",
+    "дальше": "дальше…"
+  },
+
+  "holdMs": 260,
+  "pages": [
+    "Всем привет",
+    "вот мы с друзьями",
+    "сидим в кафе",
+    "вот готовый сурс",
+    "вот мы этот сурс",
+    "соответственно используем",
+    "для того чтобы дальше…"
+  ]
+}

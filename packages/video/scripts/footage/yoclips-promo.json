@@ -1,0 +1,16 @@
+{
+  "id": "yoclips-promo",
+  "sourceDir": "../../../../scenarios/promo",
+  "crop": { "w": 1150, "h": 1786, "x": 940, "y": 0 },
+  "width": 1080,
+  "fps": 30,
+  "note": "Screencasts of the YoClips cabinet. The crop lifts the receipt column out of a 3022x1786 desktop capture: the product's own layout is a narrow centred column, so the crop is native vertical framing, not a salvage. Colour is left alone — the UI is already the reel's palette.",
+  "shots": [
+    { "name": "02-brief",    "file": "scenario.mov", "in": 5.5,  "out": 10.3, "proves": "тема + бриф печатаются в форме «НОВЫЙ РОЛИК»" },
+    { "name": "03-scenario", "file": "run.mov",      "in": 0.6,  "out": 4.6,  "proves": "таблица битов сценария на чеке" },
+    { "name": "04-budget",   "file": "run.mov",      "in": 20.2, "out": 25.2, "proves": "смета: движки, строки, ИТОГО ДЕНЬГАМИ $0.25" },
+    { "name": "05-voice",    "file": "setup.mov",    "in": 6.0,  "out": 10.0, "proves": "сетка фото-образов ведущего + двойник" },
+    { "name": "06-render",   "file": "run.mov",      "in": 37.6, "out": 41.6, "proves": "готовые поля YouTube: заголовок, описание, теги, первый комментарий" },
+    { "name": "07-keys",     "file": "keys.mov",     "in": 5.8,  "out": 9.6,  "proves": "ключ владельца в мастере настройки, «Ваши данные надёжно защищены»" }
+  ]
+}
