@@ -50,6 +50,15 @@ scene code. Its 10 rules apply in full, with one standing exception below.
   (`02-shortage`, `02-numbers`, `02-date` — mechanism, statistic, a date).
   No beat over 6s in the first third; the hook speaks to «ты»; the last frame
   loops — `references/retention.md`.
+- **A reel for the TikTok feed is the short format.** 15–25 s, 3–4 beats with
+  no setup, the claim whole on frame 0, the reel looping back to it. TikTok
+  measured an average view of 9–14 s at ANY length, with most viewers gone at
+  0:01; every published hook there opened on an empty frame. The 45–60 s
+  default above is YouTube's — `references/short-format.md`.
+- **The face starts with its voice.** A HeyGen slice is lip-synced from 0 of
+  its clip, so its `<Sequence from>` is the line's lead, not the scene cut.
+  Dropped on the cut while the voice waits 0.12–0.2 s, the lips run 4–6
+  frames ahead of the sound (three YoClips reels shipped that way).
 - **Series membership is decided first.** A Russian-language finance/tech
   brief is the next «ДЕНЬГИ · ПРОСТО» episode unless the user says otherwise:
   same palette, kit re-exported from the previous episode, next `ВЫПУСК`
@@ -73,7 +82,7 @@ brief of record and it is what step 2 is derived from. Shape:
 - **series**: standalone | «ДЕНЬГИ · ПРОСТО» ВЫПУСК NN (kit re-exported from <prev>)
 - **hero color**: electric green #00FF85 (fix), red #FF3B4D (problem)
 - **hook (first 2s)**: five payment cards fan out, one per influencer
-- **face**: none | face-led hook 0–5s | corner PiP on beats 2, 7 (see Presenter)
+- **face**: none | full-screen on beats 1, 4, 7 (default) | corner circle — only if the author asked for one
 
 ## Beats
 1. **hook** — 5 cards + payments → 5 INFLUENCERS → 1 AUDIENCE
@@ -88,7 +97,7 @@ brief of record and it is what step 2 is derived from. Shape:
 
 ## Presenter            (only if **face** is not "none")
 - character: ${HEYGEN_AVATAR_VIEW_ID} (photo, studio) | Digital Twin
-- shots: which beats, which lines, hero / corner / full-bleed
+- shots: which beats, which lines — full-screen (fullbleed / hero) by default; corner only on request
 - agreed price: $0.xx on avatar_iv — quoted from --dry-run, confirmed by user
 
 ## CTA
@@ -317,7 +326,10 @@ unless the prompt itself names the face. «Без согласований» doe
 Ask in one message:
 - **HeyGen avatar** — which one (the Digital Twin «Philipp», or a photo-avatar
   look such as the podcast studio `${HEYGEN_AVATAR_VIEW_ID}`), on which beats
-  (the hook at least), and that the price comes from the dry run before
+  (the hook at least), **full-screen by default** — the face IS the shot,
+  graphics and evidence cut around it. A corner circle (`dollar-wait`) only
+  when the author says «кружок» / PiP; never chosen to save money or to make
+  room for footage. And that the price comes from the dry run before
   anything is generated (the «Presenter» section above, CLAUDE.md pricing table);
 - **no face** — a graphic reel.
 
@@ -366,6 +378,9 @@ episode re-exporting `dubai-economy/ui`) restores it first the same way.
 `references/retention.md` — analytics from the published reels mapped back
 onto their beat timelines: where the audience actually leaves, and the
 ordering rules that follow from it.
+
+`references/short-format.md` — the 15–25 s TikTok cut: why (the feed's
+numbers), the scenario and frame-0 rules, the four reference cuts.
 
 `references/footage.md` — photos, screenshots, clips and faces: the
 evidence rule, the four roles, the three containers that keep the series

@@ -325,7 +325,7 @@ ${clips.map((c) => `- \`${c}\`: TODO spoken line.`).join("\n")}
 Only if **face** is not "none" — otherwise delete this section.
 
 - character: \${HEYGEN_AVATAR_VIEW_ID} (photo, studio) | Digital Twin
-- shots: which beats, which lines, hero / corner / full-bleed
+- shots: which beats, which lines — full-screen by default; corner circle only on request
 - agreed price: $0.xx on avatar_iv — quoted from --dry-run, confirmed by user
 
 ## CTA

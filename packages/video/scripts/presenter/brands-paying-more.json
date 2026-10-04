@@ -1,6 +1,7 @@
 {
   "_comment": "One insert: the face-led hook 0:00-0:05.2, capped by the user's 6-second avatar budget. The avatar does NOT voice the reel — it lip-syncs to the finished public/voiceover/brands-paying-more/01-hook.mp3, so the reel's track and durations.ts stay untouched. from/to are seconds inside the mp3 at 1.0x; reelIn/reelOut are where the insert lands in the reel at VO_RATE.",
   "avatarId": "${HEYGEN_AVATAR_VIEW_ID}",
+  "avatarName": "Podcast host in blue hoodie",
   "_avatar": "The podcast-studio look from the «Philipp» avatar group (1b80626e…) — a generated PHOTO avatar, not the Digital Twin. Same character as no-it-in-russia's hook. List them: curl -H \"X-Api-Key: $HEYGEN_API_KEY\" https://api.heygen.com/v2/avatar_group/1b80626e44c945edbad8f5024ce9163b/avatars",
   "avatarKind": "photo",
   "_economics": "Photo Avatar bills on a different table from a Digital Twin: avatar_iii = $0.0433/s, avatar_iv = $0.05/s. 5.619s on avatar_iv = $0.28; on avatar_iii = $0.24. The insert is full-frame 1080x1920 where the mimic is the whole point, so IV — $0.04 more. Quoted from --dry-run and confirmed by the author before generating.",

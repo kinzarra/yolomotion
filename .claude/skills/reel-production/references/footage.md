@@ -35,7 +35,7 @@ re-export it like any earlier episode.
 | role | what it is | example | on screen |
 |---|---|---|---|
 | **evidence** | screenshot, document, the real number | listing page showing «247 откликов»; a chart from a report; a terminal with autocomplete | 1.5–3s, exactly on its line |
-| **presence** | a face, hands, a person | the HeyGen hook; a corner PiP on the opinionated lines | 3–5s |
+| **presence** | a face, hands, a person | the HeyGen face full-screen on the hook and the opinionated lines (circle only on request) | 3–5s |
 | **texture** | atmosphere, place | empty open-plan office, server room, hands on a keyboard | ≤2s, always under a scrim |
 | **spectacle** | AI video, an expensive render | "the bottom steps of the staircase dissolve" as a real scene | once per reel, on the main insight |
 
@@ -161,7 +161,9 @@ The presenter pipeline is `npm run heygen` (CLAUDE.md has the manifest,
 pricing and engine rules; `scripts/scenarios/dollar-wait-presenter.md` has
 the geometry). What the scenario has to decide:
 
-- **Face-led hook or corner PiP.** A face-led hook (`no-it-in-russia`) is
+- **Full-screen by default.** The author wants the face big (2026-10-03):
+  full-screen shots cut between the evidence beats. A corner circle is built
+  only when the author asks for it by name. A face-led hook (`no-it-in-russia`) is
   composited *inside* the hook scene, full-bleed, and the reel does not loop.
   A corner PiP (`dollar-wait`) is a `<Presenter>` layer above every scene, and
   the scenes are designed with the band (110,1105)–(390,1385) free.

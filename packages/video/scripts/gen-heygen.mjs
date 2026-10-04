@@ -102,20 +102,49 @@ const fromEnvFile = async (key) => {
 
 const env = async (key) => process.env[key] ?? (await fromEnvFile(key));
 
-// The manifest may name the variable it wants — "${HEYGEN_AVATAR_VIEW_ID}" —
-// because an account can hold several usable characters (a Digital Twin and a
-// set of generated photo-avatar looks) and which one a reel uses is part of the
-// reel, not of the environment. A bare id is used as-is; nothing named falls
-// back to HEYGEN_AVATAR_ID, which is what every earlier manifest relied on.
+// The manifest names the character — "${HEYGEN_AVATAR_VIEW_ID}" or a bare id —
+// because an account holds several usable ones (a Digital Twin and five
+// near-identical «Podcaster in …» photo looks) and which one a reel uses is
+// part of the reel. There is deliberately NO fallback: HEYGEN_AVATAR_ID used
+// to be one, and it held the avatar GROUP id, which HeyGen answers with
+// "Avatar not found" — a session that hit that went shopping in the group
+// list and picked whichever podcaster came first.
 const resolveAvatarId = async (manifest) => {
   const raw = manifest.avatarId;
+  if (!raw) throw new Error(`The manifest has no "avatarId". Ask the author which face — never pick one from the avatar list.`);
   const named = typeof raw === "string" ? raw.match(/^\$\{(\w+)\}$/) : null;
-  if (named) {
-    const value = await env(named[1]);
-    if (!value) throw new Error(`${raw} is not set in the environment or ${envPath}`);
-    return value;
+  if (!named) return raw;
+  const value = await env(named[1]);
+  if (!value) {
+    throw new Error(`${raw} is not set in the environment or ${envPath}. Set it — do not substitute another avatar.`);
   }
-  return raw || (await env("HEYGEN_AVATAR_ID"));
+  return value;
+};
+
+// Before a cent is spent the face is named back from HeyGen, and checked
+// against the manifest's "avatarName" when it has one. A wrong id then fails
+// on the free dry run instead of after the paid render.
+const confirmFace = async (manifest) => {
+  const avatarId = await resolveAvatarId(manifest);
+  const apiKey = await env("HEYGEN_API_KEY");
+  if (!apiKey) throw new Error(`HEYGEN_API_KEY not found in env or ${envPath}`);
+  let info;
+  try {
+    info = await heygen(apiKey, "GET", `/v2/avatar/${avatarId}/details`);
+  } catch (error) {
+    if (/not found/i.test(String(error.message))) {
+      throw new Error(`HeyGen has no avatar ${avatarId} (from ${manifest.avatarId}) — is that a group id?`);
+    }
+    process.stdout.write(`! could not look the avatar up (${String(error.message).slice(0, 120)}) — check the face by hand\n`);
+    return avatarId;
+  }
+  const name = info?.name ?? "?";
+  process.stdout.write(`FACE: ${name} (${info?.type ?? "?"}, ${avatarId})\n`);
+  if (info?.preview_image_url) process.stdout.write(`      preview: ${info.preview_image_url}\n`);
+  if (manifest.avatarName && manifest.avatarName !== name) {
+    throw new Error(`Wrong face: the manifest expects «${manifest.avatarName}», ${avatarId} is «${name}».`);
+  }
+  return avatarId;
 };
 
 // Per-second USD, per https://developers.heygen.com/docs/pricing — billed from
@@ -487,6 +516,7 @@ if (flags.has("--generate")) {
   if (rate === undefined) {
     throw new Error(`No published price for ${kind} on ${engine} — check the manifest.`);
   }
+  const avatarId = await confirmFace(manifest);
   const audio = await buildShotsAudio(manifest);
   const cost = audio.total * rate;
   process.stdout.write(
@@ -505,8 +535,6 @@ if (flags.has("--generate")) {
 
   const apiKey = await env("HEYGEN_API_KEY");
   if (!apiKey) throw new Error(`HEYGEN_API_KEY not found in env or ${envPath}`);
-  const avatarId = await resolveAvatarId(manifest);
-  if (!avatarId) throw new Error("No avatar id in the manifest or HEYGEN_AVATAR_ID");
 
   process.stdout.write(`\nuploading ${path.basename(audio.outFile)} …\n`);
   const audioAssetId = await uploadAudio(apiKey, audio.outFile);
@@ -613,6 +641,7 @@ await mkdir(outDir, { recursive: true });
 // running graphics, so it wants a square canvas with the head centred.
 const ASPECT = { hero: "9:16", corner: "1:1" };
 
+const avatarId = await confirmFace(manifest);
 const billed = shots.reduce((total, s) => total + (s.to - s.from), 0);
 process.stdout.write(
   `${shots.length} shot(s), ${billed.toFixed(1)}s of avatar video to generate ` +
@@ -655,13 +684,6 @@ if (dryRun) {
 const apiKey = await env("HEYGEN_API_KEY");
 if (!apiKey) throw new Error(`HEYGEN_API_KEY not found in env or ${envPath}`);
 
-const avatarId = await resolveAvatarId(manifest);
-if (!avatarId) {
-  throw new Error(
-    `No avatar id: set "avatarId" in the manifest or HEYGEN_AVATAR_ID in ${envPath}. ` +
-      `List yours with: curl -H "X-Api-Key: $HEYGEN_API_KEY" ${API}/v2/avatars`,
-  );
-}
 
 const done = [];
 for (const shot of shots) {

@@ -2,6 +2,7 @@
   "_comment": "Presenter (talking-head) inserts for the dollar-wait reel. The avatar NEVER speaks its own voice: every shot lip-syncs to a slice of the ElevenLabs house clips already in public/voiceover/dollar-wait, so the reel's audio track is untouched and the timeline does not move by a frame. `from`/`to` are seconds inside the source mp3 at 1.0x; `reelIn` is where the shot lands in the finished reel, derived as vo.start + from / VO_RATE. Cut points sit in measured silences between sentences. See scripts/scenarios/dollar-wait-presenter.md.",
   "_economics": "Billed per second of output from the USD wallet. Avatar III Digital Twin = $0.0167/s, Avatar IV = $0.0667/s — four times more. These three shots total 8.30s => $0.14 on avatar_iii. They are generated as ONE concatenated upload, not three calls: the second count is identical but the docs never state whether there is a minimum billed duration per video, and one file cannot be worse than three.",
   "avatarId": "511aa716118e4afc842dbd5276a0c7d2",
+  "avatarName": "Philipp",
   "_avatar": "«Philipp» — Digital Twin. Не секрет, поэтому лежит здесь, а не в .env; HEYGEN_AVATAR_ID всё ещё перекрывает это значение. Список: curl -H \"X-Api-Key: $HEYGEN_API_KEY\" https://api.heygen.com/v2/avatars",
   "voiceoverDir": "public/voiceover/dollar-wait",
   "outDir": "public/presenter/dollar-wait",

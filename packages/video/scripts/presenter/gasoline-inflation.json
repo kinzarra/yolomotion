@@ -1,6 +1,7 @@
 {
   "_comment": "Одна студийная врезка только в хуке. HeyGen получает уже готовый house-voice clip и делает lip-sync; в Remotion видео всегда muted, поэтому голос и субтитры остаются синхронны.",
   "avatarId": "${HEYGEN_AVATAR_VIEW_ID}",
+  "avatarName": "Podcast host in blue hoodie",
   "_avatar": "Podcast host in blue hoodie из группы Philipp — тот же студийный PHOTO avatar, что в no-it-in-russia.",
   "avatarKind": "photo",
   "engine": "avatar_iv",

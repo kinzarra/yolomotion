@@ -81,8 +81,14 @@ See README.md for the full architecture and the SaaS roadmap.
   UI instead.
   **Which character, and what it costs.** The manifest's `avatarId` may name an
   env var — `"${HEYGEN_AVATAR_VIEW_ID}"` — and that named variable is what gets
-  resolved; a bare id is used as-is, and neither falls back to
-  `HEYGEN_AVATAR_ID`. The account holds a Digital Twin (`511aa716…`, «Philipp»)
+  resolved; a bare id is used as-is, and there is NO fallback — a manifest
+  without `avatarId` fails (`HEYGEN_AVATAR_ID` holds the GROUP id and is not
+  read). Every manifest also carries `"avatarName"` (`Podcast host in blue
+  hoodie` for the studio look, `Philipp` for the twin): `gen-heygen` looks the
+  id up, prints `FACE: …` with a preview on the free dry run, and refuses a
+  mismatch. **Never choose a face from the group listing** — five looks are
+  near-identical «Podcaster in …»; if the variable is missing, stop and ask.
+  The account holds a Digital Twin (`511aa716…`, «Philipp»)
   plus five generated **photo-avatar looks** in the same group (`1b80626e…`),
   one of which is the podcast-studio shot `HEYGEN_AVATAR_VIEW_ID`. List them:
   `curl -H "X-Api-Key: $HEYGEN_API_KEY" https://api.heygen.com/v2/avatar_group/1b80626e44c945edbad8f5024ce9163b/avatars`.
@@ -95,7 +101,8 @@ See README.md for the full architecture and the SaaS roadmap.
   | Digital Twin | $0.0167/s | $0.0667/s |
   | Photo Avatar | $0.0433/s | $0.05/s |
 
-  So for a twin in a Ø280–620 circle, Avatar III (4× cheaper, and the
+  The face goes **full-screen by default**; a circle only when the author asks
+  for one. So for a twin in a Ø280–620 circle, Avatar III (4× cheaper, and the
   difference does not read at that size). For a photo avatar full-frame, IV
   costs $0.03 more on a 5s insert — take it. Balance:
   `GET /v3/users/me → wallet`.
@@ -132,12 +139,26 @@ See README.md for the full architecture and the SaaS roadmap.
   файл — в `public/media/<id>/` + `credits.json` с готовой строкой титров.
   Ключи `PEXELS_API_KEY`, `PIXABAY_API_KEY`. Чужие ролики вне CC не качать:
   Content ID → claim/страйк.
+- `npm run tiktok -- <user|search|hashtag|music|fyp|video|grab|raw> …` —
+  исследование TikTok через RapidAPI (tikwm, `RAPID_TIKTOK_KEY`, план PRO,
+  3 млн запросов/мес): профили, поиск, хэштеги, звуки, комментарии, ролик в
+  оригинальном качестве с контакт-листом для разбора. Всё — в `out/tiktok/`.
+  Чужой ролик — только для анализа, в рил идёт идея, не файл. Как разбирать и
+  адаптировать — `.claude/skills/tiktok-research/SKILL.md`.
 - `npm run footage -- scripts/footage/<id>.json` — нарезка улик из
   скринкастов/видео. Конфиг задаёт один общий `crop` в координатах исходника и
   список шотов (`file`, `in`, `out`, `proves`); скрипт режет в 30fps/1080,
   ffprobe меряет то, что получилось, и пишет генерируемый
   `templates/<id>/footage.ts`. Сцена читает модуль и НИКОГДА не проставляет
   длину шота руками. `yoclips-promo` — референс.
+- `node packages/video/scripts/yoclips-pull.mjs vN [--into <репо>]` — забрать
+  готовый ролик YoClips из `s3://yoclips/videos/vN/` (только чтение): шаблон
+  из `template.tgz`, озвучку, HeyGen-вставки и картинки по местам, а `out.mp4`
+  в `out/yoclips/vN/`. Нужен для перемонтажа без новых покупок
+  (`references/short-format.md`). `durations.ts` приходит пустым: мерить
+  `--durations-only`. Шаблоны YoClips собраны на ИХ форке движка
+  (`components/Type`, `reel/effects.tsx`), поэтому пока движки не сведены,
+  тяни с `--into <чекаут yoclips>`.
 - `node scripts/gen-source-cut.mjs scripts/cuts/<id>.json [--slice]` — рил на
   ЖИВОМ футаже. Конфиг задаёт рез в координатах исходника (`segments`,
   `audio`, `drop`, `rewrite`, `pages`); скрипт выводит время рила сам и пишет

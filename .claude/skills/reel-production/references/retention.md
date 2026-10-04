@@ -166,6 +166,39 @@ in the closing beat reaches about one viewer in ten.
   A sagging middle is an ordering problem in the scenario, and it is fixed
   there.
 
+## TikTok — a different feed, where the hook IS the variable
+
+Read 2026-10-04 (TikTok @kinzarra, 88 YoClips reels in 45 days). Everything
+above is YouTube Shorts, and it does not carry over:
+
+| | YouTube Shorts | TikTok |
+|---|---|---|
+| First seconds | 52–61 % stayed to watch (45–85 s reels) | «Most viewers stopped watching at 0:01» |
+| Average view | 0:23 from the feed | **9–14 s at any length** (32 s … 85.5 s) |
+| Watched to the end | 30–39 % on the last frame of the reels that hold | 5–7 % |
+| Views | median 982, max 1 586 | median 752, ceiling **832** |
+
+| reel (TikTok) | length | average view | watched to end |
+|---|---|---|---|
+| Госдолг США $40 трлн (face + a counter running up) | 85.5 s | 13.7 s (16 %) | 5.19 % |
+| «ИИ вошёл сам» (face) | 50.5 s | 10.8 s | 6.21 % |
+| Беднейшие страны (chart, no face) | 45.2 s | 8.8 s | 6.91 % |
+
+Every published hook opened on an empty frame 0, with the claim typing in
+by 0.3–1.5 s. On TikTok, therefore, «do not answer a retention number by
+re-cutting the hook» does not hold, and neither does «45–60 s by default».
+A reel for the TikTok feed follows `short-format.md`: 15–25 s, the claim
+whole on frame 0, a loop.
+
+### TikTok pilot (short format, one reel a day)
+
+| reel | posted | length | first frame | average view | to end | views | where they left |
+|---|---|---|---|---|---|---|---|
+| `portnyagin-sentence-short` | | 17.0 s | (а) face + claim | | | | |
+| `ai-starts-war-short` | | 19.0 s | (а) face + claim | | | | |
+| `ai-superpowers-short` | | 24.0 s | (б) full-screen type | | | | |
+| `gpt-6-astra-office-jobs-short` | | 21.0 s | (а) face + claim | | | | |
+
 ## Delivery habit
 
 Pin the first comment yourself — your own opinion or a sharper version of the
