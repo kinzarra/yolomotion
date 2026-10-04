@@ -51,8 +51,95 @@ Two facts follow directly from that table:
 Between them, `break + economy + tasks` = **20 seconds (29% of the reel) of
 consecutive setup with no new claim**. That stretch is the drop-off.
 
+### Channel-wide pull — 49 Shorts + 8 retention curves (2026-10-04)
+
+Read from YouTube Studio for the whole channel's lifetime. The raw data is in
+`out/youtube/*-2026-10-04.csv` (gitignored). The curves were scraped from the
+`line-series` SVG path on each video's Engagement tab, scaled through
+`getScreenCTM` against the % tick labels, which differ from video to video.
+
+**The ceiling.** 81 342 views over 49 videos: median 982, max 1 586, no
+breakout. 84% of the views come from the Shorts feed, where the average view
+is 0:23. Search brings 8%, at 0:44. Every reel gets the test batch and none
+earns a second one.
+
+**Length vs. the two retention numbers:**
+
+| length | n | stayed to watch | % viewed | likes / 1k views |
+|---|---|---|---|---|
+| ≤ 45s | 5 | 37% | ~60% | 4.1 |
+| 45–65s | 18 | 52% | ~45% | 5.9 |
+| 65–85s | 20 | 61% | ~45% | 9.5 |
+| 85s + | 6 | 69% | ~50% | 10.5 |
+
+Short reels lose the swipe and long ones lose the middle. The short end is
+mostly old country chart-races, which also have the weakest topic. The only
+reels that cleared both bars at once (≥ 73% stayed, ≥ 55% viewed) are
+«Госдолг США $40 трлн», «90% чипов», «Литр бензина 78 ₽» and «Дрон ALMA».
+
+**By topic.** AI/tech has the best stayed-to-watch (62%) and brought 17 of
+the 41 subscribers. Russian-wallet topics (taxes, the rouble, gasoline,
+Портнягин) collected 20 of the 37 comments and the most shares.
+Country chart-races are the worst at 46%.
+
+**The curves.** Values are % of the viewers who started. They open at
+107–132% because the hook gets rewatched.
+
+| video | length | steepest drop | below 50% at | last frame |
+|---|---|---|---|---|
+| Госдолг США $40 трлн | 86s | −15 at 4–9s | ~65s | 35% |
+| 90% чипов | 79s | −21 at 4–8s | ~47s | 30% |
+| Литр бензина 78 ₽ (`gasoline-inflation`) | 75s | −26 at 8–11s | ~30s | 36% |
+| Дрон ALMA | 55s | −15 at 8–11s | ~27s | 27% |
+| Самойлова / Хабиб | 34s | −14 at 3–5s | ~31s | 39% |
+| 24 человека в IT (`no-it-in-russia`) | 69s | −24 at 3–7s | ~19s | 10% |
+| Банк проверит телефон (`phone-check`) | 82s | −25 at 4–8s | ~23s | 9% |
+| NVIDIA обошла Apple (chart-race) | 73s | −34 at 4–7s | **~11s** | 15% |
+
+**On every curve the steepest drop is at 3–11s, the beat right after the
+hook.** In each of our own reels that beat explains instead of escalating:
+
+- `gasoline-inflation` `02-shortage`: «Когда топлива меньше… Это обычный
+  дефицит», a textbook mechanism right after a personal hook. −26.
+- `no-it-in-russia` `02-numbers`: the hook asks «Нейросети убили
+  профессию?», and the next beat answers with a statistic. −24.
+- `phone-check` `02-date`: an **11-second** sentence about when the law takes
+  effect, straight after «Ваш перевод отклонён». −25.
+
+The chart-race shows the same thing with no voice at all. An animated ranking
+asks no question, so half the audience is gone by 11s.
+
+The ending separates winners from losers: 30–39% are still there on the last
+frame of the reels that hold, and 9–15% on the ones that don't. A question
+in the closing beat reaches about one viewer in ten.
+
 ## Rules
 
+- **Beat 2 (≈3–10s) escalates; it never explains.** The hook opens a gap,
+  and the very next beat must widen it: a personal consequence, a sharper
+  number, «и это не худшее». The mechanism («почему так», definitions, dates,
+  sources) waits until after ~20s. This is the single largest loss on every
+  curve measured. Check it in step 1 by reading beat 2 aloud after the hook:
+  if it begins with «Когда…», «С 1 марта…» or a statistic that answers the
+  hook's question, rewrite it.
+- **No beat longer than 6s in the first third.** `phone-check`'s 11s
+  `02-date` is the counter-example. Split a long line or move it later.
+- **Don't answer the hook's question early.** Tease the answer, give evidence
+  that sharpens it, and close it in the turn. A statistic that settles the
+  question at 5s also settles whether to keep watching.
+- **Default length is 45–60s.** Even the best curves are near 50% by 47–65s.
+  Go past 60s only with a second turn in the back half (see «claim budget»
+  below), and say so in *Deviations*.
+- **Every hook speaks to the viewer** («Нет машины? Ты всё равно платишь…»,
+  «почему дорожает ваша жизнь»). A third-person ranking («Китай обогнал…»)
+  is the format with the worst retention on the channel. Use a ranking as
+  evidence inside a reel, never as its premise.
+- **Loop the last frame into the first, and keep the CTA inside the watched
+  span.** Reels that hold end at 30–39%, so a loop turns their tail into
+  rewatches. Put the question on screen before ~30s (see the next rule) and
+  let the final beat reprise it.
+- **Titles carry a searchable term** (a name, a law, an asset). Search
+  viewers watch twice as long as feed viewers (0:44 vs 0:23).
 - **The turn lands before the average exit.** The single strongest line — the
   reveal, the reframe, the thing the reel is for — belongs in the first third:
   by ~15–20s in a 60–70s Short, by ~8s in a 30s one. In `no-it-in-russia`

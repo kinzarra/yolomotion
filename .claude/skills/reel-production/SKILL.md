@@ -45,6 +45,11 @@ scene code. Its 10 rules apply in full, with one standing exception below.
   setup beats (~10s) anywhere after it. Measured: `no-it-in-russia` put its
   turn at 31.5s and its CTA at 63.0s of 68.5s, and the average view ended at
   30s — `references/retention.md`.
+- **Beat 2 escalates, never explains; 45–60s by default.** On all 8 measured
+  curves the steepest drop is at 3–11s, the beat right after the hook
+  (`02-shortage`, `02-numbers`, `02-date` — mechanism, statistic, a date).
+  No beat over 6s in the first third; the hook speaks to «ты»; the last frame
+  loops — `references/retention.md`.
 - **Series membership is decided first.** A Russian-language finance/tech
   brief is the next «ДЕНЬГИ · ПРОСТО» episode unless the user says otherwise:
   same palette, kit re-exported from the previous episode, next `ВЫПУСК`
