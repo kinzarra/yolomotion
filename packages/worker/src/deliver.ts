@@ -100,7 +100,7 @@ const reelFiles = (): string[] => {
         .map((f) => path.join(out, f))
     : [];
   const pub = path.join(REPO_ROOT, "packages/video/public");
-  const kinds = ["voiceover", "presenter", "footage", "media"];
+  const kinds = ["voiceover", "presenter", "footage", "media", "images", "music"];
   const assets = kinds.flatMap((kind) => {
     const dir = path.join(pub, kind);
     if (!existsSync(dir)) return [];
