@@ -1,0 +1,99 @@
+// Экономика шаурмичной. Всё считается из времени t, без случайностей:
+// один и тот же кадр всегда показывает одну и ту же очередь.
+
+export const PRICE = 500; // ₽ за шаурму
+export const COOK = 1.55; // секунд на шаурму, один повар
+export const COOK_TWO = 0.4; // секунд на шаурму, когда поваров двое
+export const SPEED = 270; // шаг пешехода, px в секунду
+export const COUNTER_X = 600; // здесь стоит тот, кто платит
+export const GAP = 80; // расстояние между людьми в очереди
+export const MAX_LINE = 7; // длиннее очередь: человек уходит
+export const CASH0 = 12000; // в кассе на старте
+
+export const START = 41.85; // кадр 0 ролика
+export const RUSH = START + 7.5; // час пик: из метро идёт толпа
+export const RUSH_END = START + 46; // толпа схлынула
+export const HIRE = START + 15.4; // наняли второго повара
+export const HIRE_COST = 15000; // ₽
+
+// события вечера
+export const TIP = { at: START + 5.6, amount: 100 }; // бабушка оставила чаевые
+export const DOG = START + 16.6; // собака украла шаурму у клиента
+export const DELIVERY = { at: START + 23.3, amount: 5 * PRICE }; // курьер забрал 5 шаурм
+
+const rnd = (n: number) => {
+  const x = Math.sin(n * 12.9898 + 78.233) * 43758.5453;
+  return x - Math.floor(x);
+};
+const ease = (x: number) => {
+  const c = Math.min(1, Math.max(0, x));
+  return c * c * (3 - 2 * c);
+};
+
+export type Client = { id: number; arrive: number; start: number; end: number; left: boolean; tail: number };
+
+// в час пик люди приходят в два раза чаще
+const nextGap = (t: number, id: number) =>
+  t > RUSH && t < RUSH_END ? 0.5 + rnd(id) * 0.4 : 1.25 + rnd(id) * 0.75;
+
+export const CLIENTS: Client[] = [];
+let arrive = 0;
+let free = 0;
+for (let id = 0; id < 120; id += 1) {
+  arrive += nextGap(arrive, id);
+  const waiting = CLIENTS.filter((o) => !o.left && o.end > arrive).length;
+  if (waiting >= MAX_LINE) {
+    // увидел очередь и ушёл: минус 500 ₽
+    CLIENTS.push({ id, arrive, start: arrive, end: arrive, left: true, tail: waiting });
+    continue;
+  }
+  const start = Math.max(arrive, free + (free > HIRE ? 0.25 : 0.45));
+  const cook = start > HIRE ? COOK_TWO : COOK;
+  CLIENTS.push({ id, arrive, start, end: start + cook, left: false, tail: waiting });
+  free = start + cook;
+}
+const SERVED = CLIENTS.filter((c) => !c.left);
+
+// сколько человек стоит перед клиентом прямо сейчас
+export const placeInLine = (c: Client, t: number) =>
+  SERVED.filter((o) => o.id < c.id).reduce((n, o) => n + 1 - ease((t - o.end) / 0.4), 0);
+
+// где клиент: идёт к очереди, стоит в ней, уходит с шаурмой
+export const clientX = (c: Client, t: number): number | null => {
+  const tail = COUNTER_X - GAP * c.tail;
+  const walkIn = c.arrive - (tail + 160) / SPEED;
+  if (t < walkIn) return null;
+  if (t < c.arrive) return -160 + SPEED * (t - walkIn);
+  if (c.left) {
+    // постоял, посмотрел на очередь, развернулся
+    const back = t - c.arrive - 0.9;
+    if (back < 0) return tail;
+    const x = tail - SPEED * back;
+    return x < -200 ? null : x;
+  }
+  if (t < c.end) return Math.max(tail, COUNTER_X - GAP * placeInLine(c, t));
+  const x = COUNTER_X + SPEED * (t - c.end);
+  return x > 1240 ? null : x;
+};
+
+// касса: +500 ₽ в момент оплаты, −15 000 ₽ за второго повара
+export const PAY_DELAY = 0.15;
+export const paidAt = (c: Client) => c.start + PAY_DELAY;
+export const cash = (t: number) =>
+  CASH0 +
+  PRICE * SERVED.filter((c) => paidAt(c) <= t).length -
+  (t >= HIRE ? HIRE_COST : 0) +
+  (t >= TIP.at ? TIP.amount : 0) +
+  (t >= DELIVERY.at ? DELIVERY.amount : 0);
+export const sold = (t: number) => SERVED.filter((c) => c.end <= t).length;
+export const lost = (t: number) => CLIENTS.filter((c) => c.left && c.arrive <= t).length;
+export const queue = (t: number) => SERVED.filter((c) => c.arrive <= t && t < c.end).length;
+
+// у кого собака стащит шаурму: тот, кто только что отошёл от окна
+export const DOG_VICTIM = SERVED.find((c) => c.end > DOG - 1.0 && c.end < DOG - 0.25) ?? SERVED[0];
+
+// кого сейчас обслуживают и на каком этапе (0..1)
+export const serving = (t: number) => {
+  const c = SERVED.find((o) => o.start <= t && t < o.end);
+  return c ? { c, p: (t - c.start) / (c.end - c.start) } : null;
+};

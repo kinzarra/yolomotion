@@ -1,0 +1,20 @@
+{
+  "templateId": "phone-slowdown",
+  "voiceoverDir": "public/voiceover/phone-slowdown",
+  "outDir": "public/presenter/phone-slowdown",
+  "avatarId": "${HEYGEN_AVATAR_VIEW_ID}",
+  "avatarName": "Podcast host in blue hoodie",
+  "avatarKind": "photo",
+  "engine": "avatar_iv",
+  "concatAspect": "16:9",
+  "resolution": "1080p",
+  "outputFormat": "mp4",
+  "_budget": "author 2026-11-04: up to 1 $ for the face",
+  "shots": [
+    { "id": "face", "clip": "01-face", "from": 0, "to": 5.75, "style": "wide", "reelIn": 0 },
+    { "id": "prove", "clip": "05-prove", "from": 0, "to": 4.65, "style": "wide", "reelIn": 0 },
+    { "id": "ate", "clip": "13-ate", "from": 0, "to": 1.25, "style": "wide", "reelIn": 0 },
+    { "id": "turn", "clip": "22-turn", "from": 4.45, "to": 8.3, "style": "wide", "reelIn": 0 },
+    { "id": "final", "clip": "42-final", "from": 0, "to": 4.35, "style": "wide", "reelIn": 0 }
+  ]
+}

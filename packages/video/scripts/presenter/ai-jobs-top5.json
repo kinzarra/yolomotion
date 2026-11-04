@@ -1,0 +1,16 @@
+{
+  "templateId": "ai-jobs-top5",
+  "voiceoverDir": "public/voiceover/ai-jobs-top5",
+  "outDir": "public/presenter/ai-jobs-top5",
+  "avatarId": "${HEYGEN_AVATAR_VIEW_ID}",
+  "avatarName": "Podcast host in blue hoodie",
+  "avatarKind": "photo",
+  "engine": "avatar_iv",
+  "concatAspect": "9:16",
+  "resolution": "1080p",
+  "outputFormat": "mp4",
+  "_budget": "author cap $0.25 per reel; author note 3 (t=4.32): podcaster in the hook, ≤25c approved 2026-10-18",
+  "shots": [
+    { "id": "punch", "clip": "01-hook", "from": 0.9, "to": 4.598, "style": "hero", "reelIn": 0 }
+  ]
+}

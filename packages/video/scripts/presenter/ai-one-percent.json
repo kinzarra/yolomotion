@@ -1,0 +1,16 @@
+{
+  "templateId": "ai-one-percent",
+  "voiceoverDir": "public/voiceover/ai-one-percent",
+  "outDir": "public/presenter/ai-one-percent",
+  "avatarId": "${HEYGEN_AVATAR_VIEW_ID}",
+  "avatarName": "Podcast host in blue hoodie",
+  "avatarKind": "photo",
+  "engine": "avatar_iv",
+  "concatAspect": "9:16",
+  "resolution": "1080p",
+  "outputFormat": "mp4",
+  "_budget": "author cap $0.25 per reel; author note 3 (t=4.32): podcaster in the hook",
+  "shots": [
+    { "id": "punch", "clip": "01-hook", "from": 1.8, "to": 6.316, "style": "hero", "reelIn": 0 }
+  ]
+}

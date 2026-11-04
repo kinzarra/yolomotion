@@ -12,6 +12,7 @@
 // in the pipeline that silently produced drifting captions when a line was
 // re-recorded. `--durations-only` re-measures existing mp3s without spending
 // TTS credits (and without changing the audio).
+import { existsSync, readFileSync } from "node:fs";
 import { mkdir, readFile, rename, unlink, writeFile } from "node:fs/promises";
 import { execFile } from "node:child_process";
 import path from "node:path";
@@ -154,7 +155,24 @@ if (normaliseOnly) {
   if (!voiceId) throw new Error(`${named} not found in env or ${envPath}`);
   process.stdout.write(`Voice ${voiceId}${named ? ` (from ${named})` : ""}\n`);
 
-  for (const [name, text] of selectedLines) {
+  // The author's stress dictionary (scripts/voiceover/stress.json): every fix he
+  // ever asked for, applied to Russian lines before TTS so it never comes back.
+  const stressFile = path.resolve(root, "scripts/voiceover/stress.json");
+  const stress = existsSync(stressFile) ? JSON.parse(readFileSync(stressFile, "utf8")) : { words: {}, patterns: [] };
+  const russian = !manifest.languageCode || manifest.languageCode === "ru";
+  const prepare = (line) => {
+    if (!russian) return line.replace(/\s*—\s*/g, ", ");
+    let out = line;
+    for (const [re, to] of stress.patterns ?? []) out = out.replace(new RegExp(re, "gu"), to);
+    for (const [from, to] of Object.entries(stress.words ?? {}).sort((a, b) => b[0].length - a[0].length)) {
+      out = out.replace(new RegExp(`(?<![\\p{L}\u0301])${from}(?![\\p{L}\u0301])`, "giu"), to);
+    }
+    return out;
+  };
+
+  for (const [name, rawText] of selectedLines) {
+    const text = prepare(rawText);
+    if (text !== rawText) process.stdout.write(`  ${name}: «${text}»\n`);
     const response = await fetch(
       `https://api.elevenlabs.io/v1/text-to-speech/${voiceId}`,
       {

@@ -1,6 +1,6 @@
 // Постановка видео в очередь — CLI-предтеча API/бота с тем же контрактом.
 // Новое видео:
-//   npm run worker:enqueue -- --template yoloco-audience-fit --project yoloco \
+//   npm run worker:enqueue -- --template digital-ruble --project philipp-why \
 //     [--format reel] [--title "…"] [--props f.json] [--manifest f.json] \
 //     [--scenario scripts/scenarios/x.md] [--upload]
 // Перегенерация существующего (только БД + S3, ничего локального):

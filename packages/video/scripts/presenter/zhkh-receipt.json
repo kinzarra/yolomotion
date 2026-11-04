@@ -1,0 +1,23 @@
+{
+  "templateId": "zhkh-receipt",
+  "voiceoverDir": "public/voiceover/zhkh-receipt",
+  "outDir": "public/presenter/zhkh-receipt",
+  "avatarId": "${HEYGEN_AVATAR_VIEW_ID}",
+  "avatarName": "Podcast host in blue hoodie",
+  "avatarKind": "photo",
+  "engine": "avatar_iv",
+  "concatAspect": "1:1",
+  "resolution": "1080p",
+  "outputFormat": "mp4",
+  "_budget": "author cap $0.25 per reel; face 3 s in the hook, circle next to the receipt (author 2026-10-23: «HeyGen, 3 секунды»), quote before generating",
+  "shots": [
+    {
+      "id": "punch",
+      "clip": "01-hook",
+      "from": 2.9,
+      "to": 6.037,
+      "style": "corner",
+      "reelIn": 0
+    }
+  ]
+}

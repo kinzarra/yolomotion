@@ -1,0 +1,35 @@
+{
+  "_doc": "Applied by gen-voiceover to every Russian line before TTS (whole words, case-insensitive). Author's fixes collected from frame notes; add one line per new complaint and it never comes back. Acute U+0301 never on «и» (it hardens the vowel).",
+  "words": {
+    "Сечин": "Се́чин",
+    "Роснефть": "Рос Нефть",
+    "восемьдесят": "во́семьдесят",
+    "четыреста восемьдесят": "четы́реста во́семьдесят",
+    "Фуке": "Фуке́",
+    "Хунин": "Хуни́н",
+    "Тахнун": "Тахну́н",
+    "Блэкрок": "Блэк Рок",
+    "ИИ": "И И",
+    "зарплат": "зарпла́т",
+    "Каждый": "Ка́ждый",
+    "Йолоко": "Йоло́ко",
+    "Амазон": "Амазо́н",
+    "Майкрософт": "Ма́йкрософт",
+    "Софтбанк": "Со́фтбанк",
+    "Антропик": "Антро́пик",
+    "Вучича": "Ву́чича",
+    "Вучич": "Ву́чич"
+  },
+  "patterns": [
+    [
+      "([.!?]\\s+)Не ([А-ЯЁ])",
+      "$1И не $2",
+      "«Не X. Не Y.» : a sentence-initial «Не» after a full stop is read as «НЭ»; the first one is fine"
+    ],
+    [
+      "\\s*—\\s*",
+      ", ",
+      "no em dashes, the author's rule; a comma keeps the breath"
+    ]
+  ]
+}

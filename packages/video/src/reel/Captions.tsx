@@ -10,7 +10,7 @@
 import React from "react";
 import { interpolate, spring, useCurrentFrame, useVideoConfig } from "remotion";
 import { theme, Palette } from "../theme";
-import { VoLine } from "./timeline";
+import { AsrWord, VoLine } from "./timeline";
 
 type WordColor = "none" | "hero" | "bad";
 
@@ -83,6 +83,77 @@ const parseWord = (raw: string) => {
   return { text: raw, color: "none" as const };
 };
 
+const norm = (s: string) => s.toLowerCase().replace(/ё/g, "е").replace(/[^\p{L}\p{N}]/gu, "");
+
+/**
+ * Caption tokens → raw [start, end] in the clip, pinned to ASR. ASR segments
+ * that hold several words are split by letter weight first; each token is
+ * matched to the next few recognised words (monotonic, exact after
+ * normalisation); the runs nobody recognised («600» for «шестьсот», a merged
+ * name) are spread by letter weight between the anchors around them.
+ */
+const alignAsr = (tokens: { text: string }[], asr: AsrWord[]): { start: number; end: number }[] => {
+  const heard = asr.flatMap((seg) => {
+    const parts = seg.text.split(/\s+/).filter(Boolean);
+    const total = parts.reduce((s, w) => s + weightOf(w), 0) || 1;
+    let c = seg.start;
+    return parts.map((w) => {
+      const d = (weightOf(w) / total) * (seg.end - seg.start);
+      const out = { n: norm(w), start: c, end: c + d };
+      c += d;
+      return out;
+    });
+  });
+  const anchor: (number | null)[] = tokens.map(() => null);
+  let jc = 0;
+  tokens.forEach((t, i) => {
+    const n = norm(t.text);
+    if (!n) return;
+    for (let j = jc; j < Math.min(heard.length, jc + 4); j += 1) {
+      if (heard[j].n === n) {
+        anchor[i] = j;
+        jc = j + 1;
+        return;
+      }
+    }
+  });
+  const first = heard[0]?.start ?? 0;
+  const last = heard[heard.length - 1]?.end ?? 0;
+  const times: { start: number; end: number }[] = tokens.map(() => ({ start: 0, end: 0 }));
+  let i = 0;
+  while (i < tokens.length) {
+    const a = anchor[i];
+    if (a !== null) {
+      times[i] = { start: heard[a].start, end: heard[a].end };
+      i += 1;
+      continue;
+    }
+    let k = i;
+    while (k < tokens.length && anchor[k] === null) k += 1;
+    const prev = i > 0 ? anchor[i - 1] : null;
+    const next = k < tokens.length ? anchor[k] : null;
+    const from = prev !== null ? heard[prev].end : first;
+    const to = next !== null ? heard[next].start : last;
+    const run = tokens.slice(i, k);
+    const total = run.reduce((s, w) => s + weightOf(w.text), 0) || 1;
+    let c = from;
+    run.forEach((w, r) => {
+      const d = (weightOf(w.text) / total) * Math.max(0, to - from);
+      times[i + r] = { start: c, end: c + d };
+      c += d;
+    });
+    i = k;
+  }
+  // Karaoke is continuous: a word stays lit until the next one starts, and
+  // never shorter than 0.12s (the highlight ramp needs a strictly growing
+  // range; ASR can hand back a zero-length word).
+  return times.map((t, n) => {
+    const nx = times[n + 1];
+    const end = nx && nx.start - t.start < 1.2 ? Math.max(t.end, nx.start) : t.end + 0.1;
+    return { start: t.start, end: Math.max(end, t.start + 0.12) };
+  });
+};
+
 const paginate = (line: VoLine, rate: number): Page[] => {
   const spoken = line.raw / rate;
   const all = line.pages.flatMap((p, pi) =>
@@ -91,14 +162,20 @@ const paginate = (line: VoLine, rate: number): Page[] => {
       .split(" ")
       .map((raw) => ({ ...parseWord(raw), page: pi, hidden: p.startsWith("~") })),
   );
-  const total = all.reduce((s, w) => s + weightOf(w.text), 0);
-  let cursor = line.start;
-  const timed = all.map((w) => {
-    const dur = (weightOf(w.text) / total) * spoken;
-    const word = { ...w, start: cursor, end: cursor + dur };
-    cursor += dur;
-    return word;
-  });
+  let timed: (typeof all[number] & { start: number; end: number })[];
+  if (line.asr?.length) {
+    const raw = alignAsr(all, line.asr);
+    timed = all.map((w, i) => ({ ...w, start: line.start + raw[i].start / rate, end: line.start + raw[i].end / rate }));
+  } else {
+    const total = all.reduce((s, w) => s + weightOf(w.text), 0);
+    let cursor = line.start;
+    timed = all.map((w) => {
+      const dur = (weightOf(w.text) / total) * spoken;
+      const word = { ...w, start: cursor, end: cursor + dur };
+      cursor += dur;
+      return word;
+    });
+  }
   return line.pages.map((p, pi) => {
     const words = timed.filter((w) => w.page === pi);
     const isLast = pi === line.pages.length - 1;

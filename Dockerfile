@@ -38,6 +38,8 @@ WORKDIR /app
 COPY --chown=app:app package.json package-lock.json ./
 COPY --chown=app:app packages/video/package.json packages/video/package.json
 COPY --chown=app:app packages/renderer/package.json packages/renderer/package.json
+COPY --chown=app:app packages/worker/package.json packages/worker/package.json
+COPY --chown=app:app packages/studio/package.json packages/studio/package.json
 RUN npm ci --no-audit --no-fund && npm cache clean --force
 
 # Исходники. public/ в git отсутствует (ассеты не в репо) — образ этого не
@@ -51,7 +53,11 @@ COPY --chown=app:app . .
 # видео в чате.
 RUN npx remotion browser ensure
 
+# Каталог джобов создаётся заранее под app: named volume при первом монтировании
+# наследует владельца из образа, иначе /app/out/jobs достался бы root.
+RUN mkdir -p /app/out/jobs
+
 # Смоук на живом образе (задать другой compositionId — --build-arg):
-#   docker run --rm <image> npm run render -- logo-sting-reel --out /tmp/t.mp4
+#   docker run --rm <image> npm run render -- digital-ruble-reel --out /tmp/t.mp4
 # В compose роль задаётся command:-ом; дефолт печатает usage рендер-CLI.
 CMD ["npm", "run", "render"]

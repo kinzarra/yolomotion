@@ -21,12 +21,13 @@ export const DigitalRuble: React.FC<DigitalRubleProps> = ({
   yesLabel,
   noLabel,
   commentTarget,
+  voiceoverDir = "digital-ruble",
 }) => {
   const brand = { series, episode };
   return (
     <Reel
       palette={drPalette}
-      voiceoverDir="digital-ruble"
+      voiceoverDir={voiceoverDir}
       voiceover={VOICEOVER}
       voRate={VO_RATE}
       gradeOpacity={0.08}

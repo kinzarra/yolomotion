@@ -1,0 +1,17 @@
+{
+  "id": "dev-myth",
+  "sourceDir": "../../public/media/dev-myth",
+  "crop": { "w": 1920, "h": 1080, "x": 0, "y": 0 },
+  "width": 1920,
+  "fps": 30,
+  "shots": [
+    { "file": "prof-office.mp4", "name": "prof-office", "in": 0, "out": 6, "crop": { "w": 1366, "h": 720, "x": 0, "y": 0 }, "proves": "open-space office, developers at desks, Pexels 6804109 (cottonbro studio)" },
+    { "file": "prof-code.mp4", "name": "prof-code", "in": 0, "out": 6, "crop": { "w": 1366, "h": 720, "x": 0, "y": 0 }, "proves": "office, code on screens, Pexels 6805175 (cottonbro studio)" },
+    { "file": "prof-city.mp4", "name": "prof-city", "in": 0, "out": 6, "proves": "night city aerial, Pexels 33637800 (K)" },
+    { "file": "typing.mp4", "name": "typing", "in": 0, "out": 6, "proves": "hands typing code in the dark, Pexels 7504970 (Olha Ruskykh)" },
+    { "file": "confused.mp4", "name": "confused", "in": 0, "out": 6, "proves": "man puzzled at a monitor, Pexels 6962702 (Mikhail Nilov)" },
+    { "file": "servers.mp4", "name": "servers", "in": 0, "out": 6, "proves": "server rack, blue lights, Pexels 7140928 (MrColo)" },
+    { "file": "headphones.mp4", "name": "headphones", "in": 0, "out": 5, "crop": { "w": 1366, "h": 720, "x": 0, "y": 0 }, "proves": "developer in headphones at two monitors, Pexels 6804123 (cottonbro studio)" },
+    { "file": "hooded.mp4", "name": "hooded", "in": 0, "out": 5, "proves": "hooded man at a desk in the dark, Pexels 6964014 (Mikhail Nilov)" }
+  ]
+}

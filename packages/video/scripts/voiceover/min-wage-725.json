@@ -1,0 +1,17 @@
+{
+  "voiceId": "${ELEVENLABS_VOICE_ID}",
+  "outDir": "public/voiceover/min-wage-725",
+  "modelId": "eleven_multilingual_v2",
+  "voiceSettings": {
+    "stability": 0.4,
+    "similarity_boost": 0.82,
+    "style": 0.4,
+    "use_speaker_boost": true
+  },
+  "lines": [
+    ["01-then", "You made seven twenty-five an hour in two thousand nine."],
+    ["02-still", "You still make seven twenty-five."],
+    ["03-worth", "So what's it really worth?"]
+  ],
+  "_note": "EN reel: same voice, model and settings as tesla-roadster-en (author 2026-10-16)"
+}

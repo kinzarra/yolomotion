@@ -38,6 +38,7 @@ const probe = (file) =>
     ]).toString(),
   );
 
+// a shot may carry its own crop/width (a landscape archive film next to vertical stock)
 const { crop, width, fps } = cfg;
 const measured = [];
 
@@ -55,7 +56,7 @@ for (const shot of cfg.shots) {
     "-t", String(dur),
     "-i", src,
     "-an",
-    "-vf", `crop=${crop.w}:${crop.h}:${crop.x}:${crop.y},scale=${width}:-2,fps=${fps}`,
+    "-vf", `crop=${(shot.crop ?? crop).w}:${(shot.crop ?? crop).h}:${(shot.crop ?? crop).x}:${(shot.crop ?? crop).y},scale=${shot.width ?? width}:-2,fps=${fps}`,
     "-c:v", "libx264", "-preset", "slow", "-crf", "17",
     "-pix_fmt", "yuv420p",
     dst,

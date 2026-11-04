@@ -6,30 +6,36 @@
     "studio": "remotion studio src/index.ts",
     "render": "remotion render src/index.ts",
     "still": "remotion still src/index.ts",
-    "sfx": "node scripts/gen-sfx.mjs && node scripts/gen-track.mjs && node scripts/gen-yoloco-audio.mjs",
+    "sfx": "node scripts/gen-sfx.mjs",
     "voiceover": "node scripts/gen-voiceover.mjs",
     "footage": "node scripts/gen-footage.mjs",
     "tiktok": "node scripts/tiktok.mjs",
     "fetch-footage": "node scripts/fetch-footage.mjs",
     "captions": "node scripts/gen-weighted-captions.mjs",
     "heygen": "node scripts/gen-heygen.mjs",
-    "new-reel": "node scripts/new-reel.mjs"
+    "new-reel": "node scripts/new-reel.mjs",
+    "fetch-photos": "node scripts/fetch-photos.mjs"
   },
   "dependencies": {
+    "@react-three/fiber": "^9.3.0",
     "@remotion/captions": "^4.0.512",
     "@remotion/cli": "^4.0.0",
     "@remotion/google-fonts": "^4.0.0",
     "@remotion/media": "^4.0.512",
     "@remotion/motion-blur": "^4.0.0",
+    "@remotion/three": "^4.0.512",
     "@remotion/transitions": "^4.0.0",
     "@remotion/zod-types": "^4.0.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "remotion": "^4.0.0",
+    "three": "^0.178.0",
     "zod": "^4.4.3"
   },
   "devDependencies": {
     "@types/react": "^19.0.0",
+    "@types/three": "^0.178.1",
+    "meshoptimizer": "^0.25.0",
     "qrcode": "^1.5.4",
     "typescript": "^5.5.0"
   }

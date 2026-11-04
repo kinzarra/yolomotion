@@ -1,0 +1,12 @@
+{
+  "id": "ai-money-circle",
+  "sourceDir": "../../public/media/ai-money-circle",
+  "crop": { "w": 1080, "h": 640, "x": 0, "y": 640 },
+  "width": 1080,
+  "fps": 30,
+  "shots": [
+    { "file": "dc.mp4", "name": "dc", "in": 0, "out": 4.6, "proves": "data-center aisle, Pexels 18866694 (Rafael Fernanz)" },
+    { "file": "gpu.mp4", "name": "gpu", "in": 2, "out": 6.6, "proves": "graphics card macro, Pexels 6755162 (Tima Miroshnichenko)" },
+    { "file": "board.mp4", "name": "board", "in": 0, "out": 4.0, "proves": "stock board, Pexels 38431825 (Zulfugar Karimov)" }
+  ]
+}

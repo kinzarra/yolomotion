@@ -5,6 +5,7 @@
     "packages/*"
   ],
   "scripts": {
+    "panel": "npm run panel -w @yolomotion/studio",
     "studio": "npm run studio -w @yolomotion/video",
     "render": "npm run render -w @yolomotion/renderer --",
     "stills": "npm run stills -w @yolomotion/renderer --",
@@ -21,6 +22,9 @@
     "worker:seed": "npm run seed -w @yolomotion/worker",
     "worker:stats": "npm run collect-stats -w @yolomotion/worker",
     "worker:connect-youtube": "npm run connect-youtube -w @yolomotion/worker --",
-    "deliver": "npm run deliver -w @yolomotion/worker --"
+    "deliver": "npm run deliver -w @yolomotion/worker --",
+    "ship": "node scripts/ship.mjs",
+    "vo-check": "node scripts/vo-check.mjs",
+    "fetch-photos": "npm run fetch-photos -w @yolomotion/video --"
   }
 }

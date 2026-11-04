@@ -13,6 +13,9 @@ export const digitalRubleSchema = z.object({
   noLabel: z.string().min(1),
   /** Where the comment counter races to in the finale. */
   commentTarget: z.number().int().positive(),
+  /** Server render: base URL of per-job clips (the worker sets it). Unset —
+   * clips come from the bundled public/voiceover/digital-ruble/. */
+  voiceoverDir: z.string().optional(),
 });
 
 export type DigitalRubleProps = z.infer<typeof digitalRubleSchema>;

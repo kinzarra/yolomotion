@@ -1,0 +1,43 @@
+{
+  "voiceId": "${ELEVENLABS_VOICE_ID}",
+  "modelId": "eleven_multilingual_v2",
+  "voiceSettings": {
+    "stability": 0.45,
+    "similarity_boost": 0.82,
+    "style": 0.32,
+    "use_speaker_boost": true
+  },
+  "outDir": "public/voiceover/salary-pyramid",
+  "templateId": "salary-pyramid",
+  "lines": [
+    [
+      "01-hook",
+      "Богат ли ты? Сейчас узнаем. Это пирамида зарплат России: 28 миллионов человек. Ты где-то здесь. Полезли снизу."
+    ],
+    [
+      "02-s5",
+      "Пятая. Кассы, общепит, село. Каждый шестой."
+    ],
+    [
+      "03-s4",
+      "Четвёртая. Учителя, врачи, водители. Медиана здесь."
+    ],
+    [
+      "04-s3",
+      "Третья. Нефть, айти, банки. Средняя зарплата."
+    ],
+    [
+      "05-s2",
+      "Вторая. Руководители и трубопровод. Один из восьми."
+    ],
+    [
+      "06-s1",
+      "Первая. Полтора процента. Владельцы компаний и топы айти."
+    ],
+    [
+      "07-final",
+      "Какая ступень твоя? Пиши номер."
+    ]
+  ],
+  "_note": "2026-10-19: author approved voice on every step (3-5 words), hook 17 words. Rosstat April 2025 wage ladder. 05-s2 reworded «Один из восьми»: ASR heard «каждые восьмой» twice. v2 2026-10-20: author asked for more voice per step; 9-11 words each, rate 1.15. v2b: 9-11 words ran 38 s; cut to 6-8 words per step to stay under 30 s."
+}

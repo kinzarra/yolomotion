@@ -5,6 +5,17 @@ description: Turn a written scenario into a finished Yolomotion reel (vertical v
 
 # Reel production
 
+## Step 0 — the author's desk
+
+A reel is ordered from the studio panel: `studio/briefs/<id>/` holds
+`brief.md`, `files/` and `status.json`. Read **`studio/PLAYBOOK.md` first** —
+it is the author's own instruction and overrides this skill and every
+reference where they disagree. Then `brief.md`, then look at `files/`.
+Keep `status.json` current as you go (`status`: new → writing → review →
+rendering → done, `note`: one line on what is happening now) — the panel
+polls it. Every mp4 the author reviews — hook previews too — goes to
+`out/<id>.mp4` only: the panel plays it. No copies to `~/Downloads`.
+
 The repo has a reel engine (`packages/video/src/reel/`) and a scaffolder, so
 producing a reel from a scenario is a fixed sequence of steps. Everything
 mechanical — scene start arithmetic, clip durations, caption plumbing, the

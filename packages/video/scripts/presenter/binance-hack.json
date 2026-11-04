@@ -1,0 +1,17 @@
+{
+  "templateId": "binance-hack",
+  "voiceoverDir": "public/voiceover/binance-hack",
+  "outDir": "public/presenter/binance-hack",
+  "avatarId": "${HEYGEN_AVATAR_VIEW_ID}",
+  "avatarName": "Podcast host in blue hoodie",
+  "avatarKind": "photo",
+  "engine": "avatar_iv",
+  "concatAspect": "9:16",
+  "resolution": "1080p",
+  "outputFormat": "mp4",
+  "_budget": "author cap $0.25 per reel; face in a comic panel on the hook question and the CTA question",
+  "shots": [
+    { "id": "hook", "clip": "01-hook", "from": 0.0, "to": 2.25, "style": "hero", "reelIn": 0 },
+    { "id": "ask", "clip": "06-cta", "from": 1.75, "to": 3.4, "style": "hero", "reelIn": 26.09 }
+  ]
+}

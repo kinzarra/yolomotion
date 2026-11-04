@@ -1,0 +1,17 @@
+{
+  "id": "vibecoding-layers",
+  "sourceDir": "../../public/media/vibecoding-layers",
+  "crop": { "w": 1080, "h": 1920, "x": 0, "y": 0 },
+  "width": 1080,
+  "fps": 30,
+  "shots": [
+    { "file": "candle2.mp4", "name": "candle", "in": 2.0, "out": 8.0, "proves": "a thin church candle burning, Pexels 19997487 (Rachit Gupta)" },
+    { "file": "detroit-1957.mp4", "name": "machines-a", "in": 6.0, "out": 10.5, "crop": { "w": 1280, "h": 720, "x": 0, "y": 0 }, "width": 1280, "proves": "card machine operator, Detroit Clearing House 1957, Commons PD" },
+    { "file": "detroit-1957.mp4", "name": "machines-b", "in": 39.0, "out": 43.0, "crop": { "w": 1280, "h": 720, "x": 0, "y": 0 }, "width": 1280, "proves": "operator at a tabulating machine, Detroit 1957, Commons PD" },
+    { "file": "apollo-11.mp4", "name": "apollo", "in": 3.0, "out": 8.0, "crop": { "w": 1280, "h": 720, "x": 0, "y": 0 }, "width": 1280, "proves": "Apollo 11 engines at ignition, 500 fps camera E-8, NASA PD" },
+    { "file": "code.mp4", "name": "code", "in": 0.5, "out": 5.5, "proves": "code on a monitor, Pexels 34459460 (Jakub Zerdzicki)" },
+    { "file": "lego.mp4", "name": "lego", "in": 1.0, "out": 6.0, "crop": { "w": 1080, "h": 1872, "x": 0, "y": 0 }, "proves": "hands clicking Lego bricks, Pexels 6666449 (Roman Odintsov)" },
+    { "file": "typing.mp4", "name": "typing", "in": 2.0, "out": 7.0, "proves": "hands typing on a laptop at night, Pexels 39425776 (Sergei Starostin)" },
+    { "file": "old-pcs.mp4", "name": "old-pcs", "in": 0.5, "out": 5.5, "proves": "a pile of old computers, Pexels 12271136 (Sasha Poberailo)" }
+  ]
+}

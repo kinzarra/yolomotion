@@ -1,0 +1,17 @@
+{
+  "templateId": "tesla-roadster",
+  "voiceoverDir": "public/voiceover/tesla-roadster",
+  "outDir": "public/presenter/tesla-roadster",
+  "avatarId": "${HEYGEN_AVATAR_VIEW_ID}",
+  "avatarName": "Podcast host in blue hoodie",
+  "avatarKind": "photo",
+  "engine": "avatar_iv",
+  "concatAspect": "9:16",
+  "resolution": "1080p",
+  "outputFormat": "mp4",
+  "_budget": "author cap $0.25 per reel (2026-10-16) — two shots only: hook punch + CTA",
+  "shots": [
+    { "id": "price", "clip": "02-price", "from": 2.45, "to": 4.319, "style": "hero", "reelIn": 4.57 },
+    { "id": "cta", "clip": "08-cta", "from": 0, "to": 3.019, "style": "hero", "reelIn": 0 }
+  ]
+}

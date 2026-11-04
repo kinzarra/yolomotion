@@ -1,0 +1,42 @@
+{
+  "voiceId": "${ELEVENLABS_VOICE_ID}",
+  "outDir": "public/voiceover/dessa-duplex",
+  "modelId": "eleven_multilingual_v2",
+  "voiceSettings": {
+    "stability": 0.48,
+    "similarity_boost": 0.82,
+    "style": 0.28,
+    "use_speaker_boost": true
+  },
+  "lines": [
+    [
+      "01-hook",
+      "Этот ИИ перебивает тебя, как тёща. Только по делу."
+    ],
+    [
+      "02-no-text",
+      "Его учили только на живой речи. Ни одной буквы текста."
+    ],
+    [
+      "03-no-pause",
+      "Боты в банке ждут, пока ты замолчи́шь. Две секунды тишины. Этот отвечает сразу."
+    ],
+    [
+      "04-feels",
+      "Слышит сарказм, вздох и смешок. И перебивает, когда надо."
+    ],
+    [
+      "05-hardware",
+      "Обучили на одной стойке Nvidia. А работает даже на Макбуке."
+    ],
+    [
+      "06a-demo",
+      "Пока это дэмо."
+    ],
+    [
+      "06b-subscribe",
+      "Подпишись, скажу, когда выйдет."
+    ]
+  ],
+  "_note": "06b-subscribe is cut from the original 06-cta take at 1.30 s (ffmpeg), never synthesised: the HeyGen cta shot is lip-synced to that take."
+}

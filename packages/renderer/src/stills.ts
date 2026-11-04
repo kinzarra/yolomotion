@@ -10,6 +10,13 @@ import path from "node:path";
 import { renderStill, selectComposition } from "@remotion/renderer";
 import { getBundle, fromRepoRoot } from "./render.js";
 
+// WebGL for three.js scenes: GPU ANGLE on the Mac, software ANGLE on the GPU-less server.
+const chromiumOptions = {
+  gl: (process.env.REMOTION_GL ?? (process.platform === "darwin" ? "angle" : "swangle")) as
+    "angle" | "swangle" | "egl" | "swiftshader",
+};
+
+
 const args = process.argv.slice(2);
 const compositionId = args.find((a) => !a.startsWith("--"));
 
@@ -45,6 +52,7 @@ const composition = await selectComposition({
   serveUrl,
   id: compositionId,
   inputProps,
+  chromiumOptions,
 });
 
 const { fps, durationInFrames } = composition;
@@ -80,6 +88,7 @@ for (const frame of frames) {
     output: outPath,
     inputProps,
     overwrite: true,
+    chromiumOptions,
   });
   console.log(`  frame ${frame} (${seconds}s) → ${path.basename(outPath)}`);
 }
