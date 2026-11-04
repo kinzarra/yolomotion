@@ -6,7 +6,7 @@ import { FACE_PREVIEW } from "../face";
 import { theme } from "../../../theme";
 import { usePunch } from "../../../reel";
 import { imColors as colors, imPalette as palette } from "../palette";
-import { BeatShell, BgVideo, Burst, Conveyor, Face, Flash, I, Kinetic, L, SceneShell, Stamp, TopBar, V, WIDE, mono, richText, useSec } from "../ui";
+import { BeatShell, LoopBg, Burst, Conveyor, Face, Flash, I, Kinetic, L, SceneShell, Stamp, TopBar, V, WIDE, mono, richText, useSec } from "../ui";
 import { cue, lineEnd } from "../timeline";
 import { bar } from "./common";
 
@@ -82,7 +82,7 @@ export const SubScene: React.FC<P & { credits: string }> = ({ series, episode, c
   const hit = usePunch(press, 14);
   return (
     <SceneShell exit={false} shake={hit.shake * 0.3}>
-      <BgVideo src={V + "v-data.mp4"} dim={0.86} tint={0.25} blur={4} />
+      <LoopBg src={V + "v-data.mp4"} dim={0.86} tint={0.25} blur={4} />
       <TopBar left={series} right={episode} />
       <div style={{ position: "absolute", left: 0, right: 0, top: 200, zIndex: 9, display: "flex", justifyContent: "center", transform: `scale(${interpolate(p, [0, 1], [0.7, 1])})`, opacity: Math.min(1, p * 1.4) }}>
         <div style={{ display: "flex", alignItems: "center", gap: 40, padding: "40px 52px", borderRadius: 40, background: "rgba(16,20,24,0.82)", border: `2px solid ${palette.primary}88`, boxShadow: `0 0 80px ${palette.glow}, 0 50px 120px -40px rgba(0,0,0,0.95)` }}>

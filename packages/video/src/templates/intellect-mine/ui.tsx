@@ -3,7 +3,8 @@
 // the HeyGen shots are approved), a short part card, growth bars, a token
 // stream, a chat with a limit, a quote card and the conveyor for the recap.
 import React from "react";
-import { Img, OffthreadVideo, Sequence, interpolate, spring, useCurrentFrame, useVideoConfig } from "remotion";
+import { Img, Loop, OffthreadVideo, Sequence, interpolate, spring, useCurrentFrame, useVideoConfig } from "remotion";
+import { FOOTAGE } from "./footage";
 import { theme } from "../../theme";
 import { usePunch } from "../../reel";
 import { rnd } from "../digital-ruble/ui";
@@ -33,6 +34,17 @@ export const useSec = () => {
 
 /* ------------------------------------------------------------------ shell */
 
+/** A background clip that loops at its measured length instead of freezing on its last frame. */
+export const LoopBg: React.FC<{ src: string; dim?: number; tint?: number; startFrom?: number; blur?: number }> = ({ src, startFrom = 0, ...rest }) => {
+  const { fps } = useVideoConfig();
+  const len = (FOOTAGE[src.split("/").pop() ?? ""] ?? 7) - startFrom;
+  return (
+    <Loop durationInFrames={Math.max(30, Math.floor(len * fps) - 1)} layout="none">
+      <BgVideo src={src} startFrom={startFrom} {...rest} />
+    </Loop>
+  );
+};
+
 /**
  * Every beat: a graded background (clip or still), the data weather, the top
  * bar, and the cut itself: a white flash, a 6% punch-in and a tear on the
@@ -57,7 +69,7 @@ export const BeatShell: React.FC<{
   return (
     <SceneShell shake={shake} exit={exit}>
       <div style={{ position: "absolute", inset: 0, transform: `scale(${punch})` }}>
-        {bg && (still ? <Still src={bg} dim={dim} tint={tint} /> : <BgVideo src={bg} dim={dim} tint={tint} startFrom={startFrom} />)}
+        {bg && (still ? <Still src={bg} dim={dim} tint={tint} /> : <LoopBg src={bg} dim={dim} tint={tint} startFrom={startFrom} />)}
         {drift && <Drift items={drift} opacity={0.12} />}
         {children}
       </div>
@@ -120,7 +132,7 @@ export const PartCard: React.FC<{ n: string; title: string; kicker: string; bg?:
   const k = Math.max(0, frame - breakAt);
   const card = (
     <div style={{ position: "absolute", inset: 0 }}>
-      {bg && <BgVideo src={bg} dim={0.82} tint={0.25} />}
+      {bg && <LoopBg src={bg} dim={0.82} tint={0.25} />}
       <div style={{ position: "absolute", left: band, top: 520, width: 1920, height: 12, background: palette.primary, boxShadow: `0 0 40px ${palette.glow}` }} />
       {frame >= hitAt && (
         <div style={{ position: "absolute", left: 0, right: 0, top: 250, display: "flex", flexDirection: "column", alignItems: "center", gap: 26 }}>

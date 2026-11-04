@@ -4,7 +4,7 @@ import React from "react";
 import { useCurrentFrame } from "remotion";
 import { usePunch } from "../../../reel";
 import { imColors as colors, imPalette as palette } from "../palette";
-import { BgVideo, Burst, Face, Flash, GlassChip, Kinetic, L, Label, LogoPlate, MediaCard, SceneShell, Slam, Stamp, TopBar, V, mono, useSec } from "../ui";
+import { LoopBg, Burst, Face, Flash, GlassChip, Kinetic, L, Label, LogoPlate, MediaCard, SceneShell, Slam, Stamp, TopBar, V, mono, useSec } from "../ui";
 import { FACE } from "../face";
 import { VO_RATE, cue } from "../timeline";
 
@@ -40,7 +40,7 @@ export const HookScene: React.FC<{ series: string; episode: string }> = ({ serie
         </>
       ) : (
         <>
-          <BgVideo src={V + "v-dc-aisle.mp4"} dim={0.72} tint={0.3} />
+          <LoopBg src={V + "v-dc-aisle.mp4"} dim={0.72} tint={0.3} />
           <div style={{ position: "absolute", left: 96, top: 150, zIndex: 9, display: "flex", flexDirection: "column", gap: 14 }}>
             <Label at={faceEnd} size={26}>ТРАТЫ НА ИНТЕЛЛЕКТ · ТОЛЬКО 2026 ГОД</Label>
             {frame >= big && <Slam text="$700+ МЛРД" at={big} size={170} />}
