@@ -27,6 +27,7 @@ import { yoclipsPromo } from "./yoclips-promo";
 import { yolocoMcp } from "./yoloco-mcp";
 import { yolocoExplorer, yolocoExplorerRu } from "./yoloco-explorer";
 import { lookLab } from "./look-lab";
+import { replaceCost } from "./replace-cost";
 
 export const templates: VideoTemplate<any>[] = [
   logoSting,
@@ -55,4 +56,5 @@ export const templates: VideoTemplate<any>[] = [
   yolocoExplorer,
   yolocoExplorerRu,
   lookLab,
+  replaceCost,
 ];

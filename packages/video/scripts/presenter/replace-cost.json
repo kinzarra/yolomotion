@@ -1,0 +1,20 @@
+{
+  "_comment": "Три врезки на весь кадр 16:9 — хук, разворот Кларны, CTA. Аватар лип-синкается под готовые клипы public/voiceover/replace-cost (не HeyGen TTS). from/to — секунды внутри mp3 на 1.0×, разрезы — в измеренных паузах (silencedetect -30dB). reelIn = старт строки в timeline.ts.",
+  "avatarId": "511aa716118e4afc842dbd5276a0c7d2",
+  "avatarName": "Philipp",
+  "avatarKind": "digital_twin",
+  "_economics": "Digital Twin на avatar_iv = $0.0667/с — выбор автора, бюджет до $1. Одна склеенная загрузка.",
+  "engine": "avatar_iv",
+  "voiceoverDir": "public/voiceover/replace-cost",
+  "outDir": "public/presenter/replace-cost",
+  "templateId": "replace-cost",
+  "resolution": "1080p",
+  "outputFormat": "mp4",
+  "concatAspect": "16:9",
+  "voRate": 1.1,
+  "shots": [
+    { "id": "p1-hook", "clip": "01-hook", "from": 0, "to": 3.02, "style": "fullbleed", "reelIn": 0.2, "reelOut": 2.945, "says": "Тебя уже заменили. Просто тебе об этом ещё не сказали." },
+    { "id": "p2-twist", "clip": "09-twist-face", "from": 0, "to": 6.5, "style": "fullbleed", "reelIn": 78.3, "reelOut": 84.209, "says": "Потому что дешёвый бот, который бесит клиентов, в итоге стоит дороже человека." },
+    { "id": "p3-cta", "clip": "18-cta", "from": 0, "to": 4.65, "style": "fullbleed", "reelIn": 173.2, "reelOut": 177.427, "says": "Так сколько стоит заменить тебя? Напиши свою профессию в комментариях — посчитаю." }
+  ]
+}

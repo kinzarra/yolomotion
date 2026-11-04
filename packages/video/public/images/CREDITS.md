@@ -58,6 +58,24 @@ The two `.mp4` files are H.264 derivatives trimmed from their credited source
 videos; the photographs were resized for the vertical composition. Attribution
 and ShareAlike requirements remain attached to those derivatives.
 
+## dubai-economy — evidence footage (Wikimedia Commons)
+
+Files: `public/footage/dubai-economy/`, cut and measured by
+`scripts/footage/dubai-economy.json`. Everything is graded to greyscale at
+render time; the closing beat carries the credit line.
+
+| file | proves | author | licence | source |
+|---|---|---|---|---|
+| `01-hook-skyline.jpg` | «небоскрёбы» | Robert Bock | CC0 | https://commons.wikimedia.org/wiki/File:Dubai_skyline_unsplash.jpg |
+| `04-port-jebel-ali.jpg` | Джебель-Али, гавань | Korea Aerospace Research Institute (Arirang-3) | KOGL Type 1 (attribution) | https://commons.wikimedia.org/wiki/File:두바이_제벨알리항구(아리랑_3호)_(624).jpeg |
+| `05-map-takeoff.mp4`, `06-airport-a380.mp4` | «Эмирейтс» и аэропорт; взлёт над Дубаем | Klaus Hesse | CC BY 3.0 | https://commons.wikimedia.org/wiki/File:Emirates_A380_in_Dubai_Airport.webm |
+| `08-model-terminal.jpg` | «как аэропорт» — DXB Terminal 3 | EditQ | CC0 | https://commons.wikimedia.org/wiki/File:1_Dubai_International_Airport_Terminal_3.jpg |
+| `10-rescue-burj.jpg` | «самую высокую башню мира» | Meandmybrix | CC0 | https://commons.wikimedia.org/wiki/File:Burj_Khalifa_Image.jpg |
+
+Rejected: «A forest of cranes» (Peter Dowley, CC BY 2.0) — the description
+says it is Doha, not Dubai, so it cannot prove the 2009 Dubai line; that beat
+stays graphic.
+
 ## Own assets
 
 `vibe-cloud-logo.png` and `yoloco-y.svg` are our own.
