@@ -113,7 +113,7 @@ export const IconChip: React.FC<{ at: number; x: number; y: number; icon: string
   const dx = drift ? Math.sin((frame + x) / 37) * 8 : 0;
   const dy = drift ? Math.cos((frame + y) / 45) * 6 : 0;
   return (
-    <div style={{ position: "absolute", left: x, top: y, zIndex: 10, transform: `translate(${dx}px, ${dy}px) scale(${interpolate(p, [0, 1], [0.5, 1])})`, opacity: Math.min(1, p * 1.5), display: "flex", alignItems: "center", gap: size * 0.5, padding: `${size * 0.32}px ${size * 0.8}px ${size * 0.32}px ${size * 0.32}px`, borderRadius: 999, background: "rgba(16,20,24,0.66)", backdropFilter: "blur(16px)", WebkitBackdropFilter: "blur(16px)", border: `1.5px solid ${tone === "plain" ? "rgba(230,240,225,0.22)" : c + "99"}`, boxShadow: `0 18px 50px -18px rgba(0,0,0,0.9)${tone === "plain" ? "" : `, 0 0 26px ${c}33`}`, whiteSpace: "nowrap" }}>
+    <div style={{ position: "absolute", left: x, top: y, zIndex: 10, transform: `translate(${dx}px, ${dy}px) scale(${interpolate(p, [0, 1], [0.5, 1])})`, opacity: Math.min(1, p * 1.5), display: "flex", alignItems: "center", gap: size * 0.5, padding: `${size * 0.32}px ${size * 0.8}px ${size * 0.32}px ${size * 0.32}px`, borderRadius: 999, background: "rgba(14,18,22,0.9)", border: `1.5px solid ${tone === "plain" ? "rgba(230,240,225,0.22)" : c + "99"}`, boxShadow: `0 18px 50px -18px rgba(0,0,0,0.9)${tone === "plain" ? "" : `, 0 0 26px ${c}33`}`, whiteSpace: "nowrap" }}>
       <div style={{ width: size * 1.7, height: size * 1.7, borderRadius: "50%", background: tone === "plain" ? "rgba(230,240,225,0.10)" : c, display: "flex", alignItems: "center", justifyContent: "center" }}>
         <Icon n={icon} s={size * 1.05} c={tone === "plain" ? palette.text : colors.ink2} />
       </div>
@@ -132,7 +132,7 @@ export const IconDisc: React.FC<{ at: number; x: number; y: number; icon: string
   const bob = Math.sin((frame + x) / 30) * 6;
   return (
     <div style={{ position: "absolute", left: x, top: y + bob, zIndex: 9, width: d, display: "flex", flexDirection: "column", alignItems: "center", gap: 14, opacity: Math.min(1, p * 1.4), transform: `scale(${interpolate(p, [0, 1], [0.3, 1])})` }}>
-      <div style={{ width: d, height: d, borderRadius: "50%", background: "rgba(16,20,24,0.72)", border: `3px solid ${c}`, boxShadow: `0 0 40px ${c}55, inset 0 0 40px ${c}22`, display: "flex", alignItems: "center", justifyContent: "center", backdropFilter: "blur(12px)" }}>
+      <div style={{ width: d, height: d, borderRadius: "50%", background: "rgba(14,18,22,0.9)", border: `3px solid ${c}`, boxShadow: `0 0 40px ${c}55, inset 0 0 40px ${c}22`, display: "flex", alignItems: "center", justifyContent: "center" }}>
         <Icon n={icon} s={d * 0.52} c={c} glow />
       </div>
       {label && <div style={{ fontFamily: theme.fonts.mono, fontWeight: 800, fontSize: Math.max(18, d * 0.13), letterSpacing: "0.1em", color: palette.text, whiteSpace: "nowrap" }}>{label}</div>}
@@ -149,7 +149,7 @@ export const Logo: React.FC<{ at: number; src: string; x: number; y: number; w: 
   const float = Math.sin((frame + x) / 40) * 5;
   return (
     <div style={{ position: "absolute", left: x, top: y + float, width: w, zIndex: 9, opacity: Math.min(1, p * 1.4), transform: `translateY(${interpolate(p, [0, 1], [50, 0])}px) scale(${interpolate(p, [0, 1], [0.75, 1])}) rotate(${tilt}deg)` }}>
-      <div style={{ width: w, height: h, boxSizing: "border-box", padding: `${h * pad}px ${w * pad * 0.7}px`, borderRadius: 26, background: light ? "rgba(244,246,240,0.97)" : "rgba(16,20,24,0.72)", backdropFilter: "blur(16px)", border: `1.5px solid ${light ? "rgba(255,255,255,0.9)" : "rgba(230,240,225,0.22)"}`, boxShadow: `0 30px 80px -30px rgba(0,0,0,0.95), 0 0 0 1px ${palette.primary}22`, display: "flex", alignItems: "center", justifyContent: "center" }}>
+      <div style={{ width: w, height: h, boxSizing: "border-box", padding: `${h * pad}px ${w * pad * 0.7}px`, borderRadius: 26, background: light ? "rgba(244,246,240,0.97)" : "rgba(14,18,22,0.9)", border: `1.5px solid ${light ? "rgba(255,255,255,0.9)" : "rgba(230,240,225,0.22)"}`, boxShadow: `0 30px 80px -30px rgba(0,0,0,0.95), 0 0 0 1px ${palette.primary}22`, display: "flex", alignItems: "center", justifyContent: "center" }}>
         <Img src={media(src)} style={{ maxWidth: "100%", maxHeight: "100%", objectFit: "contain", display: "block" }} />
       </div>
       {caption && <div style={{ marginTop: 14, textAlign: "center", fontFamily: theme.fonts.mono, fontWeight: 800, fontSize: 22, letterSpacing: "0.1em", color: palette.text, whiteSpace: "nowrap" }}>{caption}</div>}

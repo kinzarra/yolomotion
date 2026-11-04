@@ -154,7 +154,7 @@ export const QuestionScene: React.FC = () => {
       <Head text="СКОЛЬКО ЛЕТ ТВОЕМУ ТЕЛЕФОНУ?" at={2} x={96} y={170} w={1400} size={110} hero={[1]} />
       {frame >= c && (
         <Box x={96} y={600} w={1100}>
-          <div style={{ display: "flex", alignItems: "center", gap: 24, padding: "24px 30px", borderRadius: 22, background: "rgba(16,20,24,0.8)", border: `2px solid ${palette.primary}88`, backdropFilter: "blur(14px)", boxShadow: `0 0 40px ${palette.glow}` }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 24, padding: "24px 30px", borderRadius: 22, background: "rgba(16,20,24,0.8)", border: `2px solid ${palette.primary}88`, boxShadow: `0 0 40px ${palette.glow}` }}>
             <Icon n="chat-circle-dots-fill" s={60} c={palette.primary} />
             <span style={{ fontFamily: theme.fonts.mono, fontWeight: 800, fontSize: 40, color: palette.text }}>МОЕМУ … ЛЕТ{blink ? "▍" : " "}</span>
           </div>
@@ -283,7 +283,7 @@ export const CtaScene: React.FC = () => {
     <Shell part="p5" bg="v-phone-night.mp4" dim={0.75} exit={false}>
       <Head text="СКОЛЬКО ЛЕТ ТВОЕМУ ТЕЛЕФОНУ?" at={2} x={96} y={160} w={1728} size={84} align="center" hero={[1]} />
       <Box x={310} y={420} w={1300}>
-        <div style={{ display: "flex", alignItems: "center", gap: 28, padding: "30px 36px", borderRadius: 30, background: "rgba(16,20,24,0.82)", border: `2px solid ${palette.primary}66`, backdropFilter: "blur(18px)", boxShadow: `0 40px 90px -30px rgba(0,0,0,0.95), 0 0 50px ${palette.glow}`, opacity: Math.min(1, p * 1.4), transform: `translateY(${(1 - p) * 60}px)` }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 28, padding: "30px 36px", borderRadius: 30, background: "rgba(16,20,24,0.82)", border: `2px solid ${palette.primary}66`, boxShadow: `0 40px 90px -30px rgba(0,0,0,0.95), 0 0 50px ${palette.glow}`, opacity: Math.min(1, p * 1.4), transform: `translateY(${(1 - p) * 60}px)` }}>
           <div style={{ width: 110, height: 110, borderRadius: "50%", background: palette.primary, display: "flex", alignItems: "center", justifyContent: "center" }}><Icon n="currency-rub-fill" s={70} c={colors.ink2} /></div>
           <div style={{ flex: 1 }}>
             <div style={{ fontFamily: WIDE, fontWeight: 900, fontSize: 46, color: palette.text }}>ДЕНЬГИ · ПРОСТО</div>

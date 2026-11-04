@@ -48,7 +48,7 @@ const Pan: React.FC<{ at: number; x: number; title: string; tone: "bad" | "lime"
   if (frame < a) return null;
   const c = tone === "bad" ? colors.bad : palette.primary;
   return (
-    <div style={{ position: "absolute", left: x, top: 190, width: 780, zIndex: 9, padding: "34px 38px", borderRadius: 28, background: "rgba(16,20,24,0.74)", backdropFilter: "blur(18px)", border: `2px solid ${c}88`, boxShadow: `0 40px 90px -30px rgba(0,0,0,0.95), inset 0 0 60px ${c}14`, opacity: Math.min(1, p * 1.4), transform: `translateY(${interpolate(p, [0, 1], [60, 0])}px)` }}>
+    <div style={{ position: "absolute", left: x, top: 190, width: 780, zIndex: 9, padding: "34px 38px", borderRadius: 28, background: "rgba(14,18,22,0.92)", border: `2px solid ${c}88`, boxShadow: `0 40px 90px -30px rgba(0,0,0,0.95), inset 0 0 60px ${c}14`, opacity: Math.min(1, p * 1.4), transform: `translateY(${interpolate(p, [0, 1], [60, 0])}px)` }}>
       <div style={{ fontFamily: WIDE, fontWeight: 900, fontSize: 72, color: c, marginBottom: 30 }}>{title}</div>
       {rows.map(([icon, t], i) => (
         <div key={t} style={{ display: "flex", alignItems: "center", gap: 22, padding: "22px 0", borderTop: `1px solid ${colors.line}`, opacity: frame >= rowAt[i] ? 1 : 0, transform: `translateX(${interpolate(frame - rowAt[i], [0, 10], [-30, 0], { easing: theme.ease.out, ...cl })}px)` }}>
@@ -112,7 +112,7 @@ export const SuperappScene: React.FC = () => {
         if (frame < a) return null;
         return (
           <div key={word} style={{ position: "absolute", left: cx + dx * 380 * p - 90, top: cy + dy * 260 * p - 90, zIndex: 10, width: 180, display: "flex", flexDirection: "column", alignItems: "center", gap: 10, opacity: Math.min(1, p * 1.5), transform: `scale(${interpolate(p, [0, 1], [0.3, 1])})` }}>
-            <div style={{ width: 120, height: 120, borderRadius: 32, background: "rgba(16,20,24,0.8)", border: `2px solid ${colors.bad}AA`, boxShadow: `0 0 30px ${colors.badGlow}`, display: "flex", alignItems: "center", justifyContent: "center", backdropFilter: "blur(10px)" }}><Icon n={icon} s={66} c={palette.text} /></div>
+            <div style={{ width: 120, height: 120, borderRadius: 32, background: "rgba(16,20,24,0.8)", border: `2px solid ${colors.bad}AA`, boxShadow: `0 0 30px ${colors.badGlow}`, display: "flex", alignItems: "center", justifyContent: "center" }}><Icon n={icon} s={66} c={palette.text} /></div>
             <div style={{ fontFamily: theme.fonts.mono, fontWeight: 800, fontSize: 24, letterSpacing: "0.1em", color: palette.text }}>{label}</div>
           </div>
         );
@@ -166,7 +166,7 @@ export const LayersScene: React.FC = () => {
         const y = 760 - i * 128;
         const base = i === 0;
         return (
-          <div key={l.t} style={{ position: "absolute", left: 960, top: y, width: 860, height: 108, zIndex: 9 + i, borderRadius: 20, boxSizing: "border-box", padding: "0 32px", display: "flex", alignItems: "center", gap: 24, background: base ? palette.primary : "rgba(20,25,30,0.86)", border: `2px solid ${base ? palette.primary : colors.bad + "88"}`, boxShadow: base ? `0 0 40px ${palette.glow}` : `0 20px 50px -20px rgba(0,0,0,0.9)`, backdropFilter: "blur(12px)", opacity: Math.min(1, p * 1.4), transform: `translateY(${interpolate(p, [0, 1], [-220, 0])}px) rotate(${(i % 2 ? 1 : -1) * 0.8}deg)` }}>
+          <div key={l.t} style={{ position: "absolute", left: 960, top: y, width: 860, height: 108, zIndex: 9 + i, borderRadius: 20, boxSizing: "border-box", padding: "0 32px", display: "flex", alignItems: "center", gap: 24, background: base ? palette.primary : "rgba(20,25,30,0.86)", border: `2px solid ${base ? palette.primary : colors.bad + "88"}`, boxShadow: base ? `0 0 40px ${palette.glow}` : `0 20px 50px -20px rgba(0,0,0,0.9)`, opacity: Math.min(1, p * 1.4), transform: `translateY(${interpolate(p, [0, 1], [-220, 0])}px) rotate(${(i % 2 ? 1 : -1) * 0.8}deg)` }}>
             {l.icon && <Icon n={l.icon} s={54} c={base ? colors.ink2 : palette.text} />}
             {l.logos?.map((s) => <div key={s} style={{ width: 70, height: 70, borderRadius: 16, background: "rgba(244,246,240,0.96)", display: "flex", alignItems: "center", justifyContent: "center" }}><Img src={media(L + s)} style={{ width: 50, height: 50, objectFit: "contain" }} /></div>)}
             <span style={{ fontFamily: WIDE, fontWeight: 900, fontSize: 40, color: base ? colors.ink2 : palette.text, whiteSpace: "nowrap" }}>{l.t}</span>
