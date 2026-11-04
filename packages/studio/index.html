@@ -1,0 +1,631 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Студия рилсов</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@600;800&family=JetBrains+Mono:wght@500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#06080A; --bg2:#0E1216; --bg3:#151A20; --line:#232A31;
+  --text:#E9ECEF; --dim:#8A939C; --faint:#5A626B;
+  --lime:#CDFF3B; --lime-ink:#0B0F02; --paper:#F1EDE2; --ink:#15171A; --red:#FF4D3D;
+  --wide:"Unbounded",system-ui,sans-serif; --mono:"JetBrains Mono",ui-monospace,monospace; --sans:"Inter",system-ui,sans-serif;
+  --r:10px;
+}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%}
+body{background:var(--bg);color:var(--text);font:15px/1.5 var(--sans);-webkit-font-smoothing:antialiased}
+button,input,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+.mono{font-family:var(--mono);text-transform:uppercase;letter-spacing:.12em;font-size:11px}
+
+/* top bar */
+header{position:sticky;top:0;z-index:5;display:flex;align-items:center;gap:24px;padding:14px 24px;background:rgba(6,8,10,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.brand{display:flex;align-items:center;gap:10px;white-space:nowrap}
+.brand i{width:10px;height:10px;background:var(--lime);display:block}
+.brand b{font-family:var(--mono);font-weight:700;letter-spacing:.2em;font-size:12px}
+.brand span{color:var(--faint)}
+nav{display:flex;gap:4px;margin-left:auto}
+nav button{background:none;border:1px solid transparent;border-radius:999px;padding:7px 14px;color:var(--dim)}
+nav button.on{color:var(--lime-ink);background:var(--lime)}
+nav button:not(.on):hover{border-color:var(--line);color:var(--text)}
+
+main{max-width:1400px;margin:0 auto;padding:24px}
+.view{display:none}.view.on{display:block}
+
+/* reels view */
+.reels{display:grid;grid-template-columns:300px 1fr;gap:24px;align-items:start}
+.list{position:sticky;top:84px;display:flex;flex-direction:column;gap:8px;max-height:calc(100vh - 108px);overflow:auto}
+.new{display:flex;align-items:center;justify-content:center;gap:8px;height:48px;border:1px dashed var(--lime);border-radius:var(--r);background:none;color:var(--lime);font-family:var(--mono);font-weight:700;letter-spacing:.12em;font-size:12px;text-transform:uppercase}
+.new:hover{background:rgba(205,255,59,.07)}
+.item{display:block;text-align:left;width:100%;padding:12px 14px;border-radius:var(--r);background:var(--bg2);border:1px solid var(--line)}
+.item:hover{border-color:#333c45}
+.item.on{border-color:var(--lime)}
+.item .t{font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.item .m{display:flex;justify-content:space-between;gap:8px;margin-top:6px;color:var(--faint)}
+.chip{display:inline-flex;align-items:center;gap:6px;color:var(--dim)}
+.chip::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--faint)}
+.chip.s-new::before{background:var(--paper)}
+.chip.s-writing::before,.chip.s-rendering::before{background:var(--lime);animation:pulse 1.2s infinite}
+.chip.s-review::before{background:#FFB020}
+.chip.s-done::before{background:var(--lime)}
+@keyframes pulse{50%{opacity:.25}}
+.empty{color:var(--faint);padding:40px 0;text-align:center}
+
+/* editor */
+.editor{display:flex;flex-direction:column;gap:18px}
+.title{width:100%;background:none;border:0;outline:0;font-family:var(--wide);font-weight:800;font-size:clamp(24px,3.2vw,40px);line-height:1.1;text-transform:uppercase;padding:0}
+.title::placeholder{color:var(--faint)}
+.row{display:flex;flex-wrap:wrap;align-items:center;gap:10px 16px}
+.saved{color:var(--faint);margin-left:auto}
+.steps{display:flex;flex-wrap:wrap;gap:6px}
+.steps button{border:1px solid var(--line);background:var(--bg2);border-radius:999px;padding:6px 12px;color:var(--dim)}
+.steps button.past{color:var(--text)}
+.steps button.cur{background:var(--lime);color:var(--lime-ink);border-color:var(--lime)}
+.note{color:var(--dim);font-size:14px}
+.note:empty{display:none}
+
+/* prompt receipt */
+.receipt{background:var(--paper);color:var(--ink);border-radius:4px;padding:18px 20px 22px;position:relative;
+  -webkit-mask:radial-gradient(circle 6px at 50% 100%,transparent 98%,#000) 0 0/16px 100% repeat-x;mask:radial-gradient(circle 6px at 50% 100%,transparent 98%,#000) 0 0/16px 100% repeat-x}
+.receipt .mono{color:#6E6C64}
+.receipt p{margin:8px 0 14px;font-family:var(--mono);font-size:14px;line-height:1.5;word-break:break-word}
+.receipt button{background:var(--ink);color:var(--paper);border:0;border-radius:6px;padding:9px 16px;font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase}
+
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.field{display:flex;flex-direction:column;gap:8px}
+.field label{color:var(--dim)}
+.field label small{text-transform:none;letter-spacing:0;font-family:var(--sans);color:var(--faint);font-size:12px;margin-left:6px}
+textarea,.input{width:100%;background:var(--bg2);border:1px solid var(--line);border-radius:var(--r);padding:12px 14px;outline:0;resize:vertical;min-height:46px}
+textarea:focus,.input:focus{border-color:#4a5560}
+textarea.tall{min-height:180px}
+.seg{display:flex;flex-wrap:wrap;gap:6px}
+.seg button{border:1px solid var(--line);background:var(--bg2);border-radius:8px;padding:8px 12px;color:var(--dim)}
+.seg button.on{border-color:var(--lime);color:var(--lime)}
+
+/* files */
+.drop{border:1px dashed #36404a;border-radius:var(--r);padding:22px;text-align:center;color:var(--dim);transition:.15s}
+.drop.over{border-color:var(--lime);background:rgba(205,255,59,.05);color:var(--lime)}
+.drop u{color:var(--lime);text-decoration:none;cursor:pointer}
+.files{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px;margin-top:12px}
+.file{position:relative;aspect-ratio:1;border-radius:8px;overflow:hidden;background:var(--bg3);border:1px solid var(--line)}
+.file img,.file video{width:100%;height:100%;object-fit:cover;display:block}
+.file .doc{display:flex;align-items:center;justify-content:center;height:100%;padding:8px;font-family:var(--mono);font-size:11px;color:var(--dim);text-align:center;word-break:break-all}
+.file .cap{position:absolute;left:0;right:0;bottom:0;padding:4px 6px;font-size:11px;background:linear-gradient(transparent,rgba(0,0,0,.85));white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.file .x{position:absolute;top:4px;right:4px;width:24px;height:24px;border-radius:50%;border:0;background:rgba(0,0,0,.7);color:#fff;opacity:0;transition:.15s}
+.file:hover .x{opacity:1}
+.file .bar{position:absolute;left:0;bottom:0;height:3px;background:var(--lime)}
+
+/* review: Shorts-sized player + frame notes */
+.review{display:grid;grid-template-columns:auto minmax(280px,1fr);gap:24px;align-items:start}
+.stage-col{display:flex;flex-direction:column;gap:10px;align-items:center}
+.stage{position:relative;height:min(calc(100vh - 110px),960px);aspect-ratio:9/16;background:#000;border-radius:14px;overflow:hidden;border:1px solid var(--line);box-shadow:0 30px 80px -30px rgba(0,0,0,.9)}
+.stage video{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;cursor:pointer}
+.stage canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.stage.drawing canvas{pointer-events:auto;cursor:crosshair}
+.stage.drawing{border-color:var(--red);box-shadow:0 0 0 2px var(--red)}
+.stage .ghost{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;pointer-events:none}
+.stage .badge{position:absolute;top:12px;left:12px;background:var(--red);color:#fff;font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.12em;padding:5px 9px;border-radius:6px;display:none}
+.stage.drawing .badge{display:block}
+.transport{display:flex;align-items:center;gap:8px;width:100%}
+.transport button{background:var(--bg2);border:1px solid var(--line);border-radius:8px;padding:6px 10px;min-width:38px;color:var(--text)}
+.transport button:hover{border-color:#4a5560}
+.transport input[type=range]{flex:1;accent-color:var(--lime)}
+.transport .tc{font-family:var(--mono);font-size:12px;color:var(--dim);white-space:nowrap;min-width:118px;text-align:right}
+.side{display:flex;flex-direction:column;gap:14px;position:sticky;top:84px}
+.big{display:flex;align-items:center;justify-content:center;gap:8px;height:48px;border-radius:var(--r);border:0;background:var(--red);color:#fff;font-family:var(--mono);font-weight:700;letter-spacing:.12em;font-size:12px;text-transform:uppercase}
+.big.lime{background:var(--lime);color:var(--lime-ink)}
+.big.ghostbtn{background:none;border:1px solid var(--line);color:var(--dim)}
+.tools{display:none;flex-direction:column;gap:10px;padding:14px;border:1px solid var(--red);border-radius:var(--r);background:rgba(255,77,61,.05)}
+.tools.on{display:flex}
+.tools .seg button.on{border-color:var(--red);color:var(--red)}
+.sw{width:26px;height:26px;border-radius:50%;border:2px solid var(--line);padding:0}
+.sw.on{outline:2px solid var(--text);outline-offset:2px}
+.notes{display:flex;flex-direction:column;gap:8px;max-height:calc(100vh - 420px);overflow:auto}
+.nt{display:grid;grid-template-columns:54px 1fr auto;gap:10px;align-items:start;padding:8px;border:1px solid var(--line);border-radius:8px;background:var(--bg2);cursor:pointer}
+.nt:hover{border-color:#333c45}
+.nt img{width:54px;aspect-ratio:9/16;object-fit:cover;border-radius:4px;display:block}
+.nt .tx{font-size:13px;white-space:pre-wrap;word-break:break-word}
+.nt .tm{font-family:var(--mono);font-size:11px;color:var(--lime)}
+.nt.done{opacity:.45}.nt.done .tm::after{content:" · сделано";color:var(--dim)}
+.nt .del{background:none;border:0;color:var(--faint);padding:2px 4px}
+.nt .del:hover{color:var(--red)}
+.hint{color:var(--faint);font-size:12px}
+@media (max-width:1100px){.review{grid-template-columns:1fr}.side{position:static}.stage{height:min(78vh,820px)}}
+.danger{background:none;border:1px solid var(--line);border-radius:8px;padding:8px 12px;color:var(--faint)}
+.danger:hover,.danger.arm{border-color:var(--red);color:var(--red)}
+.placeholder{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;min-height:60vh;color:var(--faint);text-align:center}
+.placeholder b{font-family:var(--wide);font-size:28px;color:var(--text);text-transform:uppercase}
+
+/* playbook */
+.pb{display:flex;flex-direction:column;gap:12px}
+.pb textarea{min-height:calc(100vh - 210px);font-family:var(--mono);font-size:14px;line-height:1.65;padding:20px 22px}
+.pb .row button{background:var(--lime);color:var(--lime-ink);border:0;border-radius:8px;padding:9px 16px;font-family:var(--mono);font-weight:700;font-size:12px;letter-spacing:.1em;text-transform:uppercase}
+
+/* renders */
+.renders{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:18px}
+.render video{width:100%;aspect-ratio:9/16;background:#000;border-radius:var(--r);border:1px solid var(--line)}
+.render .m{display:flex;justify-content:space-between;color:var(--faint);margin-top:6px}
+.render a{color:var(--lime);text-decoration:none}
+
+h2{font-family:var(--wide);font-weight:800;text-transform:uppercase;font-size:26px;margin:0 0 6px}
+.lead{color:var(--dim);margin:0 0 18px}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(80px);background:var(--lime);color:var(--lime-ink);padding:10px 18px;border-radius:999px;font-family:var(--mono);font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;transition:.25s;z-index:9}
+.toast.on{transform:translateX(-50%)}
+
+@media (max-width:860px){
+  header{padding:12px 16px;gap:12px}.brand span{display:none}
+  main{padding:16px}
+  .reels{grid-template-columns:1fr}
+  .list{position:static;max-height:none}
+  .grid2{grid-template-columns:1fr}
+  .reels.open .list{display:none}
+  .back{display:inline-flex!important}
+}
+.back{display:none;background:none;border:0;color:var(--dim);padding:0}
+</style>
+</head>
+<body>
+<header>
+  <div class="brand"><i></i><b>ДЕНЬГИ · ПРОСТО</b><span class="mono">/ студия</span></div>
+  <nav>
+    <button data-view="reels" class="on">Рилсы</button>
+    <button data-view="playbook">Playbook</button>
+    <button data-view="renders">Готовые</button>
+  </nav>
+</header>
+
+<main>
+  <section class="view on" id="v-reels">
+    <div class="reels" id="reels">
+      <aside class="list" id="list"></aside>
+      <div id="pane"></div>
+    </div>
+  </section>
+
+  <section class="view" id="v-playbook">
+    <div class="pb">
+      <div class="row">
+        <div><h2>Playbook</h2><p class="lead" style="margin:0">Как делать идеальный рилс. Claude читает это первым, перед каждым роликом.</p></div>
+        <span class="saved mono" id="pb-saved"></span>
+        <button id="pb-save">Сохранить</button>
+      </div>
+      <textarea id="pb-text" spellcheck="false" placeholder="Пиши правила здесь…"></textarea>
+    </div>
+  </section>
+
+  <section class="view" id="v-renders">
+    <h2>Готовые ролики</h2>
+    <p class="lead">Всё из out/ — последние сверху.</p>
+    <div class="renders" id="renders"></div>
+  </section>
+</main>
+<div class="toast" id="toast"></div>
+<input type="file" id="picker" multiple hidden>
+
+<script>
+const $ = (s, el = document) => el.querySelector(s);
+const esc = (s) => String(s ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const api = async (url, opts = {}) => {
+  const r = await fetch(url, { ...opts, headers: opts.body && typeof opts.body === "string" ? { "content-type": "application/json" } : undefined });
+  if (!r.ok) throw new Error((await r.json().catch(() => ({}))).error || r.statusText);
+  return r.json();
+};
+const toast = (t) => { const el = $("#toast"); el.textContent = t; el.classList.add("on"); clearTimeout(toast.t); toast.t = setTimeout(() => el.classList.remove("on"), 1600); };
+const mb = (b) => b > 1048576 ? (b / 1048576).toFixed(1) + " MB" : Math.ceil(b / 1024) + " KB";
+const ago = (iso) => { const s = (Date.now() - new Date(iso)) / 1000; return s < 60 ? "только что" : s < 3600 ? Math.floor(s / 60) + " мин" : s < 86400 ? Math.floor(s / 3600) + " ч" : new Date(iso).toLocaleDateString("ru"); };
+
+const STATUS = { new: "Новый", writing: "Пишем текст", review: "На правках", rendering: "Рендер", done: "Готов" };
+const FACES = { ask: "Решим вместе", none: "Без лица", heygen: "HeyGen", self: "Сниму сам" };
+const DURS = [15, 30, 45, 60, 90];
+
+let briefs = [], cur = null, saveT = null;
+
+// ---------- tabs ----------
+document.querySelectorAll("nav button").forEach((b) => b.onclick = () => show(b.dataset.view));
+function show(v) {
+  document.querySelectorAll("nav button").forEach((b) => b.classList.toggle("on", b.dataset.view === v));
+  document.querySelectorAll(".view").forEach((s) => s.classList.toggle("on", s.id === "v-" + v));
+  if (v === "playbook") loadPlaybook();
+  if (v === "renders") loadRenders();
+  history.replaceState(null, "", v === "reels" && cur ? "#" + cur.id : "#" + v);
+}
+
+// ---------- list ----------
+async function loadList() {
+  briefs = await api("/api/briefs");
+  $("#list").innerHTML =
+    `<button class="new" id="new">＋ Новый рилс</button>` +
+    (briefs.length ? briefs.map((b) => `
+      <button class="item ${cur?.id === b.id ? "on" : ""}" data-id="${b.id}">
+        <div class="t">${esc(b.title)}</div>
+        <div class="m mono"><span class="chip s-${b.status}">${STATUS[b.status]}</span><span>${b.open ? `✎ ${b.open} · ` : ""}${ago(b.updated)}</span></div>
+      </button>`).join("") : `<div class="empty">Пока пусто.<br>Создай первый бриф.</div>`);
+  $("#new").onclick = create;
+  document.querySelectorAll(".item").forEach((el) => el.onclick = () => open(el.dataset.id));
+}
+
+async function create() {
+  const { id } = await api("/api/briefs", { method: "POST", body: JSON.stringify({ title: "" }) });
+  await loadList();
+  await open(id);
+  $(".title")?.focus();
+}
+
+// ---------- editor ----------
+async function open(id) {
+  cur = await api("/api/briefs/" + id);
+  location.hash = id;
+  $("#reels").classList.add("open");
+  document.querySelectorAll(".item").forEach((el) => el.classList.toggle("on", el.dataset.id === id));
+  render();
+}
+
+function render() {
+  const b = cur, f = b.fields, si = Object.keys(STATUS).indexOf(b.status);
+  $("#pane").innerHTML = `
+  <div class="editor">
+    <button class="back mono" id="back">← все рилсы</button>
+    <input class="title" id="f-title" placeholder="Название рилса" value="${esc(b.title === "Без названия" ? "" : b.title)}">
+    <div class="row">
+      <div class="steps">${Object.entries(STATUS).map(([k, v], i) => `<button data-s="${k}" class="mono ${i < si ? "past" : ""} ${k === b.status ? "cur" : ""}">${v}</button>`).join("")}</div>
+      <span class="saved mono" id="saved"></span>
+    </div>
+    <div class="note" id="note">${esc(b.note)}</div>
+    ${b.video ? reviewHtml(b) : ""}
+
+    <div class="receipt">
+      <div class="mono">Промпт для Claude Code</div>
+      <p id="prompt">${esc(b.prompt)}</p>
+      <button id="copy">Скопировать</button>
+    </div>
+
+    <div class="field"><label class="mono">Идея / тема <small>о чём ролик и в чём его крючок</small></label>
+      <textarea data-f="idea" placeholder="Например: 5 000 ₽ в 2000 году — сколько это сегодня">${esc(f.idea)}</textarea></div>
+
+    <div class="field"><label class="mono">Твой текст <small>если уже написан — Claude сохранит смысл</small></label>
+      <textarea data-f="script" class="tall" placeholder="Сценарий, черновик, надиктовка…">${esc(f.script)}</textarea></div>
+
+    <div class="grid2">
+      <div class="field"><label class="mono">Лицо</label>
+        <div class="seg" data-seg="face">${Object.entries(FACES).map(([k, v]) => `<button data-v="${k}" class="${f.face === k ? "on" : ""}">${v}</button>`).join("")}</div></div>
+      <div class="field"><label class="mono">Длина, секунд</label>
+        <div class="seg" data-seg="duration">${DURS.map((d) => `<button data-v="${d}" class="${f.duration === d ? "on" : ""}">${d}</button>`).join("")}</div></div>
+    </div>
+
+    <div class="grid2">
+      <div class="field"><label class="mono">Факты и цифры <small>с источниками</small></label>
+        <textarea data-f="facts" placeholder="Цифра — источник/ссылка">${esc(f.facts)}</textarea></div>
+      <div class="field"><label class="mono">Референсы <small>ссылки на ролики</small></label>
+        <textarea data-f="refs" placeholder="https://…">${esc(f.refs)}</textarea></div>
+    </div>
+
+    <div class="field"><label class="mono">Пожелания</label>
+      <textarea data-f="notes" placeholder="Что важно, чего избегать">${esc(f.notes)}</textarea></div>
+
+    <div class="field"><label class="mono">Материалы <small>фото, видео, скрины, голос</small></label>
+      <div class="drop" id="drop">Перетащи файлы сюда или <u id="pick">выбери</u></div>
+      <div class="files" id="files"></div></div>
+
+    <div class="row"><button class="danger mono" id="del">Удалить бриф</button></div>
+  </div>`;
+
+  renderFiles();
+  if (b.video) wireReview();
+  $("#back").onclick = () => { $("#reels").classList.remove("open"); cur = null; idle(); history.replaceState(null, "", "#reels"); };
+  $("#f-title").oninput = (e) => { cur.title = e.target.value; queueSave({ title: e.target.value }); };
+  document.querySelectorAll("[data-f]").forEach((t) => t.oninput = () => { cur.fields[t.dataset.f] = t.value; queueSave({ fields: { [t.dataset.f]: t.value } }); });
+  document.querySelectorAll("[data-seg]").forEach((seg) => seg.querySelectorAll("button").forEach((btn) => btn.onclick = () => {
+    const key = seg.dataset.seg, v = key === "duration" ? Number(btn.dataset.v) : btn.dataset.v;
+    cur.fields[key] = v; seg.querySelectorAll("button").forEach((x) => x.classList.toggle("on", x === btn));
+    queueSave({ fields: { [key]: v } }, 0);
+  }));
+  document.querySelectorAll(".steps button").forEach((btn) => btn.onclick = async () => {
+    await api("/api/briefs/" + cur.id, { method: "PUT", body: JSON.stringify({ status: btn.dataset.s }) });
+    cur.status = btn.dataset.s; render(); loadList();
+  });
+  $("#copy").onclick = () => navigator.clipboard.writeText(cur.prompt).then(() => toast("Скопировано — вставь в Claude Code"));
+  $("#pick").onclick = () => $("#picker").click();
+  const drop = $("#drop");
+  drop.ondragover = (e) => { e.preventDefault(); drop.classList.add("over"); };
+  drop.ondragleave = () => drop.classList.remove("over");
+  drop.ondrop = (e) => { e.preventDefault(); drop.classList.remove("over"); upload([...e.dataTransfer.files]); };
+  const del = $("#del");
+  del.onclick = async () => {
+    if (!del.classList.contains("arm")) { del.classList.add("arm"); del.textContent = "Точно удалить? Нажми ещё раз"; setTimeout(() => { del.classList.remove("arm"); del.textContent = "Удалить бриф"; }, 3000); return; }
+    await api("/api/briefs/" + cur.id, { method: "DELETE" });
+    cur = null; $("#reels").classList.remove("open"); await loadList(); idle(); toast("Удалено");
+  };
+}
+
+function renderFiles(pending = []) {
+  const url = (n) => `/media/briefs/${cur.id}/files/${encodeURIComponent(n)}`;
+  $("#files").innerHTML = cur.files.map((x) => `
+    <div class="file">
+      ${x.type.startsWith("image/") && !x.type.includes("heic") ? `<img src="${url(x.name)}" loading="lazy">`
+        : x.type.startsWith("video/") ? `<video src="${url(x.name)}#t=0.5" preload="metadata" muted></video>`
+        : `<div class="doc">${esc(x.name.split(".").pop())}</div>`}
+      <div class="cap">${esc(x.name)} · ${mb(x.size)}</div>
+      <button class="x" data-n="${esc(x.name)}" title="Удалить">✕</button>
+    </div>`).join("") + pending.map((p) => `
+    <div class="file"><div class="doc">${esc(p.name)}</div><div class="bar" style="width:${p.pct}%"></div></div>`).join("");
+  document.querySelectorAll(".file .x").forEach((b) => b.onclick = async () => {
+    await api(`/api/briefs/${cur.id}/files/${encodeURIComponent(b.dataset.n)}`, { method: "DELETE" });
+    cur.files = cur.files.filter((x) => x.name !== b.dataset.n); renderFiles();
+  });
+}
+
+$("#picker").onchange = (e) => { upload([...e.target.files]); e.target.value = ""; };
+
+async function upload(files) {
+  if (!cur || !files.length) return;
+  const id = cur.id, pending = files.map((f) => ({ name: f.name, pct: 0 }));
+  renderFiles(pending);
+  // XHR, not fetch: it reports upload progress. One at a time keeps disk I/O sane.
+  for (const [i, file] of files.entries()) {
+    await new Promise((ok, bad) => {
+      const x = new XMLHttpRequest();
+      x.open("PUT", `/api/briefs/${id}/files/${encodeURIComponent(file.name)}`);
+      x.upload.onprogress = (e) => { pending[i].pct = (e.loaded / e.total) * 100; if (cur?.id === id) renderFiles(pending.slice(i)); };
+      x.onload = () => (x.status < 300 ? ok() : bad(new Error(x.statusText)));
+      x.onerror = bad;
+      x.send(file);
+    }).catch((e) => toast("Ошибка: " + e.message));
+  }
+  if (cur?.id === id) { cur = await api("/api/briefs/" + id); renderFiles(); }
+  toast(files.length > 1 ? `Загружено: ${files.length}` : "Загружено");
+}
+
+function queueSave(patch, delay = 600) {
+  queueSave.acc = deepMerge(queueSave.acc || {}, patch);
+  $("#saved").textContent = "…";
+  clearTimeout(saveT);
+  const id = cur.id;
+  saveT = setTimeout(async () => {
+    const body = queueSave.acc; queueSave.acc = null;
+    await api("/api/briefs/" + id, { method: "PUT", body: JSON.stringify(body) });
+    if ($("#saved")) $("#saved").textContent = "сохранено";
+    if (body.title !== undefined) loadList();
+  }, delay);
+}
+const deepMerge = (a, b) => ({ ...a, ...b, fields: { ...(a.fields || {}), ...(b.fields || {}) } });
+
+// Claude updates status.json while it works — poll it, never the fields being typed.
+setInterval(async () => {
+  if (document.hidden) return;
+  await loadList();
+  if (!cur) return;
+  const b = briefs.find((x) => x.id === cur.id);
+  if (b && (b.status !== cur.status || b.note !== cur.note || b.video !== cur.video || b.notesSig !== cur.notesSig)) {
+    const fresh = await api("/api/briefs/" + cur.id);
+    const videoChanged = fresh.video !== cur.video;
+    Object.assign(cur, { status: fresh.status, note: fresh.note, video: fresh.video, files: fresh.files, notes: fresh.notes, notesSig: b.notesSig });
+    const focused = document.activeElement?.dataset?.f || document.activeElement?.id;
+    const busy = rv.drawing || (rv.video && !rv.video.paused);
+    if (!focused && !busy) render();
+    else { $("#note").textContent = cur.note; if (!videoChanged) renderNotes(); }
+  }
+}, 5000);
+
+// ---------- playbook ----------
+let pbT;
+async function loadPlaybook() {
+  const { text } = await api("/api/playbook");
+  if (document.activeElement !== $("#pb-text")) $("#pb-text").value = text;
+}
+async function savePlaybook() {
+  clearTimeout(pbT);
+  await api("/api/playbook", { method: "PUT", body: JSON.stringify({ text: $("#pb-text").value }) });
+  $("#pb-saved").textContent = "сохранено " + new Date().toLocaleTimeString("ru", { hour: "2-digit", minute: "2-digit" });
+}
+$("#pb-text").oninput = () => { $("#pb-saved").textContent = "…"; clearTimeout(pbT); pbT = setTimeout(savePlaybook, 1200); };
+$("#pb-save").onclick = () => savePlaybook().then(() => toast("Playbook сохранён"));
+document.addEventListener("keydown", (e) => {
+  if ((e.metaKey || e.ctrlKey) && e.key === "s" && $("#v-playbook").classList.contains("on")) { e.preventDefault(); savePlaybook().then(() => toast("Playbook сохранён")); }
+});
+
+// ---------- renders ----------
+async function loadRenders() {
+  const items = await api("/api/renders");
+  $("#renders").innerHTML = items.length ? items.map((r) => `
+    <div class="render">
+      <video src="${r.url}" controls preload="metadata"></video>
+      <div class="m mono"><span>${esc(r.name.replace(/\.mp4$/, ""))}</span><a href="${r.url}" download>mp4 · ${mb(r.size)}</a></div>
+    </div>`).join("") : `<div class="empty">Готовых роликов пока нет.</div>`;
+}
+
+// ---------- review: big player + frame notes ----------
+const FPS = 30;
+const COLORS = { red: "#FF3B3B", lime: "#CDFF3B", white: "#FFFFFF" };
+const rv = { video: null, drawing: false, tool: "pen", color: "red", strokes: [], live: null };
+
+function reviewHtml(b) {
+  return `
+  <div class="review">
+    <div class="stage-col">
+      <div class="stage" id="stage">
+        <video id="rv-video" src="${b.video}" preload="auto" playsinline></video>
+        <canvas id="rv-canvas"></canvas>
+        <div class="badge">РИСУЕШЬ НА КАДРЕ</div>
+      </div>
+      <div class="transport">
+        <button id="rv-play" title="Пробел">▶</button>
+        <button id="rv-prev" title="← кадр назад">‹</button>
+        <button id="rv-next" title="→ кадр вперёд">›</button>
+        <input type="range" id="rv-seek" min="0" max="1000" value="0">
+        <span class="tc" id="rv-tc">0,00 с · к 0</span>
+      </div>
+    </div>
+    <div class="side">
+      <button class="big" id="rv-mark">✎ Отметить этот кадр</button>
+      <div class="tools" id="rv-tools">
+        <div class="seg" id="rv-tool">
+          <button data-t="pen" class="on">Обвести</button>
+          <button data-t="arrow">Стрелка</button>
+          <button data-t="rect">Рамка</button>
+        </div>
+        <div class="row" style="gap:10px">
+          ${Object.entries(COLORS).map(([k, c]) => `<button class="sw ${k === "red" ? "on" : ""}" data-c="${k}" style="background:${c}"></button>`).join("")}
+          <button class="danger mono" id="rv-undo" style="margin-left:auto">Отменить</button>
+          <button class="danger mono" id="rv-clear">Стереть</button>
+        </div>
+        <textarea id="rv-text" placeholder="Что сделать: убрать, увеличить, перенести сюда, заменить на…"></textarea>
+        <div class="row" style="gap:8px">
+          <button class="big lime" id="rv-save" style="flex:1">Сохранить пометку</button>
+          <button class="big ghostbtn" id="rv-cancel">Отмена</button>
+        </div>
+      </div>
+      <div class="mono" style="color:var(--dim)">Пометки <span id="rv-count"></span></div>
+      <div class="notes" id="rv-notes"></div>
+      <button class="big lime" id="rv-send">Отдать правки Claude</button>
+      <div class="hint">Пробел — пауза, ← → — по кадру, D — рисовать. Пометки лежат в studio/briefs/${b.id}/notes/, Claude читает их вместе с картинками.</div>
+      <a class="mono" href="${b.video}" download style="color:var(--lime)">Скачать mp4</a>
+    </div>
+  </div>`;
+}
+
+function wireReview() {
+  const v = $("#rv-video"), cv = $("#rv-canvas"), stage = $("#stage");
+  rv.video = v; rv.drawing = false; rv.strokes = []; rv.live = null;
+  const fmt = (t) => `${t.toFixed(2).replace(".", ",")} с · к ${Math.round(t * FPS)}`;
+  const sync = () => {
+    $("#rv-tc").textContent = fmt(v.currentTime || 0);
+    if (v.duration) $("#rv-seek").value = Math.round((v.currentTime / v.duration) * 1000);
+    $("#rv-play").textContent = v.paused ? "▶" : "❚❚";
+  };
+  v.ontimeupdate = sync; v.onplay = sync; v.onpause = sync; v.onloadedmetadata = sync; v.onseeked = sync;
+  const toggle = () => { if (rv.drawing) return; v.paused ? v.play() : v.pause(); };
+  const step = (d) => { v.pause(); v.currentTime = Math.max(0, Math.min(v.duration || 0, v.currentTime + d / FPS)); };
+  v.onclick = toggle;
+  // innerHTML-born <video> sometimes never starts fetching; kick it, and show frame 0
+  v.onloadeddata = () => { if (v.currentTime === 0) v.currentTime = 0.001; };
+  v.load();
+  $("#rv-play").onclick = toggle;
+  $("#rv-prev").onclick = () => step(-1);
+  $("#rv-next").onclick = () => step(1);
+  $("#rv-seek").oninput = (e) => { if (v.duration) { v.pause(); v.currentTime = (e.target.value / 1000) * v.duration; } };
+
+  // canvas in device pixels of the stage; strokes kept in 0..1 so they survive resizes
+  const fit = () => { const r = stage.getBoundingClientRect(); cv.width = r.width * devicePixelRatio; cv.height = r.height * devicePixelRatio; paint(); };
+  new ResizeObserver(fit).observe(stage);
+  const paint = () => drawStrokes(cv.getContext("2d"), cv.width, cv.height, rv.live ? [...rv.strokes, rv.live] : rv.strokes);
+  const pt = (e) => { const r = cv.getBoundingClientRect(); return [(e.clientX - r.left) / r.width, (e.clientY - r.top) / r.height]; };
+  cv.onpointerdown = (e) => { cv.setPointerCapture(e.pointerId); rv.live = { tool: rv.tool, color: COLORS[rv.color], pts: [pt(e)] }; paint(); };
+  cv.onpointermove = (e) => {
+    if (!rv.live) return;
+    const p = pt(e);
+    if (rv.tool === "pen") rv.live.pts.push(p); else rv.live.pts[1] = p;
+    paint();
+  };
+  // a stroke takes focus off the comment box — hand it back so typing goes there
+  cv.onpointerup = () => { if (rv.live && (rv.live.pts.length > 1)) rv.strokes.push(rv.live); rv.live = null; paint(); $("#rv-text").focus({ preventScroll: true }); };
+
+  const setDrawing = (on) => {
+    rv.drawing = on; stage.classList.toggle("drawing", on); $("#rv-tools").classList.toggle("on", on);
+    $("#rv-mark").style.display = on ? "none" : "";
+    if (on) { v.pause(); setTimeout(() => $("#rv-text").focus(), 0); } else { rv.strokes = []; rv.live = null; $("#rv-text").value = ""; paint(); }
+  };
+  rv.setDrawing = setDrawing; rv.step = step; rv.toggle = toggle;
+  $("#rv-mark").onclick = () => setDrawing(true);
+  $("#rv-cancel").onclick = () => setDrawing(false);
+  $("#rv-undo").onclick = () => { rv.strokes.pop(); paint(); };
+  $("#rv-clear").onclick = () => { rv.strokes = []; paint(); };
+  document.querySelectorAll("#rv-tool button").forEach((b) => b.onclick = () => { rv.tool = b.dataset.t; document.querySelectorAll("#rv-tool button").forEach((x) => x.classList.toggle("on", x === b)); });
+  document.querySelectorAll(".sw").forEach((b) => b.onclick = () => { rv.color = b.dataset.c; document.querySelectorAll(".sw").forEach((x) => x.classList.toggle("on", x === b)); });
+
+  $("#rv-save").onclick = async () => {
+    const text = $("#rv-text").value.trim();
+    if (!rv.strokes.length && !text) return toast("Обведи что-нибудь или напиши");
+    // the note is the real frame at full size with the marks burnt in
+    const W = v.videoWidth || 1080, H = v.videoHeight || 1920;
+    const out = Object.assign(document.createElement("canvas"), { width: W, height: H });
+    const ctx = out.getContext("2d");
+    ctx.drawImage(v, 0, 0, W, H);
+    drawStrokes(ctx, W, H, rv.strokes, false);
+    await api(`/api/briefs/${cur.id}/notes`, { method: "POST", body: JSON.stringify({ t: v.currentTime, text, png: out.toDataURL("image/png") }) });
+    cur = await api("/api/briefs/" + cur.id);
+    setDrawing(false); renderNotes(); loadList();
+    toast("Пометка сохранена");
+  };
+  $("#rv-send").onclick = () => {
+    const open = (cur.notes || []).filter((n) => !n.done).length;
+    if (!open) return toast("Нет открытых пометок");
+    navigator.clipboard.writeText(cur.notesPrompt).then(() => toast(`Скопировано (${open}) — вставь в Claude Code`));
+  };
+  renderNotes();
+}
+
+// clear=false on the export canvas: the video frame is already painted there
+function drawStrokes(ctx, W, H, strokes, clear = true) {
+  if (clear) ctx.clearRect(0, 0, W, H);
+  ctx.save();
+  const lw = Math.max(4, W * 0.009);
+  ctx.lineWidth = lw; ctx.lineCap = "round"; ctx.lineJoin = "round";
+  for (const s of strokes) {
+    ctx.strokeStyle = s.color; ctx.fillStyle = s.color;
+    ctx.shadowColor = "rgba(0,0,0,.6)"; ctx.shadowBlur = lw;
+    const P = s.pts.map(([x, y]) => [x * W, y * H]);
+    ctx.beginPath();
+    if (s.tool === "pen") { P.forEach(([x, y], i) => (i ? ctx.lineTo(x, y) : ctx.moveTo(x, y))); ctx.stroke(); }
+    else if (s.tool === "rect" && P[1]) { ctx.strokeRect(P[0][0], P[0][1], P[1][0] - P[0][0], P[1][1] - P[0][1]); }
+    else if (s.tool === "arrow" && P[1]) {
+      const [[x1, y1], [x2, y2]] = P, a = Math.atan2(y2 - y1, x2 - x1), h = lw * 4.5;
+      ctx.moveTo(x1, y1); ctx.lineTo(x2, y2); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(x2, y2);
+      ctx.lineTo(x2 - h * Math.cos(a - 0.45), y2 - h * Math.sin(a - 0.45));
+      ctx.lineTo(x2 - h * Math.cos(a + 0.45), y2 - h * Math.sin(a + 0.45));
+      ctx.closePath(); ctx.fill();
+    }
+  }
+  ctx.restore();
+}
+
+function renderNotes() {
+  const box = $("#rv-notes"); if (!box) return;
+  const notes = cur.notes || [];
+  $("#rv-count").textContent = notes.length ? `· открыто ${notes.filter((n) => !n.done).length} из ${notes.length}` : "";
+  box.innerHTML = notes.length ? notes.slice().reverse().map((n) => `
+    <div class="nt ${n.done ? "done" : ""}" data-t="${n.t}">
+      <img src="/media/briefs/${cur.id}/notes/${encodeURIComponent(n.img)}" loading="lazy">
+      <div><div class="tm">${n.t.toFixed(2).replace(".", ",")} с · к ${n.frame}</div><div class="tx">${esc(n.text || "— обводка без текста —")}</div></div>
+      <button class="del" data-n="${n.n}" title="Удалить">✕</button>
+    </div>`).join("") : `<div class="hint">Поставь на паузу, нажми «Отметить этот кадр», обведи и напиши, что поменять.</div>`;
+  box.querySelectorAll(".nt").forEach((el) => el.onclick = (e) => {
+    if (e.target.closest(".del")) return;
+    if (rv.video) { rv.video.pause(); rv.video.currentTime = Number(el.dataset.t); }
+  });
+  box.querySelectorAll(".del").forEach((b) => b.onclick = async () => {
+    await api(`/api/briefs/${cur.id}/notes/${b.dataset.n}`, { method: "DELETE" });
+    cur.notes = cur.notes.filter((x) => x.n !== Number(b.dataset.n)); renderNotes(); loadList();
+  });
+}
+
+document.addEventListener("keydown", (e) => {
+  if (!rv.video || !document.body.contains(rv.video)) return;
+  const typing = /INPUT|TEXTAREA/.test(document.activeElement?.tagName) && document.activeElement.type !== "range";
+  if (e.key === "Escape" && rv.drawing) return rv.setDrawing(false);
+  // while marking a frame every key belongs to the comment, never to the player
+  if (typing || rv.drawing) return;
+  if (e.key === " ") { e.preventDefault(); rv.toggle(); }
+  else if (e.key === "ArrowLeft") { e.preventDefault(); rv.step(-1); }
+  else if (e.key === "ArrowRight") { e.preventDefault(); rv.step(1); }
+  else if (e.key.toLowerCase() === "d" || e.key.toLowerCase() === "в") { e.preventDefault(); rv.setDrawing(!rv.drawing); }
+});
+
+function idle() {
+  $("#pane").innerHTML = `<div class="placeholder"><b>Студия рилсов</b>${briefs.length ? "Выбери рилс слева или создай новый." : "Создай бриф, кидай материалы,<br>скопируй промпт в Claude Code."}</div>`;
+}
+
+// ---------- boot ----------
+(async () => {
+  await loadList();
+  const h = location.hash.slice(1);
+  if (h === "playbook" || h === "renders") show(h);
+  else if (h && h !== "reels" && briefs.some((b) => b.id === h)) open(h);
+  else idle();
+})();
+</script>
+</body>
+</html>

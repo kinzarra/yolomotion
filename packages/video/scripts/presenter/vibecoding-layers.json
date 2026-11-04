@@ -1,0 +1,23 @@
+{
+  "templateId": "vibecoding-layers",
+  "voiceoverDir": "public/voiceover/vibecoding-layers",
+  "outDir": "public/presenter/vibecoding-layers",
+  "avatarId": "${HEYGEN_AVATAR_VIEW_ID}",
+  "avatarName": "Podcast host in blue hoodie",
+  "avatarKind": "photo",
+  "engine": "avatar_iv",
+  "concatAspect": "1:1",
+  "resolution": "1080p",
+  "outputFormat": "mp4",
+  "_budget": "author cap $0.25 per reel; face only on the promise line (02-promise, 2.4 s) in the lower half where the tombstone was (author notes 2026-10-24: candle first, then the face; no face in the CTA); quote the dry run first",
+  "shots": [
+    {
+      "id": "promise",
+      "clip": "02-promise",
+      "from": 0,
+      "to": 2.368,
+      "style": "panel",
+      "reelIn": 3.348
+    }
+  ]
+}

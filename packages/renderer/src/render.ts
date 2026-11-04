@@ -6,6 +6,13 @@ import { fileURLToPath } from "node:url";
 import { bundle } from "@remotion/bundler";
 import { renderMedia, selectComposition, type CancelSignal } from "@remotion/renderer";
 
+// WebGL for three.js scenes: GPU ANGLE on the Mac, software ANGLE on the GPU-less server.
+const chromiumOptions = {
+  gl: (process.env.REMOTION_GL ?? (process.platform === "darwin" ? "angle" : "swangle")) as
+    "angle" | "swangle" | "egl" | "swiftshader",
+};
+
+
 // Воркеру, который живёт поверх renderJob, нужен и способ его отменить.
 export { makeCancelSignal } from "@remotion/renderer";
 
@@ -20,10 +27,13 @@ export const REPO_ROOT = path.resolve(here, "../../..");
 export const fromRepoRoot = (value: string): string => path.resolve(REPO_ROOT, value);
 
 export type RenderJob = {
-  compositionId: string; // e.g. "logo-sting-landscape"
+  compositionId: string; // e.g. "digital-ruble-reel"
   inputProps?: Record<string, unknown>;
   outPath: string;
-  codec?: "h264" | "h265" | "vp8" | "vp9" | "prores";
+  codec?: "h264" | "h265" | "vp8" | "vp9" | "prores" | "aac";
+  // Render only these frames (inclusive), for patching one section of a long
+  // video; with codec "aac" the job renders the audio track alone.
+  frameRange?: [number, number];
   crf?: number;
   onProgress?: (renderedFrames: number, totalFrames: number) => void;
   // Воркер отдаёт сюда makeCancelSignal(): SIGTERM обрывает рендер посреди
@@ -61,19 +71,28 @@ export const renderJob = async (job: RenderJob): Promise<string> => {
     serveUrl,
     id: job.compositionId,
     inputProps,
+    chromiumOptions,
   });
 
   await renderMedia({
     composition,
     serveUrl,
     codec: job.codec ?? "h264",
-    crf: job.crf ?? 17,
+    crf: job.codec === "aac" ? undefined : job.crf ?? 17,
+    frameRange: job.frameRange ?? null,
     concurrency: envConcurrency(),
+    // Long cuts with several clips per frame: a busy box can take more than
+    // Remotion's 30 s default to hand over one video frame (dev-myth failed at
+    // frame 7950 waiting for a Pexels clip, 2026-11-01).
+    timeoutInMilliseconds: 180000,
+    offthreadVideoCacheSizeInBytes: 1024 * 1024 * 1024,
     cancelSignal: job.cancelSignal,
     outputLocation: job.outPath,
     inputProps,
+    chromiumOptions,
     onProgress: ({ renderedFrames }) => {
-      job.onProgress?.(renderedFrames, composition.durationInFrames);
+      const total = job.frameRange ? job.frameRange[1] - job.frameRange[0] + 1 : composition.durationInFrames;
+      job.onProgress?.(renderedFrames, total);
     },
   });
 

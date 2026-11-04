@@ -4,6 +4,7 @@ import { loadFont as loadInter } from "@remotion/google-fonts/Inter";
 import { loadFont as loadJetBrainsMono } from "@remotion/google-fonts/JetBrainsMono";
 import { loadFont as loadUnbounded } from "@remotion/google-fonts/Unbounded";
 import { loadFont as loadInstrumentSerif } from "@remotion/google-fonts/InstrumentSerif";
+import { loadFont as loadCormorant } from "@remotion/google-fonts/CormorantGaramond";
 
 const display = loadSpaceGrotesk();
 const body = loadInter();
@@ -21,10 +22,18 @@ const serif = loadInstrumentSerif("italic", {
   subsets: ["latin"],
 });
 
+// Cyrillic editorial italic: Instrument Serif has no Cyrillic, so Russian
+// headlines take their one contrasting word from Cormorant Garamond.
+const serifRu = loadCormorant("italic", {
+  weights: ["500", "600"],
+  subsets: ["cyrillic", "latin"],
+});
+
 export const fonts = {
   display: display.fontFamily,
   body: body.fontFamily,
   mono: mono.fontFamily,
   wide: wide.fontFamily,
   serif: serif.fontFamily,
+  serifRu: serifRu.fontFamily,
 } as const;

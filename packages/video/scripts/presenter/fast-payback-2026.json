@@ -1,0 +1,23 @@
+{
+  "templateId": "fast-payback-2026",
+  "voiceoverDir": "public/voiceover/fast-payback-2026",
+  "outDir": "public/presenter/fast-payback-2026",
+  "avatarId": "${HEYGEN_AVATAR_VIEW_ID}",
+  "avatarName": "Podcast host in blue hoodie",
+  "avatarKind": "photo",
+  "engine": "avatar_iv",
+  "concatAspect": "9:16",
+  "resolution": "1080p",
+  "outputFormat": "mp4",
+  "_budget": "author cap $0.25 per reel; face in hook only (author 2026-10-21), quote before generating",
+  "shots": [
+    {
+      "id": "punch",
+      "clip": "01-hook",
+      "from": 0.9,
+      "to": 2.97,
+      "style": "hero",
+      "reelIn": 0
+    }
+  ]
+}

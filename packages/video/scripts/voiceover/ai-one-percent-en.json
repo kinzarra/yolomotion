@@ -1,0 +1,38 @@
+{
+  "voiceId": "${ELEVENLABS_VOICE_ID}",
+  "modelId": "eleven_multilingual_v2",
+  "voiceSettings": {
+    "stability": 0.7,
+    "similarity_boost": 0.82,
+    "style": 0.0,
+    "use_speaker_boost": true
+  },
+  "outDir": "public/voiceover/ai-one-percent-en",
+  "templateId": "ai-one-percent-en",
+  "lines": [
+    [
+      "01-hook",
+      "8 billion people. Less than one percent pay for AI. Which layer are you in?"
+    ],
+    [
+      "02-online",
+      "6 billion are online. That's anyone who went online in the last three months."
+    ],
+    [
+      "03-weekly",
+      "900 million open ChatGPT every week."
+    ],
+    [
+      "04-pay",
+      "About 50 million pay for AI."
+    ],
+    [
+      "05-makers",
+      "It's built by a few thousand scientists. And doctors, physicists and biologists already work with it."
+    ],
+    [
+      "06-final",
+      "Are you here?"
+    ]
+  ]
+}

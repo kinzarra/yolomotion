@@ -1,0 +1,16 @@
+{
+  "templateId": "ballon-dor-money",
+  "voiceoverDir": "public/voiceover/ballon-dor-money",
+  "outDir": "public/presenter/ballon-dor-money",
+  "avatarId": "${HEYGEN_AVATAR_VIEW_ID}",
+  "avatarName": "Podcast host in blue hoodie",
+  "avatarKind": "photo",
+  "engine": "avatar_iv",
+  "concatAspect": "9:16",
+  "resolution": "1080p",
+  "outputFormat": "mp4",
+  "_budget": "author cap $0.25 per reel; author 2026-10-27 «HeyGen ок» on a ~$0.20 quote; full-screen on «Победителю не платят ни цента»",
+  "shots": [
+    { "id": "punch", "clip": "01-hook", "from": 2.75, "to": 4.9, "style": "hero", "reelIn": 0 }
+  ]
+}

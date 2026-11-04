@@ -4,6 +4,8 @@
 // коммита code.base: шаблон, сцены, сценарий, манифесты, строка реестра.
 //   npm run deliver -- <id>                   залить, напечатать ссылку на mp4
 //   npm run deliver -- <id> --patch <file>    код взять из готового патча
+//   npm run deliver -- <id> --renders-only    только mp4 из out/ (так зовёт ship:
+//                                             рендер с vibesrv сразу уезжает в S3)
 //   npm run deliver -- <id> --restore         вернуть всё на место и
 //                                             применить патч (git apply)
 // Патч по умолчанию = все изменения рабочей копии против HEAD, поэтому
@@ -32,6 +34,7 @@ if (!id || id.startsWith("--")) {
   throw new Error("usage: npm run deliver -- <reel-id> [--restore]");
 }
 const restore = process.argv.includes("--restore");
+const rendersOnly = process.argv.includes("--renders-only");
 const patchArg = process.argv[process.argv.indexOf("--patch") + 1];
 const patchFile = process.argv.includes("--patch") ? patchArg : undefined;
 if (!env.s3) throw new Error("S3 is not configured: set S3_BUCKET and the S3_* keys");
@@ -92,7 +95,8 @@ const reelFiles = (): string[] => {
   const out = path.join(REPO_ROOT, "out");
   const renders = existsSync(out)
     ? readdirSync(out)
-        .filter((f) => f.startsWith(`${id}-`) && f.endsWith(".mp4"))
+        // ship кладёт out/<id>.mp4, локальный render — out/<id>-reel.mp4
+        .filter((f) => (f === `${id}.mp4` || f.startsWith(`${id}-`)) && f.endsWith(".mp4"))
         .map((f) => path.join(out, f))
     : [];
   const pub = path.join(REPO_ROOT, "packages/video/public");
@@ -104,7 +108,7 @@ const reelFiles = (): string[] => {
       .filter((d) => d === id || d.startsWith(`${id}-`))
       .flatMap((d) => walk(path.join(dir, d)));
   });
-  return [...renders, ...assets];
+  return rendersOnly ? renders : [...renders, ...assets];
 };
 
 // --- presigned GET (SigV4, query string), без отдельной зависимости ---------
@@ -194,7 +198,7 @@ if (restore) {
   }
 } else {
   const files = reelFiles();
-  const { patch, base } = await codePatch();
+  const { patch, base } = rendersOnly ? { patch: "", base: "" } : await codePatch();
   if (!files.length && !patch) {
     throw new Error(`nothing to deliver for ${id}: no out/${id}-*.mp4, no public/*/${id}, no code changes`);
   }

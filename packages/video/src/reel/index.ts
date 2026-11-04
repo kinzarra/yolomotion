@@ -15,6 +15,7 @@ export {
   voiceoverEnd,
 } from "./timeline";
 export type {
+  AsrWord,
   ClipDurations,
   SceneMap,
   SceneSpec,

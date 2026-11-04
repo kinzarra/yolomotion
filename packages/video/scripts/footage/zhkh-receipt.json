@@ -1,0 +1,12 @@
+{
+  "id": "zhkh-receipt",
+  "sourceDir": "../../public/media/zhkh-receipt",
+  "crop": { "w": 1080, "h": 1920, "x": 0, "y": 0 },
+  "width": 1080,
+  "fps": 30,
+  "shots": [
+    { "file": "hot-water.mp4", "name": "hot-water", "in": 0.5, "out": 4.9, "proves": "hands under running water, Pexels 8084878 (Annushka Ahuja)" },
+    { "file": "heating.mp4", "name": "heating", "in": 0.3, "out": 4.5, "proves": "fireplace flames, Pexels 39584330 (Okan Demircan)" },
+    { "file": "water.mp4", "name": "water", "in": 1.0, "out": 5.2, "proves": "sink drain, Pexels 36928186 (Hüseyin Avcı)" }
+  ]
+}

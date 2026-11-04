@@ -1,0 +1,18 @@
+{
+  "templateId": "intellect-mine",
+  "voiceoverDir": "public/voiceover/intellect-mine",
+  "outDir": "public/presenter/intellect-mine",
+  "avatarId": "${HEYGEN_AVATAR_VIEW_ID}",
+  "avatarName": "Podcast host in blue hoodie",
+  "avatarKind": "photo",
+  "engine": "avatar_iv",
+  "concatAspect": "16:9",
+  "resolution": "1080p",
+  "outputFormat": "mp4",
+  "_budget": "author 2026-11-04: HeyGen 0.5 to 1 $ for this video; quoted from the dry run and approved before generation",
+  "shots": [
+    { "id": "hook", "clip": "00-hook", "from": 0, "to": 6.0, "style": "wide", "reelIn": 0 },
+    { "id": "promise", "clip": "01-promise", "from": 0, "to": 4.32, "style": "wide", "reelIn": 0 },
+    { "id": "final", "clip": "31-final", "from": 0, "to": 8.0, "style": "wide", "reelIn": 0 }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "templateId": "dev-myth",
+  "voiceoverDir": "public/voiceover/dev-myth",
+  "outDir": "public/presenter/dev-myth",
+  "avatarId": "${HEYGEN_AVATAR_VIEW_ID}",
+  "avatarName": "Podcast host in blue hoodie",
+  "avatarKind": "photo",
+  "engine": "avatar_iv",
+  "concatAspect": "1:1",
+  "resolution": "1080p",
+  "outputFormat": "mp4",
+  "_budget": "author approved 2026-11-01: corner circle ≤ 0.12 $ (note 73)",
+  "shots": [
+    {
+      "id": "circle",
+      "clip": "56-model",
+      "from": 0,
+      "to": 2.3,
+      "style": "corner",
+      "reelIn": 0
+    }
+  ],
+  "presenterModule": "src/templates/dev-myth/presenter-circle.ts"
+}

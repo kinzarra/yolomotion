@@ -54,14 +54,24 @@ export type VoLineSpec = {
   //   "+WORD"  renders the word in the hero color, permanently once spoken
   //   "!WORD"  renders the word in the signal/bad color, same rule
   pages: string[];
+  // Optional real word timings (raw seconds into the clip) from ASR — the
+  // generated `asr.ts` of a template (scripts/gen-asr.mjs). When present the
+  // captions pin every recognised word to the voice and spread only the
+  // unrecognised ones (digits, merged runs) by letter weight between them.
+  asr?: AsrWord[];
 };
+
+/** One recognised word: raw seconds into its clip, before VO_RATE. */
+export type AsrWord = { text: string; start: number; end: number };
 
 // The same line once the measured clip duration is attached.
 export type VoLine = VoLineSpec & { raw: number };
 
 // All the voiceover track itself needs: which clip, and when it starts.
 // Reels without karaoke captions declare only this much.
-export type VoTrackLine = { file: string; start: number };
+// `rate` overrides the reel's voRate for one clip — a hook read faster than
+// the body, say. Unset, the clip plays at the reel rate.
+export type VoTrackLine = { file: string; start: number; rate?: number };
 
 export type ClipDurations = Record<string, number>;
 
@@ -81,10 +91,12 @@ const estimate = (pages: string[]): number =>
 export const defineVoiceover = <T extends VoTrackLine & { pages?: string[] }>(
   durations: ClipDurations,
   lines: T[],
-): (T & { raw: number })[] =>
+  asr?: Record<string, AsrWord[]>,
+): (T & { raw: number; asr?: AsrWord[] })[] =>
   lines.map((line) => {
     const raw = durations[line.file];
-    if (typeof raw === "number") return { ...line, raw };
+    const words = asr?.[line.file];
+    if (typeof raw === "number") return words ? { ...line, raw, asr: words } : { ...line, raw };
     console.warn(
       `[reel] No measured duration for voiceover clip "${line.file}" — ` +
         `using a word-count estimate. Synthesise it with: ` +
@@ -98,4 +110,4 @@ export const defineVoiceover = <T extends VoTrackLine & { pages?: string[] }>(
 export const voiceoverEnd = (
   lines: readonly (VoTrackLine & { raw: number })[],
   rate: number,
-): number => Math.max(...lines.map((l) => l.start + l.raw / rate));
+): number => Math.max(...lines.map((l) => l.start + l.raw / (l.rate ?? rate)));

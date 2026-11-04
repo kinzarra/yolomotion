@@ -1,0 +1,42 @@
+{
+  "voiceId": "${ELEVENLABS_VOICE_ID}",
+  "modelId": "eleven_multilingual_v2",
+  "voiceSettings": {
+    "stability": 0.7,
+    "similarity_boost": 0.82,
+    "style": 0.0,
+    "use_speaker_boost": true
+  },
+  "outDir": "public/voiceover/ai-jobs-top5-en",
+  "templateId": "ai-jobs-top5-en",
+  "lines": [
+    [
+      "01-hook",
+      "Five jobs AI already killed. Check if your job is here."
+    ],
+    [
+      "02-p5",
+      "Five. Accountant. AI builds the report in seconds."
+    ],
+    [
+      "03-p4",
+      "Four. Cashier. Self-checkout is everywhere now."
+    ],
+    [
+      "04-p3",
+      "Three. Data entry clerk. AI reads the documents itself."
+    ],
+    [
+      "05-p2",
+      "Two. Bank teller. Payments moved to the app."
+    ],
+    [
+      "06-p1",
+      "One. Translator. Neural networks translate in a second."
+    ],
+    [
+      "07-final",
+      "Is your job next?"
+    ]
+  ]
+}

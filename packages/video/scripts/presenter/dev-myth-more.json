@@ -1,0 +1,64 @@
+{
+  "templateId": "dev-myth",
+  "voiceoverDir": "public/voiceover/dev-myth",
+  "outDir": "public/presenter/dev-myth",
+  "avatarId": "${HEYGEN_AVATAR_VIEW_ID}",
+  "avatarName": "Podcast host in blue hoodie",
+  "avatarKind": "photo",
+  "engine": "avatar_iv",
+  "concatAspect": "16:9",
+  "resolution": "1080p",
+  "outputFormat": "mp4",
+  "_budget": "author approved 2026-10-31: all 6 inserts, ~1.00 $ (20 s × 0.05 $/s, photo look Avatar IV)",
+  "shots": [
+    {
+      "id": "notquite",
+      "clip": "14-notquite",
+      "from": 0,
+      "to": 2.2,
+      "style": "wide",
+      "reelIn": 0
+    },
+    {
+      "id": "thing",
+      "clip": "19-thing",
+      "from": 0,
+      "to": 2.95,
+      "style": "wide",
+      "reelIn": 0
+    },
+    {
+      "id": "explain",
+      "clip": "15-explain",
+      "from": 0,
+      "to": 7.06,
+      "style": "wide",
+      "reelIn": 0
+    },
+    {
+      "id": "p2intro",
+      "clip": "16-p2intro",
+      "from": 0,
+      "to": 3.49,
+      "style": "wide",
+      "reelIn": 0
+    },
+    {
+      "id": "question",
+      "clip": "23-question",
+      "from": 0,
+      "to": 1.77,
+      "style": "wide",
+      "reelIn": 0
+    },
+    {
+      "id": "who",
+      "clip": "26-who",
+      "from": 0,
+      "to": 2.56,
+      "style": "wide",
+      "reelIn": 0
+    }
+  ],
+  "presenterModule": "src/templates/dev-myth/presenter-more.ts"
+}

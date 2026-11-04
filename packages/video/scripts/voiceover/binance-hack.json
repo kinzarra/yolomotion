@@ -1,0 +1,42 @@
+{
+  "voiceId": "${ELEVENLABS_VOICE_ID}",
+  "outDir": "public/voiceover/binance-hack",
+  "modelId": "eleven_multilingual_v2",
+  "voiceSettings": {
+    "stability": 0.48,
+    "similarity_boost": 0.82,
+    "style": 0.28,
+    "use_speaker_boost": true
+  },
+  "lines": [
+    [
+      "01-hook",
+      "Твоя крипта на бирже?"
+    ],
+    [
+      "01b-hook",
+      "Вчера с Бинанс украли больше 6 миллиардов долларов. И всё началось с одного ноутбука."
+    ],
+    [
+      "02-laptop",
+      "Шифр никто не ломал. Взломали ноутбук одного инженера."
+    ],
+    [
+      "03-order",
+      "Через него хакеры отдали приказ, и биржа сама перевела им деньги."
+    ],
+    [
+      "04-wave",
+      "Почему волна? Бьют не по коду, а по людям: фейковая вакансия и тестовое задание с вирусом."
+    ],
+    [
+      "05-frozen",
+      "2,7 миллиарда успели заморозить. Биткоин заморозить нельзя."
+    ],
+    [
+      "06-cta",
+      "Биржа обещает вернуть всё. А ты держишь крупное на бирже? Пиши в комментариях."
+    ]
+  ],
+  "_note": "01-hook is the first 1.62 s of the original take (the HeyGen hook face is lip-synced to it); do not re-synthesise it"
+}

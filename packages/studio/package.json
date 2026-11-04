@@ -1,0 +1,8 @@
+{
+  "name": "@yolomotion/studio",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "panel": "node server.mjs"
+  }
+}

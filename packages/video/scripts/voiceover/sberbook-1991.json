@@ -1,0 +1,25 @@
+{
+  "voiceId": "${ELEVENLABS_VOICE_ID}",
+  "outDir": "public/voiceover/sberbook-1991",
+  "modelId": "eleven_multilingual_v2",
+  "voiceSettings": {
+    "stability": 0.48,
+    "similarity_boost": 0.82,
+    "style": 0.28,
+    "use_speaker_boost": true
+  },
+  "lines": [
+    [
+      "01-book",
+      "Это сберкнижка твоих родителей. Десять тысяч рублей."
+    ],
+    [
+      "02-salary",
+      "В девяносто первом — полтора года зарплаты."
+    ],
+    [
+      "03-left",
+      "Смотри, что от них осталось."
+    ]
+  ]
+}

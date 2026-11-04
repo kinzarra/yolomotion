@@ -45,3 +45,9 @@ packages/video/public/media/
 # Screencast cuts (npm run footage) and the author's drawn art for a beat.
 packages/video/public/footage/
 /props.json
+
+# Studio briefs carry the author's media; the PLAYBOOK is tracked.
+/studio/briefs/
+# derived from brainder.org (CC BY-SA), regenerate: node packages/video/scripts/brain-mesh.mjs
+packages/video/public/brain/
+packages/video/public/music/

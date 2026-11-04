@@ -1,0 +1,31 @@
+{
+  "templateId": "shawarma-factory",
+  "voiceoverDir": "public/voiceover/shawarma-factory",
+  "outDir": "public/presenter/shawarma-factory",
+  "avatarId": "${HEYGEN_AVATAR_VIEW_ID}",
+  "avatarName": "Podcast host in blue hoodie",
+  "avatarKind": "photo",
+  "engine": "avatar_iv",
+  "concatAspect": "9:16",
+  "resolution": "1080p",
+  "outputFormat": "mp4",
+  "_budget": "author asked: 2 s face at the start ($0.11) + face in a circle on the CTA «Хочешь так же? Я научу!» ($0.086), 2026-10-28; total ~$0.20, cap $0.25",
+  "shots": [
+    {
+      "id": "hook",
+      "clip": "01-hook",
+      "from": 0,
+      "to": 2.25,
+      "style": "hero",
+      "reelIn": 0
+    },
+    {
+      "id": "cta",
+      "clip": "02-cta",
+      "from": 0,
+      "to": 1.72,
+      "style": "hero",
+      "reelIn": 0
+    }
+  ]
+}

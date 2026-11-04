@@ -33,9 +33,9 @@ export const VoiceoverTrack: React.FC<{
   const { fps } = useVideoConfig();
   return (
     <>
-      {lines.map(({ file, start }) => (
+      {lines.map(({ file, start, rate: own }) => (
         <Sequence key={file} from={Math.round(start * fps)} name={`vo/${file}`}>
-          <Audio src={clipSrc(dir, file)} playbackRate={rate} volume={volume} />
+          <Audio src={clipSrc(dir, file)} playbackRate={own ?? rate} volume={volume} />
         </Sequence>
       ))}
     </>

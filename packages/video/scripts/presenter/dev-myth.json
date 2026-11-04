@@ -1,0 +1,23 @@
+{
+  "templateId": "dev-myth",
+  "voiceoverDir": "public/voiceover/dev-myth",
+  "outDir": "public/presenter/dev-myth",
+  "avatarId": "${HEYGEN_AVATAR_VIEW_ID}",
+  "avatarName": "Podcast host in blue hoodie",
+  "avatarKind": "photo",
+  "engine": "avatar_iv",
+  "concatAspect": "16:9",
+  "resolution": "1080p",
+  "outputFormat": "mp4",
+  "_budget": "author 2026-10-31: long videos may exceed the 0.25 $ reel cap; each generation still quoted from the dry run and approved",
+  "shots": [
+    {
+      "id": "hook",
+      "clip": "01-hook",
+      "from": 0,
+      "to": 3.9,
+      "style": "wide",
+      "reelIn": 0
+    }
+  ]
+}

@@ -639,7 +639,8 @@ await mkdir(outDir, { recursive: true });
 
 // "hero" fills the frame (the face IS the shot); "corner" is the round PiP over
 // running graphics, so it wants a square canvas with the head centred.
-const ASPECT = { hero: "9:16", corner: "1:1" };
+// "wide" is the full-frame face of a 16:9 (landscape) composition.
+const ASPECT = { hero: "9:16", corner: "1:1", wide: "16:9" };
 
 const avatarId = await confirmFace(manifest);
 const billed = shots.reduce((total, s) => total + (s.to - s.from), 0);

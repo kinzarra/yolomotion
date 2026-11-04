@@ -1,0 +1,16 @@
+{
+  "templateId": "serbia-economy",
+  "voiceoverDir": "public/voiceover/serbia-economy",
+  "outDir": "public/presenter/serbia-economy",
+  "avatarId": "${HEYGEN_AVATAR_VIEW_ID}",
+  "avatarName": "Podcast host in blue hoodie",
+  "avatarKind": "photo",
+  "engine": "avatar_iv",
+  "concatAspect": "9:16",
+  "resolution": "1080p",
+  "outputFormat": "mp4",
+  "_budget": "author cap $0.25 per reel; author 2026-10-26: «HeyGen 3 секунды не больше», full-screen in the hook",
+  "shots": [
+    { "id": "punch", "clip": "01-hook", "from": 0.0, "to": 3.28, "style": "hero", "reelIn": 0 }
+  ]
+}
