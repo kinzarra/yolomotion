@@ -53,6 +53,7 @@ export const ReplaceCost: React.FC<ReplaceCostProps> = ({ series, episode, quest
         maxWidth: 1400,
         sideMargin: 160,
         top: 930,
+        wordGap: 30,
       }}
     >
       {beats.map(([id, name, node]) => (

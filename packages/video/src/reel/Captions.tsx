@@ -64,6 +64,9 @@ export type CaptionStyle = {
   heroFontFamily?: string;
   heroFontStyle?: "normal" | "italic";
   heroFontWeight?: number;
+  // Space between words (px). The lit word grows 7%, so a wide face at a big
+  // size needs more than the default or it touches its neighbour.
+  wordGap?: number;
 };
 
 const weightOf = (word: string) => {
@@ -148,6 +151,7 @@ export const Captions: React.FC<
   heroFontFamily,
   heroFontStyle = "normal",
   heroFontWeight,
+  wordGap = 18,
 }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
@@ -199,7 +203,7 @@ export const Captions: React.FC<
           display: "flex",
           flexWrap: "wrap",
           justifyContent: justify,
-          columnGap: padded ? 4 : 18,
+          columnGap: padded ? 4 : wordGap,
           rowGap: padded ? 2 : 6,
           maxWidth,
           fontFamily,
