@@ -1,5 +1,5 @@
 // Выдача рила целиком в S3 — репозиторий рилы не пополняют (решение автора,
-// 2026-10-03). Уезжают: mp4 из out/, купленное/найденное в public/ (озвучка,
+// 2026-10-03). Уезжают: mp4 из out/, купленное/найденное в public/ (озвучка, картинки,
 // презентер, футаж, медиа) и КОД рила — одним патчем code.patch против
 // коммита code.base: шаблон, сцены, сценарий, манифесты, строка реестра.
 //   npm run deliver -- <id>                   залить, напечатать ссылку на mp4
@@ -100,7 +100,7 @@ const reelFiles = (): string[] => {
         .map((f) => path.join(out, f))
     : [];
   const pub = path.join(REPO_ROOT, "packages/video/public");
-  const kinds = ["voiceover", "presenter", "footage", "media"];
+  const kinds = ["voiceover", "presenter", "footage", "media", "images"];
   const assets = kinds.flatMap((kind) => {
     const dir = path.join(pub, kind);
     if (!existsSync(dir)) return [];
