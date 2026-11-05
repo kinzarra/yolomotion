@@ -5,7 +5,7 @@
 import React from "react";
 import { Img, OffthreadVideo, Sequence, interpolate, spring, useCurrentFrame, useVideoConfig } from "remotion";
 import { theme } from "../../theme";
-import { usePunch } from "../../reel";
+import { useIn, usePunch } from "../../reel";
 import { psColors as colors, psPalette as palette } from "./palette";
 import { Flash, Glitch, Kinetic, SceneShell, Slam, Stamp, TopBar, WIDE, cl, media } from "../dev-myth/ui";
 import { BgVideo, Hud } from "../dev-myth/fx2";
@@ -62,21 +62,35 @@ export const Head: React.FC<{ text: string; at?: number; x: number; y: number; w
 /** A one-line stamp sized to fit. */
 export const FitStamp: React.FC<{ text: string; at: number; x: number; y: number; maxW: number; size?: number; tone?: "hero" | "bad"; rotate?: number }> = ({ text, at: a, x, y, maxW, size = 110, tone = "bad", rotate = -3 }) => {
   const frame = useCurrentFrame();
+  const p = useIn(a, "snappy");
   if (frame < a) return null;
   const s = fit(text, maxW - 60, size, 0.86);
+  // the kit's stamp lands from 2.4×; cap the overshoot at 1.15× so it never leaves the frame
+  const inner = interpolate(p, [0, 1], [2.4, 1]);
   return (
     <Box x={x} y={y} z={11}>
-      <Stamp tone={tone} size={s} rotate={rotate} delay={a}>{text}</Stamp>
+      <div style={{ display: "inline-block", transform: `scale(${interpolate(p, [0, 1], [1.15, 1]) / inner})` }}>
+        <Stamp tone={tone} size={s} rotate={rotate} delay={a}>{text}</Stamp>
+      </div>
     </Box>
   );
 };
 
 /** A big number, slammed (optionally rolling), sized to fit `maxW`. */
-export const Big: React.FC<{ text: string; at: number; x: number; y: number; maxW: number; size?: number; bad?: boolean; roll?: { from: number; to: number; suffix?: string; prefix?: string } }> = ({ text, at: a, x, y, maxW, size = 200, bad, roll }) => (
-  <Box x={x} y={y} z={10}>
-    <Slam text={text} at={a} size={fit(text, maxW, size, 0.78)} color={bad ? colors.bad : palette.primary} roll={roll} />
-  </Box>
-);
+export const Big: React.FC<{ text: string; at: number; x: number; y: number; maxW: number; size?: number; bad?: boolean; roll?: { from: number; to: number; suffix?: string; prefix?: string } }> = ({ text, at: a, x, y, maxW, size = 200, bad, roll }) => {
+  const frame = useCurrentFrame();
+  const { fps } = useVideoConfig();
+  // Slam lands from 2.2× (origin left); cap it at 1.12× so the figure stays inside its box
+  const p = spring({ frame: frame - a, fps, config: theme.spring.snappy });
+  const inner = interpolate(p, [0, 1], [2.2, 1]);
+  return (
+    <Box x={x} y={y} z={10}>
+      <div style={{ transformOrigin: "left center", transform: `scale(${interpolate(p, [0, 1], [1.12, 1]) / inner})` }}>
+        <Slam text={text} at={a} size={fit(text, maxW, size, 0.78)} color={bad ? colors.bad : palette.primary} roll={roll} />
+      </div>
+    </Box>
+  );
+};
 
 /** Paper tag: the caption under a figure. */
 export const Tag: React.FC<{ children: React.ReactNode; at: number; x: number; y: number; tone?: "paper" | "bad" | "lime"; size?: number; rotate?: number }> = ({ children, at: a, x, y, tone = "paper", size = 24, rotate = -1.5 }) => {
