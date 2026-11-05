@@ -38,10 +38,10 @@ export const HurricaneScene: React.FC<P> = ({ series, episode }) => {
     <BeatShell series={series} bar={bar(1, episode)} bg={V + "v-storm.mp4"} dim={0.6}>
       <div style={{ position: "absolute", left: 96, top: 160, zIndex: 9, display: "flex", flexDirection: "column", gap: 20, alignItems: "flex-start" }}>
         <Label at={4} size={26}>СЕНТЯБРЬ 2024</Label>
-        {frame >= storm && <Stamp tone="bad" size={96} rotate={-4} delay={storm}>УРАГАН «ХЕЛЕН»</Stamp>}
+        {frame >= storm && <Stamp tone="bad" size={74} rotate={-4} delay={storm}>УРАГАН «ХЕЛЕН»</Stamp>}
         {frame >= at("обе") && <Label at={at("обе")} size={28} tone="bad">ОБЕ ШАХТЫ ОСТАНОВЛЕНЫ</Label>}
       </div>
-      <MediaCard src={V + "v-quarry.mp4"} at={at("остановил")} x={1120} y={150} w={700} h={400} tilt={-6} label="КАРЬЕР КВАРЦА" meta="ПРОСТОЙ" />
+      <MediaCard src={V + "v-quarry.mp4"} at={8} x={1120} y={150} w={700} h={400} tilt={-6} label="КАРЬЕР КВАРЦА" meta="ПРОСТОЙ" />
       <Fig x={96} y={560} at={stock} value="2-3 МЕСЯЦА" size={120} bad kicker="ЗАПАС У ВСЕЙ ОТРАСЛИ" source="ПОТОМ ЧИПЫ ДЕЛАТЬ НЕ ИЗ ЧЕГО" />
     </BeatShell>
   );
@@ -54,8 +54,8 @@ export const SiliconScene: React.FC<P> = ({ series, episode }) => {
       <div style={{ position: "absolute", left: 96, top: 150, zIndex: 9 }}>
         <Kinetic text="КВАРЦ → КРЕМНИЙ" size={86} delay={4} per={3} mode="snap" hero={[2]} />
       </div>
-      <Fig x={96} y={330} at={at("девять")} value="99,9999999%" size={130} kicker="ЧИСТОТА КРЕМНИЯ" source="ДЕВЯТЬ ДЕВЯТОК: ОДИН ЧУЖОЙ АТОМ НА МИЛЛИАРД" />
-      <MediaCard src={I + "wafer.jpg"} at={at("пластины")} x={1180} y={170} w={620} h={620} tilt={8} label="КРЕМНИЕВАЯ ПЛАСТИНА" meta="Ø 300 ММ" />
+      <Fig x={96} y={330} at={at("девять")} value="99,9999999%" size={108} kicker="ЧИСТОТА КРЕМНИЯ" source="ДЕВЯТЬ ДЕВЯТОК: ОДИН ЧУЖОЙ АТОМ НА МИЛЛИАРД" />
+      <MediaCard src={I + "wafer.jpg"} at={8} x={1180} y={170} w={620} h={620} tilt={8} label="КРЕМНИЕВАЯ ПЛАСТИНА" meta="Ø 300 ММ" />
       <GlassChip at={at("пиццу")} x={1020} y={760} text="Ø 300 ММ · РАЗМЕР ПИЦЦЫ" hero />
     </BeatShell>
   );
@@ -72,7 +72,7 @@ export const AsmlScene: React.FC<P> = ({ series, episode }) => {
         <Kinetic text="СХЕМУ ПЕЧАТАЮТ" size={84} delay={4} per={3} mode="snap" />
         {frame >= light && <div style={{ marginTop: 10 }}><Stamp tone="hero" size={110} rotate={-3} delay={light}>СВЕТОМ</Stamp></div>}
       </div>
-      <MediaCard src={V + "v-laser.mp4"} at={light} x={1120} y={140} w={700} h={400} tilt={-6} label="ЛИТОГРАФИЯ" meta="ЭКСТРЕМАЛЬНЫЙ УЛЬТРАФИОЛЕТ" />
+      <MediaCard src={V + "v-laser.mp4"} at={8} x={1120} y={140} w={700} h={400} tilt={-6} label="ЛИТОГРАФИЯ" meta="ЭКСТРЕМАЛЬНЫЙ УЛЬТРАФИОЛЕТ" />
       <StatPlate at={one} x={96} y={560} w={640} value="1 КОМПАНИЯ" caption="ДЕЛАЕТ EUV-МАШИНЫ ДЛЯ ВСЕГО МИРА" />
       <LogoPlate at={at("нидерландская")} src={L + "asml.png"} x={1200} y={640} w={380} caption="НИДЕРЛАНДЫ · МОНОПОЛИЯ" />
       <GlassChip at={at("нидерландская") + 6} x={1620} y={660} text="NL" icon={L + "flag-nl.png"} />
@@ -84,11 +84,11 @@ export const EuvScene: React.FC<P> = ({ series, episode }) => {
   const at = useCue("euv");
   return (
     <BeatShell series={series} bar={bar(1, episode)} bg={V + "v-cargo.mp4"} dim={0.78}>
-      <MediaCard src={I + "asml-euv.jpg"} at={4} x={1000} y={140} w={820} h={460} tilt={-5} label="ASML HIGH-NA EUV" meta="ВЕС ≈ 150 Т · 100 000 ДЕТАЛЕЙ" />
-      <Fig x={96} y={160} at={at("350")} value="€350+ МЛН" size={140} kicker="ЦЕНА ОДНОЙ МАШИНЫ" source="HIGH-NA EUV · ОЦЕНКИ АНАЛИТИКОВ, 2025-2026" />
+      <MediaCard src={I + "asml-visit.jpg"} at={4} x={1000} y={140} w={820} h={460} tilt={-5} label="МАШИНА ASML НА ЭКРАНЕ" meta="ВЕС ≈ 150 Т · 100 000 ДЕТАЛЕЙ" />
+      <Fig x={96} y={160} at={at("350")} value="€350+ МЛН" size={104} kicker="ЦЕНА ОДНОЙ МАШИНЫ" source="HIGH-NA EUV · ОЦЕНКИ АНАЛИТИКОВ, 2025-2026" />
       <GlassChip at={at("40")} x={96} y={560} text="40 КОНТЕЙНЕРОВ" size={34} />
       <GlassChip at={at("трёх")} x={96} y={660} text="3 ГРУЗОВЫХ BOEING 747" size={34} hero />
-      <MediaCard src={V + "v-cargo.mp4"} at={at("трёх")} x={1180} y={600} w={560} h={300} tilt={6} label="ДОСТАВКА" meta="INTEL, ОРЕГОН" startFrom={2} />
+      <MediaCard src={I + "asml-containers.jpg"} at={at("40")} x={1180} y={600} w={560} h={300} tilt={6} label="КОНТЕЙНЕРЫ ASML" meta="ТАЙНАНЬ, ТАЙВАНЬ" />
     </BeatShell>
   );
 };
@@ -98,10 +98,10 @@ export const TaiwanScene: React.FC<P> = ({ series, episode }) => {
   return (
     <BeatShell series={series} bar={bar(1, episode)} bg={V + "v-taiwan.mp4"} drift={["TSMC", "3 НМ", "2 НМ", "ТАЙВАНЬ", "90%"]}>
       <div style={{ position: "absolute", left: 96, top: 150, zIndex: 9 }}>
-        <Kinetic text="ОДИН ОСТРОВ" size={110} delay={at("одном")} per={3} mode="snap" hero={[0]} />
+        <Kinetic text="ОДИН ОСТРОВ" size={88} delay={4} per={3} mode="snap" hero={[0]} />
       </div>
       <StatPlate at={at("почти")} x={96} y={330} w={680} value=">90%" caption="САМЫХ ПЕРЕДОВЫХ ЧИПОВ МИРА · BCG / SIA" />
-      <MediaCard src={I + "tsmc-fab.jpg"} at={at("тайвань")} x={1060} y={150} w={760} h={440} tilt={-6} label="ФАБРИКА TSMC" meta="СИНЬЧЖУ, ТАЙВАНЬ" />
+      <MediaCard src={I + "tsmc-fab.jpg"} at={8} x={1060} y={150} w={760} h={440} tilt={-6} label="ФАБРИКА TSMC" meta="СИНЬЧЖУ, ТАЙВАНЬ" />
       <LogoPlate at={at("компания")} src={L + "tsmc.png"} x={1180} y={640} w={340} caption="TSMC" />
       <GlassChip at={at("тайвань") + 4} x={96} y={600} text="ТАЙВАНЬ" icon={L + "flag-tw.png"} size={34} />
     </BeatShell>
@@ -112,7 +112,7 @@ export const WaferScene: React.FC<P> = ({ series, episode }) => {
   const at = useCue("wafer");
   return (
     <BeatShell series={series} bar={bar(1, episode)} bg={V + "v-chip.mp4"}>
-      <Fig x={96} y={150} at={at("30")} value="$30 000" size={170} kicker="ОДНА ПЛАСТИНА 2 НМ" source="TSMC N2 · TECHNODE, 10.2025" roll={{ from: 0, to: 30000, prefix: "$" }} />
+      <Fig x={96} y={150} at={at("30")} value="$30 000" size={150} kicker="ОДНА ПЛАСТИНА 2 НМ" source="TSMC N2 · TECHNODE, 10.2025" roll={{ from: 0, to: 30000, prefix: "$" }} />
       <GlassChip at={at("машина")} x={96} y={500} text="= НОВЫЙ АВТОМОБИЛЬ" size={34} hero />
       <StatPlate at={at("3")} x={96} y={620} w={560} value="3 МЕСЯЦА" caption="ОТ ЧИСТОЙ ПЛАСТИНЫ ДО ЧИПОВ · 700+ ОПЕРАЦИЙ" />
       <MediaCard src={V + "v-wafer.mp4"} at={6} x={1060} y={150} w={760} h={460} tilt={-6} label="ПЛАСТИНА С ЧИПАМИ" meta="СОТНИ КРИСТАЛЛОВ" startFrom={3} />
@@ -131,7 +131,7 @@ export const MemoryScene: React.FC<P> = ({ series, episode }) => {
         <Kinetic text="ПАМЯТЬ HBM" size={100} delay={4} per={3} mode="snap" hero={[1]} />
         {frame >= at("пробка") && <div style={{ marginTop: 20 }}><Stamp tone="bad" size={84} rotate={-3} delay={at("пробка")}>НОВАЯ ПРОБКА</Stamp></div>}
       </div>
-      <MediaCard src={I + "hbm.jpg"} at={at("память")} x={1080} y={140} w={740} h={420} tilt={-6} label="ПАМЯТЬ РЯДОМ С ЧИПОМ" meta="HBM" />
+      <MediaCard src={I + "hbm.jpg"} at={at("память")} x={1080} y={140} w={740} h={420} tilt={-6} label="МОДУЛЬ ПАМЯТИ" meta="DRAM" />
       <LogoPlate at={at("корее")} src={L + "sk-hynix.png"} x={1160} y={630} w={380} caption="ЮЖНАЯ КОРЕЯ" />
       <GlassChip at={at("корее") + 5} x={1580} y={650} text="KR" icon={L + "flag-kr.png"} />
       <Fig x={96} y={520} at={sold} value="ДО 2029" size={140} bad kicker="ПАМЯТЬ ПРОДАНА НА 3 ГОДА ВПЕРЁД" source="SK HYNIX, 28.10.2026" />

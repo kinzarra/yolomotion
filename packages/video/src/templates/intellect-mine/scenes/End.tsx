@@ -24,7 +24,7 @@ export const ChainScene: React.FC<P> = ({ series, episode }) => {
         lit={lit}
         stations={[
           { name: "ПЕСОК", sub: "СПРУС-ПАЙН, США", img: I + "spruce-pine.jpg", flag: L + "flag-us.png" },
-          { name: "МАШИНА", sub: "ASML, НИДЕРЛАНДЫ", img: I + "asml-euv.jpg", flag: L + "flag-nl.png" },
+          { name: "МАШИНА", sub: "ASML, НИДЕРЛАНДЫ", img: I + "asml-visit.jpg", flag: L + "flag-nl.png" },
           { name: "ЧИП", sub: "TSMC, ТАЙВАНЬ", img: I + "tsmc-fab.jpg", flag: L + "flag-tw.png" },
           { name: "ПАМЯТЬ", sub: "SK HYNIX, КОРЕЯ", img: I + "hbm.jpg", flag: L + "flag-kr.png" },
           { name: "ШКАФ", sub: "NVIDIA · $4-6 МЛН", img: I + "nvidia-rack.jpg" },
@@ -66,7 +66,7 @@ export const FinalScene: React.FC<P> = ({ series, episode }) => {
 };
 
 /** Credits for every CC BY asset in the episode (the licence asks for it on screen). */
-export const CREDITS = "Музыка: «Lightless Dawn», Kevin MacLeod (incompetech.com), CC BY 4.0 · Видео: Pexels, Pixabay · Фото: Wikimedia Commons";
+export const CREDITS = "Фото, CC BY 2.0: Steve Jurvetson, Chad Davis, Rob Bulmahn, 曾 成訓, Dutch government · CC BY 4.0: 4300streetcar, Peter Dasilva / European Union · Кадры, CC BY 3.0: 极客湾Geekerwan · Wikimedia Commons · Видео: Pexels, Pixabay · Музыка: «Lightless Dawn», Kevin MacLeod (incompetech.com), CC BY 4.0";
 
 export const SubScene: React.FC<P & { credits: string }> = ({ series, episode, credits }) => {
   const frame = useCurrentFrame();

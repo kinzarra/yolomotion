@@ -15,7 +15,7 @@ export const PART = {
   6: "ЧАСТЬ 6 · КВОТЫ",
   7: "ИТОГ",
 } as const;
-export const bar = (n: keyof typeof PART, episode: string) => `${PART[n]}   ${episode}`;
+export const bar = (n: keyof typeof PART, episode: string) => `${PART[n]}  /  ${episode}`;
 
 /** A spoken figure: what it is (kicker), the number slammed on its word, where it comes from. */
 export const Fig: React.FC<{

@@ -91,7 +91,8 @@ export const Face: React.FC<{ shot: keyof typeof FACE.shots; from: number; push?
   const { fps, durationInFrames } = useVideoConfig();
   const s = FACE.shots[shot];
   const len = Math.round((s.duration / VO_RATE) * fps);
-  const end = until ?? Math.min(durationInFrames, from + len);
+  const end = until ?? durationInFrames;
+  void len;
   const k = frame - from;
   if (k < 0 || frame >= end) return null;
   const tear = interpolate(k, [0, 1, 6], [1, 1, 0], cl) + interpolate(frame, [end - 5, end - 1], [0, 1], cl);

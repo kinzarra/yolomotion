@@ -21,7 +21,7 @@ export const GpuScene: React.FC<P> = ({ series, episode }) => {
         <Kinetic text="ВИДЕОКАРТА" size={104} delay={4} per={3} mode="snap" hero={[0]} />
         {frame >= at("игровая") && <div style={{ marginTop: 14 }}><Stamp tone="bad" size={70} rotate={-3} delay={at("игровая")}>НЕ ИГРОВАЯ</Stamp></div>}
       </div>
-      <MediaCard src={I + "nvidia-rack.jpg"} at={at("72")} x={1120} y={140} w={700} h={560} tilt={-6} label="ШКАФ NVIDIA" meta="72 ЧИПА · ЖИДКОСТНОЕ ОХЛАЖДЕНИЕ" />
+      <MediaCard src={I + "nvidia-rack.jpg"} at={8} x={1120} y={140} w={700} h={560} tilt={-6} label="ШКАФ NVIDIA" meta="72 ЧИПА · ЖИДКОСТНОЕ ОХЛАЖДЕНИЕ" />
       <StatPlate at={at("72")} x={96} y={420} w={460} value="72 ЧИПА" caption="В ОДНОМ ШКАФУ · GB300 NVL72" />
       <Fig x={96} y={620} at={at("4")} value="$4-6 МЛН" size={120} kicker="ЦЕНА ОДНОГО ШКАФА" source="MORGAN STANLEY, СМИ · 2026" />
       <LogoPlate at={at("nvidia")} src={L + "nvidia.png"} x={1300} y={740} w={330} />
@@ -64,7 +64,7 @@ export const DcScene: React.FC<P> = ({ series, episode }) => {
         <div style={{ marginTop: 20 }}><Kinetic text="ДАТА-ЦЕНТР" size={120} delay={at("дата-центр")} per={3} mode="snap" hero={[0]} /></div>
         {frame >= mine && <div style={{ marginTop: 20 }}><Stamp tone="hero" size={64} rotate={-2} delay={mine}>ШАХТА ДЛЯ ИНТЕЛЛЕКТА</Stamp></div>}
       </div>
-      <MediaCard src={I + "datacenter.jpg"} at={6} x={1100} y={140} w={720} h={420} tilt={-6} label="ДАТА-ЦЕНТР" meta="ИЗНУТРИ" />
+      <MediaCard src={I + "datacenter.jpg"} at={6} x={1100} y={140} w={720} h={420} tilt={-6} label="ДАТА-ЦЕНТР GOOGLE" meta="КАУНСИЛ-БЛАФС, США" />
       <MediaCard src={V + "v-rack.mp4"} at={at("здание")} x={1240} y={590} w={540} h={290} tilt={6} label="СТОЙКИ" meta="24/7" startFrom={2} />
     </BeatShell>
   );
@@ -74,10 +74,10 @@ export const ColossusScene: React.FC<P> = ({ series, episode }) => {
   const at = useCue("colossus");
   return (
     <BeatShell series={series} bar={bar(3, episode)} bg={V + "v-dc-aerial.mp4"}>
-      <MediaCard src={I + "colossus.jpg"} at={4} x={1040} y={140} w={780} h={440} tilt={-5} label="XAI COLOSSUS" meta="МЕМФИС, ТЕННЕССИ" />
-      <MediaCard src={I + "musk.jpg"} at={at("маска")} x={1380} y={610} w={300} h={270} tilt={7} label="ИЛОН МАСК" meta="XAI" />
-      <GlassChip at={at("мемфисе")} x={1060} y={640} text="МЕМФИС, США" icon={L + "flag-us.png"} />
-      <Fig x={96} y={200} at={at("200")} value="200 000+" size={170} kicker="ВИДЕОКАРТ ПОД ОДНОЙ КРЫШЕЙ" source="COLOSSUS 1: >220 000 GPU, >300 МВТ · ANTHROPIC, 05.2026" roll={{ from: 0, to: 220000 }} />
+      <MediaCard src={I + "nvidia-gb200.jpg"} at={4} x={1200} y={140} w={620} h={400} tilt={-5} label="ПЛАТЫ GB200" meta="ЖИДКОСТНОЕ ОХЛАЖДЕНИЕ" />
+      <MediaCard src={I + "musk.jpg"} at={at("маска")} x={1380} y={610} w={300} h={270} tilt={7} label="ИЛОН МАСК" meta="XAI · COLOSSUS" />
+      <GlassChip at={at("мемфисе")} x={1120} y={660} text="МЕМФИС, США" icon={L + "flag-us.png"} />
+      <Fig x={96} y={200} at={at("200")} value="200 000+" size={118} kicker="ВИДЕОКАРТ ПОД ОДНОЙ КРЫШЕЙ" source="COLOSSUS 1: >220 000 GPU, >300 МВТ · ANTHROPIC, 05.2026" roll={{ from: 0, to: 220000 }} />
     </BeatShell>
   );
 };
@@ -99,13 +99,13 @@ export const CapexScene: React.FC<P> = ({ series, episode }) => {
   const bars = at("amazon");
   return (
     <BeatShell series={series} bar={bar(3, episode)} bg={V + "v-dc-aerial.mp4"} startFrom={3} dim={0.8}>
-      <Bars at={bars} x={1000} y={150} w={820} h={520} every={8} title="КАПЗАТРАТЫ 2026, $ МЛРД" source="CNBC, 29.10.2026 · ОТЧЁТЫ КОМПАНИЙ" items={[
+      <Bars at={Math.min(bars, 8)} x={1000} y={150} w={820} h={520} every={8} title="КАПЗАТРАТЫ 2026, $ МЛРД" source="CNBC, 29.10.2026 · ОТЧЁТЫ КОМПАНИЙ" items={[
         { label: "AMAZON", value: 220, text: "220" },
         { label: "GOOGLE", value: 200, text: "~200" },
         { label: "MICROSOFT", value: 170, text: "~170" },
         { label: "META", value: 140, text: "~140" },
       ]} />
-      <Fig x={96} y={170} at={at("700")} value="$700+ МЛРД" size={140} kicker="ЧЕТЫРЕ КОМПАНИИ · ОДИН 2026 ГОД" />
+      <Fig x={96} y={170} at={at("700")} value="$700+ МЛРД" size={92} kicker="ЧЕТЫРЕ КОМПАНИИ · ОДИН 2026 ГОД" />
       <StatPlate at={at("швеции")} x={96} y={520} w={700} value="> ВВП ШВЕЦИИ" caption="≈ $0,6 ТРЛН · МВФ" />
       <GlassChip at={at("швеции") + 6} x={96} y={760} text="ШВЕЦИЯ" icon={L + "flag-se.png"} />
     </BeatShell>
