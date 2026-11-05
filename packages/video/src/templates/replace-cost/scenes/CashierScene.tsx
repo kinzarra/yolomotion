@@ -9,6 +9,7 @@ import {
   CLIP_MAX,
   Cross,
   Logo,
+  Wordmark,
   NumTitle,
   Odometer,
   Part,
@@ -132,17 +133,17 @@ export const CashierScene: React.FC<{ series: string; episode: string }> = ({ se
             <div style={{ fontFamily: theme.fonts.mono, fontWeight: 700, fontSize: 24, letterSpacing: "0.1em", color: rcPalette.text, maxWidth: 330, opacity: ramp(frame, a(3), a(3) + 10) }}>
               ПЛАТЯТ БЕЗ КАССИРА
             </div>
-            <Logo file="logo-pyaterochka.svg" height={44} delay={a(1)} />
+            <Wordmark height={40} delay={a(1)}>ПЯТЁРОЧКА</Wordmark>
           </div>
         </div>
         <div style={{ position: "absolute", left: 96, top: 560, display: "flex", flexDirection: "column", gap: 26 }}>
           <Bar label="КАССЫ САМООБСЛУЖИВАНИЯ" value="69 000+" share={0.985} delay={a(4)} tone="hero" />
           <Bar label="ОБЫЧНЫЕ КАССЫ" value="≈70 000" share={1} delay={a(6)} tone="bone" />
         </div>
-        <div style={{ position: "absolute", left: 890, top: 548 }}>
-          <Logo file="logo-x5.svg" height={40} delay={a(4) + 4} tilt={3} />
+        <div style={{ position: "absolute", left: 96, top: 770 }}>
+          <Wordmark height={32} delay={a(4) + 4} tilt={-2}>X5 GROUP</Wordmark>
         </div>
-        <Screen width={820} height={461} delay={4} label="КАССА · ПЯТЁРОЧКА" style={{ left: 1004, top: 200 }}>
+        <Screen width={820} height={461} delay={4} label="КАССА · ПЯТЁРОЧКА" style={{ left: 1004, top: 240 }}>
           <Shots
             shots={[
               { file: "clip-selfcheckout.mp4", len: CLIP_MAX },
@@ -151,7 +152,7 @@ export const CashierScene: React.FC<{ series: string; episode: string }> = ({ se
             ]}
           />
         </Screen>
-        <div style={{ position: "absolute", left: 96, top: 848 }}>
+        <div style={{ position: "absolute", left: 420, top: 790 }}>
           <Source delay={a(2)}>X5 MEDIA, 22.09.2025 · X5, 18.05.2026</Source>
         </div>
       </Part>

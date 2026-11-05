@@ -13,7 +13,8 @@ export const replaceCost = defineTemplate({
     series: "ДЕНЬГИ · ПРОСТО",
     episode: "ВЫПУСК 08",
     question: "СКОЛЬКО СТОИТ ЗАМЕНИТЬ ТЕБЯ?",
-    credits: "Фото и видео: Pexels, Wikimedia Commons",
+    credits:
+      "Фото: kremlin.ru, CC BY 4.0 · TechCrunch / Flickr, CC BY 2.0 · Nielsoncaetanosalmeron / Wikimedia Commons, CC BY 4.0 · Wikimedia Commons (CC0) · Видео и фото: Pexels",
     sources:
       "Совкомбанк/Ведомости 2026 · X5 2025–26 · Klarna 2024 · Т-Банк 2026 · Reuters 2025 · Сбер 2025 · Хабр Карьера 2025 · WEF 2025",
     face: false,

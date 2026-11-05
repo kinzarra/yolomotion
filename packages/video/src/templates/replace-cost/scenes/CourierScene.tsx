@@ -82,7 +82,7 @@ const Fleet: React.FC<{ delay: number }> = ({ delay }) => {
         style={{
           position: "absolute",
           left: 0,
-          top: 230,
+          top: 290,
           fontFamily: theme.fonts.mono,
           fontWeight: 700,
           fontSize: 22,
@@ -121,17 +121,17 @@ export const CourierScene: React.FC<{ series: string; episode: string }> = ({ se
       </div>
       <div style={{ position: "absolute", left: 96, top: 440, display: "flex", flexDirection: "column", gap: 12, opacity: ramp(frame, c(5), c(5) + 6) }}>
         <div style={{ display: "flex", alignItems: "baseline", gap: 26 }}>
-          <Odometer from={80} to={20000} delay={c(6)} dur={46} size={150} color={rcPalette.primary} />
+          <Odometer from={80} to={20000} delay={c(5)} dur={c(7) - c(5)} size={150} color={rcPalette.primary} />
           <div style={{ fontFamily: theme.fonts.mono, fontWeight: 700, fontSize: 24, letterSpacing: "0.12em", color: rcPalette.text }}>РОБОТОВ</div>
         </div>
         <div style={{ fontFamily: theme.fonts.mono, fontWeight: 700, fontSize: 22, letterSpacing: "0.12em", color: rcPalette.textDim }}>
           ПЛАН ЯНДЕКСА К КОНЦУ 2027 · СЕЙЧАС — 80
         </div>
         <div style={{ marginTop: 10 }}>
-          <Logo file="logo-yandex.svg" height={40} delay={c(6)} />
+          <Logo file="logo-yandex.png" height={40} delay={c(6)} />
         </div>
       </div>
-      <Screen width={820} height={461} delay={4} label="РОВЕР · ТРОТУАР" style={{ left: 1004, top: 200 }}>
+      <Screen width={820} height={461} delay={4} label="РОВЕР · ТРОТУАР" style={{ left: 1004, top: 250 }}>
         <Shots
           shots={[
             { file: "clip-robot.mp4", len: CLIP_MAX },

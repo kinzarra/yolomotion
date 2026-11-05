@@ -1,13 +1,14 @@
 import React from "react";
-import { useVideoConfig } from "remotion";
+import { useCurrentFrame, useVideoConfig } from "remotion";
 import { theme } from "../../../theme";
 import { rcPalette } from "../palette";
 import { cue } from "../cues";
-import { BigNum, BrandBarWide, PrintedPhoto, Receipt, ReceiptLine, ReceiptRule, SceneShell, Source } from "../ui";
+import { ramp, BigNum, BrandBarWide, PrintedPhoto, Receipt, ReceiptLine, ReceiptRule, SceneShell, Source } from "../ui";
 
 // Beat 8 — Gref, November 2025: the AI rated the teams, 20% of the central
 // office goes. The portrait prints on the left, the receipt states it.
 export const GrefScene: React.FC<{ series: string; episode: string }> = ({ series, episode }) => {
+  const frame = useCurrentFrame();
   const { fps, durationInFrames } = useVideoConfig();
   const c = (p: number) => cue("gref", "11-gref", p, fps);
   return (
@@ -39,11 +40,11 @@ export const GrefScene: React.FC<{ series: string; episode: string }> = ({ serie
           <ReceiptLine label="ЦЕНТР. АППАРАТ" value="−20%" strong mark="cross" delay={c(3)} />
         </Receipt>
       </div>
-      <div style={{ position: "absolute", left: 1380, top: 220, display: "flex", flexDirection: "column", alignItems: "flex-start", gap: 14 }}>
-        <BigNum size={190} delay={c(3)} color={rcPalette.text}>
+      <div style={{ position: "absolute", left: 1370, top: 230, display: "flex", flexDirection: "column", alignItems: "flex-start", gap: 14 }}>
+        <BigNum size={132} delay={c(3)} color={rcPalette.text}>
           −20%
         </BigNum>
-        <div style={{ fontFamily: theme.fonts.mono, fontWeight: 700, fontSize: 22, letterSpacing: "0.12em", color: rcPalette.textDim, maxWidth: 420 }}>
+        <div style={{ fontFamily: theme.fonts.mono, fontWeight: 700, fontSize: 22, letterSpacing: "0.12em", color: rcPalette.textDim, maxWidth: 420, opacity: ramp(frame, c(3) + 8, c(3) + 18) }}>
           ЦЕНТРАЛЬНОГО АППАРАТА — НЕ ВСЕГО СБЕРА
         </div>
       </div>

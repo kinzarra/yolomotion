@@ -461,6 +461,9 @@ export const Logo: React.FC<{
 
 /* -------------------------------------------------------------- money */
 
+/** Unbounded runs ~0.8em a glyph: fit the value in the 366px inner width. */
+const valueSize = (v: string) => Math.min(60, Math.floor(366 / (v.length * 0.78)));
+
 /**
  * The episode's device: what a person costs, printed on thermal paper, next
  * to what the machine costs, snapped in as a lime digital tag. `cheaper`
@@ -499,7 +502,7 @@ export const VersusReceipt: React.FC<{
             </div>
             <div style={{ borderTop: `2px dashed ${rcColors.inkRule}`, margin: `${14 * scale}px 0` }} />
             <div style={{ fontSize: 20 * scale, letterSpacing: "0.08em" }}>{human.label}</div>
-            <div style={{ fontFamily: WIDE, fontWeight: 900, fontSize: 64 * scale, letterSpacing: "-0.03em", margin: `${8 * scale}px 0 0` }}>
+            <div style={{ fontFamily: WIDE, fontWeight: 900, fontSize: valueSize(human.value) * scale, whiteSpace: "nowrap", letterSpacing: "-0.03em", margin: `${8 * scale}px 0 0` }}>
               {human.value}
             </div>
             <div style={{ fontSize: 20 * scale, letterSpacing: "0.1em", color: rcColors.inkFaded }}>{human.unit}</div>
@@ -539,7 +542,7 @@ export const VersusReceipt: React.FC<{
         </div>
         <div style={{ borderTop: `2px dashed ${rcColors.lineStrong}`, margin: `${14 * scale}px 0` }} />
         <div style={{ fontSize: 20 * scale, letterSpacing: "0.08em", color: rcPalette.text }}>{machine.label}</div>
-        <div style={{ fontFamily: WIDE, fontWeight: 900, fontSize: 64 * scale, letterSpacing: "-0.03em", margin: `${8 * scale}px 0 0` }}>
+        <div style={{ fontFamily: WIDE, fontWeight: 900, fontSize: valueSize(machine.value) * scale, whiteSpace: "nowrap", letterSpacing: "-0.03em", margin: `${8 * scale}px 0 0` }}>
           {machine.value}
         </div>
         <div style={{ fontSize: 20 * scale, letterSpacing: "0.1em", color: rcPalette.textDim }}>{machine.unit}</div>
@@ -896,5 +899,42 @@ export const Shots: React.FC<{ shots: Shot[] }> = ({ shots }) => {
         );
       })}
     </>
+  );
+};
+
+/**
+ * A brand name set as a wordmark on the same paper plate as `Logo` — for
+ * marks with no current, licence-clean vector (Пятёрочка, X5 Group, Хабр
+ * Карьера). Same entrance, same plate, so it reads as part of the logo set.
+ */
+export const Wordmark: React.FC<{ children: React.ReactNode; height?: number; delay?: number; tilt?: number }> = ({
+  children,
+  height = 44,
+  delay = 0,
+  tilt = -2,
+}) => {
+  const p = useIn(delay, "snappy");
+  const frame = useCurrentFrame();
+  return (
+    <div
+      style={{
+        display: "inline-flex",
+        alignItems: "center",
+        padding: `${Math.round(height * 0.3)}px ${Math.round(height * 0.42)}px`,
+        background: rcColors.paper,
+        color: rcColors.ink,
+        fontFamily: WIDE,
+        fontWeight: 900,
+        fontSize: height * 0.82,
+        lineHeight: 1,
+        letterSpacing: "-0.02em",
+        whiteSpace: "nowrap",
+        opacity: Math.min(1, p * 1.5),
+        transform: `rotate(${tilt + Math.sin((frame + delay) / 30) * 0.5}deg) scale(${interpolate(p, [0, 1], [1.5, 1])})`,
+        filter: `drop-shadow(${rcColors.paperShadow})`,
+      }}
+    >
+      {children}
+    </div>
   );
 };

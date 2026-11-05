@@ -9,11 +9,11 @@ const Column: React.FC<{ value: number; sign: "−" | "+"; label: string; delay:
   const frame = useCurrentFrame();
   const p = ramp(frame, delay, delay + 34, theme.ease.out);
   const color = up ? rcPalette.primary : rcColors.bad;
-  const h = (value / 170) * 330;
+  const h = (value / 170) * 380;
   return (
     <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 16, width: 420 }}>
-      <Odometer to={value} prefix={sign} suffix=" МЛН" delay={delay} dur={34} size={84} color={color} />
-      <div style={{ height: 340, width: 220, display: "flex", alignItems: "flex-end", borderBottom: `2px solid ${rcColors.lineStrong}` }}>
+      <Odometer to={value} prefix={sign} suffix=" МЛН" delay={delay} dur={34} size={66} color={color} />
+      <div style={{ height: 390, width: 220, display: "flex", alignItems: "flex-end", borderBottom: `2px solid ${rcColors.lineStrong}` }}>
         <div
           style={{
             width: "100%",
@@ -45,12 +45,12 @@ export const WefScene: React.FC<{ series: string; episode: string }> = ({ series
           FUTURE OF JOBS 2025 · ПРОГНОЗ ДО 2030
         </div>
       </div>
-      <div style={{ position: "absolute", left: 160, top: 250, display: "flex", gap: 80, opacity: 1 - q * 0.6, transform: `scale(${1 - q * 0.04})`, transformOrigin: "left center" }}>
+      <div style={{ position: "absolute", left: 160, top: 250, display: "flex", gap: 60, opacity: 1 - q * 0.6, transform: `scale(${1 - q * 0.04})`, transformOrigin: "left center" }}>
         <Column value={92} sign="−" label="ИСЧЕЗНУТ" delay={c(2)} up={false} />
         <Column value={170} sign="+" label="ПОЯВЯТСЯ" delay={c(4)} up />
       </div>
-      <div style={{ position: "absolute", left: 1220, top: 360 }}>
-        <Kinetic text="ЧЬИ?" size={240} delay={c(5)} mode="snap" hero={[0]} glow />
+      <div style={{ position: "absolute", left: 1200, top: 380 }}>
+        <Kinetic text="ЧЬИ?" size={170} delay={c(5)} mode="snap" hero={[0]} glow />
       </div>
       <div style={{ position: "absolute", left: 96, top: 848 }}>
         <Source delay={8}>WORLD ECONOMIC FORUM, 07.01.2025 · НЕ ТОЛЬКО ИЗ-ЗА ИИ</Source>

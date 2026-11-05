@@ -38,10 +38,10 @@ export const FormulaScene: React.FC<{ series: string; episode: string }> = ({ se
       <BrandBarWide series={series} episode={episode} />
       <Part from={0} len={bStart}>
         <div style={{ position: "absolute", left: 96, top: 150 }}>
-          <Kinetic text="ИНСТРУКЦИЯ = ЦЕННИК" size={84} per={4} delay={a(2) - 6} hero={[2]} />
+          <Kinetic text="ИНСТРУКЦИЯ = ЦЕННИК" size={84} per={4} delay={4} hero={[2]} />
         </div>
         <div style={{ position: "absolute", left: 110, top: 300 }}>
-          <Receipt width={720} printFrom={a(2)} printFrames={20} title="ИНСТРУКЦИЯ" number="ШАГ 1–3" tilt={-1.2}>
+          <Receipt width={720} printFrom={a(1)} printFrames={20} title="ИНСТРУКЦИЯ" number="ШАГ 1–3" tilt={-1.2}>
             <ReceiptLine label="ПРОБИЛ ТОВАР" value="КАССА" mark="check" delay={s1} size={28} />
             <ReceiptLine label="ОТВЕТИЛ ПО СКРИПТУ" value="БОТ" mark="check" delay={s2} size={28} />
             <ReceiptLine label="ОТВЁЗ ИЗ А В Б" value="РОВЕР" mark="check" delay={s3} size={28} />
@@ -49,7 +49,7 @@ export const FormulaScene: React.FC<{ series: string; episode: string }> = ({ se
             <ReceiptLine label="ЗАМЕНА" value="ДЁШЕВО" strong delay={s3 + 14} size={28} />
           </Receipt>
         </div>
-        <Screen width={760} height={428} delay={a(2)} label="ПОВТОР" style={{ left: 1064, top: 230 }}>
+        <Screen width={760} height={428} delay={a(1)} label="ПОВТОР" style={{ left: 1064, top: 230 }}>
           <Shots
             shots={[
               { file: "office.jpg", len: s1, focus: [0.5, 0.5] },
@@ -76,19 +76,19 @@ export const FormulaScene: React.FC<{ series: string; episode: string }> = ({ se
             <Strike delay={b(1) + 6} thick={12} tilt={-8} />
           </div>
         </div>
-        <div style={{ position: "absolute", left: 860, top: 400 }}>
+        <div style={{ position: "absolute", left: 800, top: 400 }}>
           <Figure size={170} tone="hero" delay={b(1)} breathe />
         </div>
-        <div style={{ position: "absolute", left: 1180, top: 450, display: "flex", flexDirection: "column", gap: 24, alignItems: "flex-start" }}>
+        <div style={{ position: "absolute", left: 1150, top: 430, display: "flex", flexDirection: "column", gap: 24, alignItems: "flex-start" }}>
           <Logo file="logo-klarna.svg" height={44} delay={b(2)} />
-          <Stamp delay={b(3)} tone="bad" size={64} rotate={-6}>
+          <Stamp delay={b(3)} tone="bad" size={54} rotate={-6}>
             ОБОЖГЛАСЬ
           </Stamp>
         </div>
         <div
           style={{
             position: "absolute",
-            left: 860,
+            left: 800,
             top: 640,
             fontFamily: theme.fonts.mono,
             fontWeight: 700,

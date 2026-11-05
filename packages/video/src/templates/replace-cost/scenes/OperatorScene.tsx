@@ -69,12 +69,12 @@ export const OperatorScene: React.FC<{ series: string; episode: string }> = ({ s
           <Odometer to={700} delay={a(5)} dur={30} size={96} prefix="= " />
           <Label at={a(5) + 6}>ОПЕРАТОРОВ</Label>
         </div>
-        <div style={{ position: "absolute", left: 640, top: 690 }}>
-          <Stamp delay={a(7)} tone="hero" size={58} rotate={-5}>
+        <div style={{ position: "absolute", left: 1150, top: 430 }}>
+          <Stamp delay={a(7)} tone="hero" size={60} rotate={-6}>
             $40 МЛН ЭКОНОМИИ
           </Stamp>
         </div>
-        <Screen width={820} height={461} delay={4} label={frame < toDots ? "ПОДДЕРЖКА · КОЛЛ-ЦЕНТР" : "700 ОПЕРАТОРОВ"} style={{ left: 1004, top: 200 }}>
+        <Screen width={820} height={461} delay={4} label={frame < toDots ? "ПОДДЕРЖКА · КОЛЛ-ЦЕНТР" : "700 ОПЕРАТОРОВ"} style={{ left: 1004, top: 250 }}>
           {frame < toDots ? (
             <Shots
               shots={[
@@ -97,7 +97,7 @@ export const OperatorScene: React.FC<{ series: string; episode: string }> = ({ s
           <Logo file="logo-tbank.svg" height={52} delay={4} />
         </div>
         <div style={{ position: "absolute", left: 120, top: 300 }}>
-          <Ring value={40} size={380} delay={b(1)} label="ОБРАЩЕНИЙ БЕЗ ЧЕЛОВЕКА" />
+          <Ring value={40} size={440} delay={b(1)} label="ОБРАЩЕНИЙ БЕЗ ЧЕЛОВЕКА" />
         </div>
         <div style={{ position: "absolute", left: 900, top: 230 }}>
           <VersusReceipt

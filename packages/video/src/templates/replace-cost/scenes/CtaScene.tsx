@@ -42,10 +42,10 @@ export const CtaScene: React.FC<{
       </Sequence>
       <Sequence from={faceLen} layout="none">
         <BrandBarWide series={series} episode={episode} />
-        <div style={{ position: "absolute", left: 96, top: 170, width: 1000 }}>
-          <Kinetic text={question} size={92} per={3} delay={0} hero={[3]} />
+        <div style={{ position: "absolute", left: 96, top: 170, width: 1100 }}>
+          <Kinetic text={question} size={80} per={3} delay={0} hero={[3]} />
         </div>
-        <div style={{ position: "absolute", left: 96, top: 470 }}>
+        <div style={{ position: "absolute", left: 96, top: 440 }}>
           <Chip delay={14} tone="hero" filled size={30}>
             НАПИШИ СВОЮ ПРОФЕССИЮ В КОММЕНТАРИЯХ
           </Chip>

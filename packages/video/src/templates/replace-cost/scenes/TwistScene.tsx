@@ -40,7 +40,7 @@ export const TwistScene: React.FC<{ series: string; episode: string; face: boole
         <BrandBarWide series={series} episode={episode} />
         <div style={{ position: "absolute", left: 96, top: 150 }}>
           <Glitch amount={g}>
-            <Kinetic text="А ТЕПЕРЬ ПОВОРОТ" size={92} per={3} mode="snap" delay={0} hero={[2]} />
+            <Kinetic text="А ТЕПЕРЬ ПОВОРОТ" size={76} per={3} mode="snap" delay={0} hero={[2]} />
           </Glitch>
         </div>
         <PrintedPhoto
@@ -57,13 +57,13 @@ export const TwistScene: React.FC<{ series: string; episode: string; face: boole
               <span>2025</span>
             </>
           }
-          style={{ left: 1260, top: 150 }}
+          style={{ left: 1300, top: 170 }}
         />
-        <div style={{ position: "absolute", left: 1230, top: 130 }}>
+        <div style={{ position: "absolute", left: 1270, top: 150 }}>
           <Logo file="logo-klarna.svg" height={34} delay={a(1)} tilt={-6} />
         </div>
-        <div style={{ position: "absolute", left: 640, top: 380 }}>
-          <Stamp delay={a(2)} tone="bad" size={96} rotate={-7}>
+        <div style={{ position: "absolute", left: 560, top: 300 }}>
+          <Stamp delay={a(2)} tone="bad" size={84} rotate={-7}>
             ПЕРЕГНУЛИ
           </Stamp>
         </div>

@@ -8,8 +8,10 @@ import {
   CLIP_MAX,
   Glitch,
   Logo,
+  Wordmark,
   NumTitle,
   Part,
+  PrintedPhoto,
   Ring,
   SceneShell,
   Screen,
@@ -23,7 +25,7 @@ import {
 /** Two vacancy bars, H1 → H2 2025: the second drops 38% and turns red. */
 const Vacancies: React.FC<{ delay: number }> = ({ delay }) => {
   const frame = useCurrentFrame();
-  const h = 300;
+  const h = 420;
   const p1 = ramp(frame, delay, delay + 20, theme.ease.out);
   const p2 = ramp(frame, delay + 10, delay + 30, theme.ease.out);
   const drop = ramp(frame, delay + 34, delay + 56, theme.ease.inOut);
@@ -34,7 +36,7 @@ const Vacancies: React.FC<{ delay: number }> = ({ delay }) => {
       <div style={{ height: h, width: 150, display: "flex", alignItems: "flex-end" }}>
         <div style={{ width: "100%", height: h * frac * p, background: bad ? rcColors.bad : rcColors.paper, boxShadow: bad ? `0 0 26px ${rcColors.badGlow}` : undefined }} />
       </div>
-      <div style={{ fontFamily: theme.fonts.mono, fontWeight: 700, fontSize: 20, letterSpacing: "0.12em", color: rcPalette.textDim }}>{label}</div>
+      <div style={{ fontFamily: theme.fonts.mono, fontWeight: 700, fontSize: 20, letterSpacing: "0.12em", color: rcPalette.textDim, opacity: p, whiteSpace: "nowrap" }}>{label}</div>
     </div>
   );
   return (
@@ -78,7 +80,7 @@ export const DevScene: React.FC<{ series: string; episode: string }> = ({ series
             <Logo file="logo-google.svg" height={30} delay={a(7)} />
           </div>
         </div>
-        <Screen width={820} height={461} delay={4} label="IDE · КОД-РЕВЬЮ" style={{ left: 1004, top: 200 }}>
+        <Screen width={820} height={461} delay={4} label="IDE · КОД-РЕВЬЮ" style={{ left: 1004, top: 250 }}>
           <Shots
             shots={[
               { file: "clip-code.mp4", len: CLIP_MAX },
@@ -101,16 +103,32 @@ export const DevScene: React.FC<{ series: string; episode: string }> = ({ series
             machine={{ label: "ИИ-АССИСТЕНТ", value: "$10", unit: "В МЕСЯЦ · ПОДПИСКА" }}
           />
         </div>
-        <div style={{ position: "absolute", left: 470, top: 600 }}>
-          <Logo file="logo-github.svg" height={36} delay={b(1)} tilt={4} />
+        <PrintedPhoto
+          file="code.jpg"
+          width={620}
+          height={250}
+          len={600}
+          printFrom={b(1) - 8}
+          focus={[0.4, 0.5]}
+          tilt={-1.5}
+          caption={
+            <>
+              <span>КОД · АССИСТЕНТ</span>
+              <span>$10/МЕС</span>
+            </>
+          }
+          style={{ left: 110, top: 480 }}
+        />
+        <div style={{ position: "absolute", left: 620, top: 450 }}>
+          <Logo file="logo-github.svg" height={36} delay={b(1) + 6} tilt={4} />
         </div>
         <div style={{ position: "absolute", left: 1120, top: 190 }}>
-          <Logo file="logo-habr.svg" height={40} delay={b(4)} tilt={-3} />
+          <Wordmark height={38} delay={b(4)} tilt={-3}>ХАБР КАРЬЕРА</Wordmark>
         </div>
         <div style={{ position: "absolute", left: 1120, top: 300 }}>
           <Vacancies delay={b(4) + 6} />
         </div>
-        <div style={{ position: "absolute", left: 1120, top: 790, fontFamily: theme.fonts.mono, fontWeight: 700, fontSize: 20, letterSpacing: "0.12em", color: rcPalette.textDim, opacity: ramp(frame - bStart, b(5), b(5) + 10) }}>
+        <div style={{ position: "absolute", left: 1120, top: 836, fontFamily: theme.fonts.mono, fontWeight: 700, fontSize: 20, letterSpacing: "0.12em", color: rcPalette.textDim, opacity: ramp(frame - bStart, b(5), b(5) + 10) }}>
           ВАКАНСИИ ДЛЯ РАЗРАБОТЧИКОВ
         </div>
         <div style={{ position: "absolute", left: 96, top: 848 }}>

@@ -46,7 +46,7 @@ export const PriceScene: React.FC<{ series: string; episode: string }> = ({ seri
         style={{ left: 1080, top: 170 }}
       />
       <div style={{ position: "absolute", left: 1600, top: 140 }}>
-        <Logo file="logo-yandex.svg" height={46} delay={c(2) + 6} tilt={4} />
+        <Logo file="logo-yandex.png" height={46} delay={c(2) + 6} tilt={4} />
       </div>
       <div style={{ position: "absolute", left: 96, top: 848 }}>
         <Source delay={c(1)}>СОВКОМБАНК / ВЕДОМОСТИ, 15.01.2026</Source>

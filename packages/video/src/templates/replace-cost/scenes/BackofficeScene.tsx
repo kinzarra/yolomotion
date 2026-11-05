@@ -54,12 +54,12 @@ export const BackofficeScene: React.FC<{ series: string; episode: string }> = ({
           −13 514
         </Stamp>
       </div>
-      <div style={{ position: "absolute", left: 560, top: 650 }}>
+      <div style={{ position: "absolute", left: 96, top: 770 }}>
         <Chip delay={c(5)} tone="hero" size={28}>
           ПРИЧИНА · GIGACHAT
         </Chip>
       </div>
-      <Screen width={820} height={461} delay={4} label="ЦЕНТРАЛЬНЫЙ ОФИС" style={{ left: 1004, top: 200 }}>
+      <Screen width={820} height={461} delay={4} label="ЦЕНТРАЛЬНЫЙ ОФИС" style={{ left: 1004, top: 250 }}>
         <Shots
           shots={[
             { file: "clip-office.mp4", len: CLIP_MAX },
@@ -76,7 +76,7 @@ export const BackofficeScene: React.FC<{ series: string; episode: string }> = ({
           }}
         />
       </Screen>
-      <div style={{ position: "absolute", left: 96, top: 848 }}>
+      <div style={{ position: "absolute", left: 560, top: 790 }}>
         <Source delay={c(1)}>REUTERS / THE MOSCOW TIMES, 28.10.2025 — ОТЧЁТНОСТЬ СБЕРА</Source>
       </div>
     </SceneShell>
